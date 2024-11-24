@@ -1,5 +1,5 @@
 <?php
-// probando 
+// asfasdasdd
 
 define("PASSWORD_PREDETERMINADA", "Jeampierre");
 define("HOY", date("Y-m-d"));
