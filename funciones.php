@@ -22,7 +22,7 @@ function verificarPassword($idUsuario, $password){
 }
 
 function obtenerRol($idUsuario) {
-    $pdo = conectarBaseDatos();
+    $pdo = conectarBaseDatos(); 
     $sentencia = "SELECT rol FROM usuarios WHERE idUsuario = ?";
     $stmt = $pdo->prepare($sentencia);
     $stmt->execute([$idUsuario]);

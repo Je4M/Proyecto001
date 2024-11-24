@@ -1,6 +1,8 @@
 <?php
-include_once "sesion.php";
+include_once "sesion.php"; // Asegúrate de que esto incluya session_start()
+
 $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
+error_log("Rol de usuario: " . print_r($rol, true));  // Inicializa $rol desde la sesión
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-2 shadow rounded">
   <div class="container-fluid">
@@ -19,7 +21,7 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
           </a>
         </li>
         
-        <?php if ($rol == 'administrador') { ?>
+        <?php if ($rol === 'admin') { ?>
         <li class="nav-item">
             <a class="nav-link active" href="usuarios.php">
             <i class="fa fa-users"></i>
@@ -70,7 +72,6 @@ $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
             Vender
             </a>
         </li>
-
       </ul>
       <ul class="navbar-nav">
           <li class="nav-item">
