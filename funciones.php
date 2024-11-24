@@ -4,32 +4,29 @@ define("PASSWORD_PREDETERMINADA", "Jeampierre");
 define("HOY", date("Y-m-d"));
 
 function iniciarSesion($usuario, $password){
-    $sentencia = "SELECT  idColaborador, Usuario FROM colaboradores WHERE Usuario  =?";
+    $sentencia = "SELECT  idUsuario, nomUsuario FROM usuarios WHERE nomUsuario  =?";
     $resultado = select($sentencia, [$usuario]);
     if($resultado){
         $usuario = $resultado[0];
-        $verificaPass = verificarPassword($usuario->idColaborador, $password);
+        $verificaPass = verificarPassword($usuario->idUsuario, $password);
         if($verificaPass) return $usuario;
     }
 }
 
 function verificarPassword($idUsuario, $password){
-    $sentencia = "SELECT password FROM colaboradores WHERE idColaborador = ?";
+    $sentencia = "SELECT password FROM usuarios WHERE idUsuario = ?";
     $contrasenia = select($sentencia, [$idUsuario])[0]->password;
     $verifica = password_verify($password, $contrasenia);
     if($verifica) return true;
 }
 
-function obtenerRol($idUsuario){
+function obtenerRol($idUsuario) {
     $pdo = conectarBaseDatos();
-    $sentencia = "SELECT r.Descripcion 
-                  FROM colaboradores c 
-                  INNER JOIN roles r ON c.fk_idRoles = r.idRoles 
-                  WHERE c.idColaborador = ?";
+    $sentencia = "SELECT rol FROM usuarios WHERE idUsuario = ?";
     $stmt = $pdo->prepare($sentencia);
     $stmt->execute([$idUsuario]);
     $rol = $stmt->fetch(PDO::FETCH_OBJ);
-    return $rol ? $rol->Descripcion : null;
+    return $rol ? $rol->rol : null;
 }
 
 function cambiarPassword($idUsuario, $password){
@@ -578,9 +575,9 @@ function editar($sentencia, $parametros ){
 }
 
 function conectarBaseDatos() {
-    $host = "localhost";
+    $host = "127.0.0.1";
     $port = "3306";
-    $db   = "ventas_php";
+    $db   = "residuosfinal";
     $user = "root";
     $pass = "";
     $charset = 'utf8mb4';

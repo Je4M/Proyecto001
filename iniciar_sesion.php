@@ -30,8 +30,8 @@ if(isset($_POST['ingresar'])){
     }
 
     $rol = obtenerRol($datosSesion->idColaborador);
-    $_SESSION['usuario'] = $datosSesion->Usuario;
-    $_SESSION['idUsuario'] = $datosSesion->idColaborador;
+    $_SESSION['usuario'] = $datosSesion->nomUsuario;
+    $_SESSION['idUsuario'] = $datosSesion->idUsuario;
     $_SESSION['rol'] = $rol;
 
     header("location: index.php");
