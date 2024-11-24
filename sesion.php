@@ -7,4 +7,4 @@ if (empty($_SESSION['usuario'])) {
     header("location: login.php");
     exit();
 }
-?>
+?> 
