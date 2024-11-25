@@ -1,8 +1,8 @@
 <?php
-session_start(); // Asegúrate de que la sesión esté iniciada
+session_start();
 
 if (isset($_POST['ingresar'])) {
-    // Verifica si el usuario y la contraseña están definidos
+    // Verifica si los campos de usuario y contraseña están vacíos
     if (empty($_POST['usuario']) || empty($_POST['password'])) {
         echo '
         <div class="alert alert-warning mt-3" role="alert">
@@ -12,13 +12,15 @@ if (isset($_POST['ingresar'])) {
         return;
     }
 
-    include_once "funciones.php";
+    include_once "funciones.php"; // Asegúrate de que incluya la función iniciarSesion
 
     $usuario = $_POST['usuario'];
     $password = $_POST['password'];
 
-    $datosSesion = iniciarSesion($usuario, $password); // Asegúrate de que esta función esté definida
+    // Llama a la función para verificar las credenciales del usuario
+    $datosSesion = iniciarSesion($usuario, $password);
 
+    // Verifica si las credenciales son incorrectas
     if (!$datosSesion) {
         echo '
         <div class="alert alert-danger mt-3" role="alert">
@@ -29,14 +31,14 @@ if (isset($_POST['ingresar'])) {
     }
 
     // Inicializa las variables de sesión
-    $_SESSION['usuario'] = $datosSesion->nomUsuario;  // Asumiendo que tienes 'usuario' en tu objeto
-    $_SESSION['idUsuario'] = $datosSesion->idUsuario; // Asumiendo que tienes 'idUsuario'
-    
-    // Obtener y guardar el rol en la sesión
-    $_SESSION['rol'] = obtenerRol($datosSesion->rol); // Asegúrate de que esto esté correcto
+    $_SESSION['usuario'] = $datosSesion->nomUsuario; // Almacena el nombre de usuario
+    $_SESSION['idUsuario'] = $datosSesion->idUsuario; // Almacena el ID del usuario
 
-    // Redirige al usuario al índice
+    // Obtener y guardar el rol en la sesión directamente desde el objeto devuelto
+    $_SESSION['rol'] = $datosSesion->rol; // Almacena el rol directamente
+
+    // Redirige al usuario a la página principal
     header("Location: index.php");
-    exit(); // Termina el script después de redirigir
+    exit(); // Finaliza el script después de redirigir
 }
 ?>

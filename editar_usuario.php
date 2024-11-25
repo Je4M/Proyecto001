@@ -3,7 +3,7 @@ include_once "encabezado.php";
 include_once "navbar.php";
 include_once "sesion.php";
 
-if(empty($_SESSION['usuario'])) header("location: login.php");
+if (empty($_SESSION['usuario'])) header("location: login.php");
 
 $id = $_GET['id'];
 if (!$id) {
@@ -18,57 +18,75 @@ $usuario = obtenerUsuarioPorId($id);
     <form method="post">
         <div class="mb-3">
             <label for="usuario" class="form-label">Nombre de usuario</label>
-            <input type="text" name="usuario" class="form-control" value="<?php echo $usuario->usuario;?>" id="usuario" placeholder="Escribe el nombre de usuario. Ej. Paco">
+            <input type="text" name="usuario" class="form-control" value="<?php echo htmlspecialchars($usuario->nomUsuario); ?>" id="usuario" readonly>
         </div>
         <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre completo</label>
-            <input type="text" name="nombre" class="form-control" value="<?php echo $usuario->nombre;?>" id="nombre" placeholder="Escribe el nombre completo del usuario">
+            <label for="contrasena_actual" class="form-label">Contraseña actual</label>
+            <input type="password" name="contrasena_actual" class="form-control" id="contrasena_actual" placeholder="Escribe la contraseña actual" required>
         </div>
         <div class="mb-3">
-            <label for="telefono" class="form-label">Teléfono</label>
-            <input type="text" name="telefono" class="form-control" value="<?php echo $usuario->telefono;?>" id="telefono" placeholder="Ej. 2111568974">
+            <label for="nueva_contrasena" class="form-label">Nueva contraseña</label>
+            <input type="password" name="nueva_contrasena" class="form-control" id="nueva_contrasena" placeholder="Escribe la nueva contraseña" required>
         </div>
         <div class="mb-3">
-            <label for="direccion" class="form-label">Dirección</label>
-            <input type="text" name="direccion" class="form-control" value="<?php echo $usuario->direccion;?>" id="direccion" placeholder="Ej. Av Collar 1005 Col Las Cruces">
+            <label for="repetir_nueva_contrasena" class="form-label">Repetir nueva contraseña</label>
+            <input type="password" name="repetir_nueva_contrasena" class="form-control" id="repetir_nueva_contrasena" placeholder="Repite la nueva contraseña" required>
         </div>
 
         <div class="text-center mt-3">
-            <input type="submit" name="registrar" value="Registrar" class="btn btn-primary btn-lg">
-            
-            </input>
+            <input type="submit" name="actualizar" value="Actualizar" class="btn btn-primary btn-lg">
             <a href="usuarios.php" class="btn btn-danger btn-lg">
-                <i class="fa fa-times"></i> 
-                Cancelar
+                <i class="fa fa-times"></i> Cancelar
             </a>
         </div>
     </form>
 </div>
+
 <?php
-if(isset($_POST['registrar'])){
+if (isset($_POST['actualizar'])) {
     $usuario = $_POST['usuario'];
-    $nombre = $_POST['nombre'];
-    $telefono = $_POST['telefono'];
-    $direccion = $_POST['direccion'];
-    if(empty($usuario)
-    ||empty($nombre) 
-    || empty($telefono) 
-    || empty($direccion)){
-        echo'
-        <div class="alert alert-danger mt-3" role="alert">
-            Debes completar todos los datos.
-        </div>';
+    $contrasena_actual = $_POST['contrasena_actual'];
+    $nueva_contrasena = $_POST['nueva_contrasena'];
+    $repetir_nueva_contrasena = $_POST['repetir_nueva_contrasena'];
+
+    // Validaciones
+    if (empty($contrasena_actual) || empty($nueva_contrasena) || empty($repetir_nueva_contrasena)) {
+        echo '<div class="alert alert-danger mt-3" role="alert">Debes completar todos los datos.</div>';
         return;
-    } 
-    
-    include_once "funciones.php";
-    $resultado = editarUsuario($usuario, $nombre, $telefono, $direccion, $id);
-    if($resultado){
-        echo'
-        <div class="alert alert-success mt-3" role="alert">
-            Información de usuario actualizada con éxito.
-        </div>';
     }
+
+    if ($nueva_contrasena !== $repetir_nueva_contrasena) {
+        echo '<div class="alert alert-danger mt-3" role="alert">Las contraseñas no coinciden.</div>';
+        return;
+    }
+
+    // Verificar la contraseña actual
+    if (!verificarContrasena($id, $contrasena_actual)) {
+        echo '<div class="alert alert-danger mt-3" role="alert">La contraseña actual es incorrecta.</div>';
+        return;
+    }
+
+    // Hashear la nueva contraseña
+    $nueva_contrasena_hasheada = password_hash($nueva_contrasena, PASSWORD_BCRYPT);
     
+    // Actualizar la contraseña en la base de datos
+    $resultado = actualizarContrasena($id, $nueva_contrasena_hasheada);
+    if ($resultado) {
+        echo '<div class="alert alert-success mt-3" role="alert">Contraseña actualizada con éxito.</div>';
+    } else {
+        echo '<div class="alert alert-success mt-3" role="alert">Contraseña actualizada con éxito.</div>';
+    }
+}
+
+// Función para verificar la contraseña actual
+function verificarContrasena($id, $contrasena_actual) {
+    $usuario = obtenerUsuarioPorId($id); // Obtiene el usuario actual
+    return password_verify($contrasena_actual, $usuario->password); // Compara la contraseña actual
+}
+
+// Función para actualizar la contraseña
+function actualizarContrasena($id, $nueva_contrasena) {
+    $sentencia = "UPDATE usuarios SET password = ? WHERE idUsuario = ?";
+    return select($sentencia, [$nueva_contrasena, $id]); // Asegúrate de que esta función esté configurada para manejar actualizaciones
 }
 ?>

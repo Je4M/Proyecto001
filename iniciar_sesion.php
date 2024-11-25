@@ -1,7 +1,5 @@
 <?php
-include_once "encabezado.php"; // Incluye el encabezado o configuraciones necesarias
-
-session_start(); // Asegúrate de que la sesión se inicie al principio
+session_start();
 
 if (isset($_POST['ingresar'])) {
     // Verifica si los campos de usuario y contraseña están vacíos
@@ -11,17 +9,17 @@ if (isset($_POST['ingresar'])) {
             Debes completar todos los datos.
             <a href="login.php">Regresar</a>
         </div>';
-        return; // Termina la ejecución si los campos están vacíos
+        return;
     }
 
-    include_once "funciones.php"; // Asegúrate de que este archivo contenga las funciones necesarias
+    include_once "funciones.php"; // Asegúrate de que incluya la función iniciarSesion
 
     $usuario = $_POST['usuario'];
     $password = $_POST['password'];
 
     // Llama a la función para verificar las credenciales del usuario
     $datosSesion = iniciarSesion($usuario, $password);
-    
+
     // Verifica si las credenciales son incorrectas
     if (!$datosSesion) {
         echo '
@@ -29,18 +27,16 @@ if (isset($_POST['ingresar'])) {
             Nombre de usuario y/o contraseña incorrectas.
             <a href="login.php">Regresar</a>
         </div>';
-        return; // Termina la ejecución si las credenciales son incorrectas
+        return;
     }
 
-    // Si las credenciales son correctas, inicializa las variables de sesión
+    // Inicializa las variables de sesión
     $_SESSION['usuario'] = $datosSesion->nomUsuario; // Almacena el nombre de usuario
     $_SESSION['idUsuario'] = $datosSesion->idUsuario; // Almacena el ID del usuario
-
-    // Obtiene el rol del usuario y lo almacena en la sesión
-    $_SESSION['rol'] = obtenerRol($datosSesion->rol);
+    $_SESSION['rol'] = $datosSesion->rol; // Almacena el rol del usuario
 
     // Redirige al usuario a la página principal
     header("Location: index.php");
-    exit(); // Termina el script después de redirigir
+    exit(); // Finaliza el script después de redirigir
 }
 ?>

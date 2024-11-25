@@ -19,9 +19,8 @@ $usuarios = obtenerUsuarios();
         <thead>
             <tr>
                 <th>Usuario</th>
-                <th>Nombre</th>
-                <th>Teléfono</th>
-                <th>Dirección</th>
+                <th>Contraseña</th>
+
                 <th>Editar</th>
                 <th>Eliminar</th>
             </tr>
@@ -31,18 +30,17 @@ $usuarios = obtenerUsuarios();
             foreach($usuarios as $usuario){
             ?>
                 <tr>
-                    <td><?php echo $usuario->Usuario; ?></td>
+                    <td><?php echo $usuario->nomUsuario; ?></td>
                     <td><?php echo $usuario->password; ?></td>
-                    <td><?php echo $usuario->fk_idRoles; ?></td>
-                    <td><?php echo $usuario->fk_dni; ?></td>
+
                     <td>
-                        <a class="btn btn-info" href="editar_usuario.php?id=<?php echo $usuario->id; ?>">
+                        <a class="btn btn-info" href="editar_usuario.php?id=<?php echo $usuario->idUsuario; ?>">
                             <i class="fa fa-edit"></i>
                             Editar
                         </a>
                     </td>
                     <td>
-                        <a class="btn btn-danger" href="eliminar_usuario.php?id=<?php echo $usuario->idColaborador; ?>">
+                        <a class="btn btn-danger" href="eliminar_usuario.php?id=<?php echo $usuario->idUsuario; ?>">
                             <i class="fa fa-trash"></i>
                             Eliminar
                         </a>

@@ -3,15 +3,21 @@
 
 define("PASSWORD_PREDETERMINADA", "Jeampierre");
 define("HOY", date("Y-m-d"));
-
-function iniciarSesion($usuario, $password){
-    $sentencia = "SELECT  idUsuario, nomUsuario FROM usuarios WHERE nomUsuario  =?";
+function iniciarSesion($usuario, $password) {
+    // Modifica la consulta para incluir el rol
+    $sentencia = "SELECT idUsuario, nomUsuario, rol FROM usuarios WHERE nomUsuario = ?";
     $resultado = select($sentencia, [$usuario]);
-    if($resultado){
+    
+    if ($resultado) {
         $usuario = $resultado[0];
         $verificaPass = verificarPassword($usuario->idUsuario, $password);
-        if($verificaPass) return $usuario;
+        
+        if ($verificaPass) {
+            return $usuario; // Devuelve el objeto que ahora incluye 'rol'
+        }
     }
+    
+    return null; // Retorna null si no se verifica
 }
 
 function verificarPassword($idUsuario, $password){
@@ -37,7 +43,7 @@ function cambiarPassword($idUsuario, $password){
 }
 
 function eliminarUsuario($id){
-    $sentencia = "DELETE FROM colaboradores WHERE idColaborador = ?";
+    $sentencia = "DELETE FROM usuarios WHERE idUsuario = ?";
     return eliminar($sentencia, $id);
 }
 
@@ -48,23 +54,31 @@ function editarUsuario($usuario, $nombre, $telefono, $direccion, $id){
 }
 
 function obtenerUsuarioPorId($id){
-    $sentencia = "SELECT id, usuario, nombre, telefono, direccion FROM usuarios WHERE id = ?";
+    $sentencia = "SELECT idUsuario, nomUsuario,password FROM usuarios WHERE idUsuario = ?";
     return select($sentencia, [$id])[0];
 }
 
 function obtenerUsuarios(){
-    $sentencia = "SELECT idColaborador, Usuario, password, fk_idRoles, fk_dni FROM colaboradores";
+    $sentencia = "SELECT idUsuario, nomUsuario, password FROM usuarios";
     return select($sentencia);
 }
 
-function registrarUsuario($usuario, $nombre, $telefono, $direccion, $contrasena){
-    $password = password_hash(PASSWORD_PREDETERMINADA, PASSWORD_DEFAULT);
-    $sentencia = "INSERT INTO usuarios (usuario, nombre, telefono, direccion, password) 
-    VALUES (?,?,?,?,?)";
-    $parametros = [$usuario, $nombre, $telefono, $direccion, $password];
-    return insertar($sentencia, $parametros);
+
+function registrarUsuario($usuario, $contrasena, $rol) {
+    // Aquí deberías implementar la lógica para insertar el nuevo usuario en la base de datos.
+    $sentencia = "INSERT INTO usuarios (nomUsuario, password, rol) VALUES (?, ?, ?)";
+    
+    // Asegúrate de que la función select esté correctamente implementada para ejecutar consultas de inserción.
+    return select($sentencia, [$usuario, $contrasena, $rol]);
 }
 
+function usuarioExiste($usuario) {
+    $sentencia = "SELECT COUNT(*) as count FROM usuarios WHERE nomUsuario = ?";
+    $resultado = select($sentencia, [$usuario]);
+    
+    // Asegúrate de que estás accediendo como un objeto
+    return $resultado[0]->count > 0; // Devuelve true si el usuario existe
+}
 
 
 
@@ -621,16 +635,16 @@ function obtenerProveedores2() {
     return $stmt->fetchAll();
 }
 
-function obtenerPersonaPorDNI2($dni) {
+function obtenerPersonaPorNombre($dni) {
     $pdo = conectarBaseDatos();
-    $sentencia = $pdo->prepare("SELECT * FROM persona WHERE DNI_Persona = ?");
+    $sentencia = $pdo->prepare("SELECT * FROM usuarios WHERE nomUsuario = ?");
     $sentencia->execute([$dni]);
     return $sentencia->fetch(PDO::FETCH_OBJ);
 }
 
 function obtenerRoles2() {
     $pdo = conectarBaseDatos();
-    $sentencia = $pdo->query("SELECT * FROM roles");
+    $sentencia = $pdo->query("SELECT * FROM usuarios");
     return $sentencia->fetchAll(PDO::FETCH_OBJ);
 }
 
