@@ -6,7 +6,8 @@ include_once "sesion.php";
 
 if(empty($_SESSION['usuario'])) header("location: login.php");
 
-$clientes = obtenerClientes2();
+$clientes = obtenerPersonas();
+
 ?>
 <div class="container">
     <h1>
@@ -25,8 +26,7 @@ $clientes = obtenerClientes2();
                 <th>P.APELLIDO</th>
                 <th>S.APELLIDO</th>
                 <th>TELEFONO</th>
-                <th>DIRECCION</th>
-                <th>EMAIL</th>
+                <th>CARGO</th>
                 <th>Editar</th>
                 <th>Eliminar</th>
             </tr>
@@ -37,13 +37,12 @@ $clientes = obtenerClientes2();
             ?>
                 <tr>
                 
-                    <td><?php echo $cliente->DNI_Persona; ?></td>
-                    <td><?php echo $cliente->Nombres; ?></td>
-                    <td><?php echo $cliente->PrimerApellido; ?></td>
-                    <td><?php echo $cliente->SegundoApellido; ?></td>
-                    <td><?php echo $cliente->Telefonocli; ?></td>
-                    <td><?php echo $cliente->direccioncli; ?></td>
-                    <td><?php echo $cliente->emailcli; ?></td>
+                    <td><?php echo $cliente->id_persona; ?></td>
+                    <td><?php echo $cliente->nombre; ?></td>
+                    <td><?php echo $cliente->primer_apellido; ?></td>
+                    <td><?php echo $cliente->segundo_apellido; ?></td>
+                    <td><?php echo $cliente->telefono; ?></td>
+                    <td><?php echo $cliente->desccargo; ?></td>
                     <td>
                         <a class="btn btn-info" href="editar_cliente.php?id=<?php echo $cliente->DNI_Persona;?>">
                             <i class="fa fa-edit"></i>

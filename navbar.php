@@ -55,7 +55,7 @@ error_log("Rol de usuario: " . print_r($rol, true));  // Inicializa $rol desde l
         <?php } ?>
         
         <li class="nav-item">
-            <a class="nav-link active" href="clientes.php">
+            <a class="nav-link active" href="personas.php">
             <i class="fa fa-user-friends"></i>
             Personas
             </a>

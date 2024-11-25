@@ -154,14 +154,15 @@ function obtenerClientes() {
     return $clientes;
 }
 
-
-
-
-
-function obtenerClientes2(){
-    $sentencia = "SELECT * from persona";
+function obtenerPersonas(){
+    $sentencia = "SELECT * from personas p
+join colaboradores cl on cl.fk_id_persona = p.id_persona
+JOIN cargos c on cl.fk_id_cargo =c.id_cargo
+;";
     return select($sentencia);
 }
+
+
 
 function obtenerProveedores(){
     $sentencia = "SELECT * FROM proveedores";
