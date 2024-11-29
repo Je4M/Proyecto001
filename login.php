@@ -18,8 +18,7 @@ include_once "encabezado.php";
                     </div>
 
                     <div class="pb-2">
-                        <button type="submit" name="ingresar" class="btn btn-primary w-100 font-weight-bold mt-2">Ingresar
-</button>
+                        <button type="submit" name="ingresar" class="btn btn-primary w-100 font-weight-bold mt-2">Ingresargitgit  </button>
                     </div>
                 </form>
              </div>
