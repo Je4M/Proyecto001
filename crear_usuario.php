@@ -26,16 +26,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Usuario</title>
     <style>
-        body { font-family: Arial, sans-serif; }
+        body { 
+            font-family: Arial, sans-serif;
+
+        }
         form { max-width: 400px; margin: auto; }
         input, select { width: 100%; margin: 10px 0; padding: 8px; }
         button { padding: 10px; background-color: #28a745; color: white; border: none; cursor: pointer; }
         button:hover { background-color: #218838; }
+        .tit_usuario{ 
+            margin-left: 860px;
+
+        }
+
+
     </style>
 </head>
 <body>
+<div class= "tit_usuario"><h2>Crear Usuario</h2></div>
 
-<h2>Crear Usuario</h2>
 <form method="POST" action="">
     <label for="nomUsuario">Nombre de Usuario:</label>
     <input type="text" id="nomUsuario" name="nomUsuario" required>
