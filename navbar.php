@@ -29,6 +29,12 @@ error_log("Rol de usuario: " . print_r($rol, true));  // Inicializa $rol desde l
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link active" href="personas.php">
+            <i class="fa fa-user-friends"></i>
+            Personas
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link active" href="proveedores.php">
             <i class="fa fa-user-friends"></i>
             Proveedores
@@ -53,6 +59,12 @@ error_log("Rol de usuario: " . print_r($rol, true));  // Inicializa $rol desde l
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link active" href="contenedores.php">
+                <i class="fa fa-shopping-cart"></i>
+                contenedores
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link active" href="reporte_ventas.php">
             <i class="fa fa-file-alt"></i>
             Estadisticas
@@ -60,12 +72,7 @@ error_log("Rol de usuario: " . print_r($rol, true));  // Inicializa $rol desde l
         </li>
         <?php } ?>
         
-        <li class="nav-item">
-            <a class="nav-link active" href="personas.php">
-            <i class="fa fa-user-friends"></i>
-            Personas
-            </a>
-        </li>
+        
         <li class="nav-item">
             <a class="nav-link active" href="empresas.php">
             <i class="fa fa-user-friends"></i>
