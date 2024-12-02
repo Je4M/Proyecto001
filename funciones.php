@@ -168,15 +168,19 @@ function obtenerProveedores(){
     $sentencia = "SELECT * FROM proveedores";
     return select($sentencia);
 }
+function obtenerCargos() {
+    $sentencia = "SELECT * FROM cargos"; 
+    return select($sentencia); 
+}
 
 function obtenerEmpresas(){
     $sentencia = "SELECT * FROM empresa";
     return select($sentencia);
 }
 
-function registrarCliente($dni, $nombre, $apellidopat, $apellidomat, $telefono, $direccion, $email){
+function registrarCliente($dni, $nombre, $apellidopat, $apellidomat, $telefono, $direccion){
     $sentencia = "INSERT INTO persona (DNI_Persona, Nombres, PrimerApellido, SegundoApellido,Telefonocli, direccioncli, emailcli) VALUES (?,?,?,?,?,?,?)";
-    $parametros = [$dni, $nombre, $apellidopat, $apellidomat, $telefono, $direccion, $email];
+    $parametros = [$dni, $nombre, $apellidopat, $apellidomat, $telefono, $direccion];
     return insertar($sentencia, $parametros);
 }
 

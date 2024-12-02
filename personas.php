@@ -11,7 +11,7 @@ $clientes = obtenerPersonas();
 ?>
 <div class="container">
     <h1>
-        <a class="btn btn-success btn-lg" href="agregar_cliente.php">
+        <a class="btn btn-success btn-lg" href="agregar_persona.php">
             <i class="fa fa-plus"></i>
             Agregar Persona
         </a>
@@ -20,7 +20,7 @@ $clientes = obtenerPersonas();
     <table class="table">
         <thead>
             <tr>
-            
+                <th>ID</th>
                 <th>DNI</th>
                 <th>NOMBRE</th>
                 <th>P.APELLIDO</th>
@@ -38,6 +38,7 @@ $clientes = obtenerPersonas();
                 <tr>
                 
                     <td><?php echo $cliente->id_persona; ?></td>
+                    <td><?php echo $cliente->DNI_Persona; ?></td>
                     <td><?php echo $cliente->nombre; ?></td>
                     <td><?php echo $cliente->primer_apellido; ?></td>
                     <td><?php echo $cliente->segundo_apellido; ?></td>
