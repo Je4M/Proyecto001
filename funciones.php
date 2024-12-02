@@ -599,7 +599,7 @@ function conectarBaseDatos() {
     $port = "3306";
     $db   = "residuosfinal";
     $user = "root";
-    $pass = "brandonmax";
+    $pass = "";
     $charset = 'utf8mb4';
 
     $options = [
