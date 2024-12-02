@@ -47,6 +47,12 @@ error_log("Rol de usuario: " . print_r($rol, true));  // Inicializa $rol desde l
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link active" href="categorias.php">
+                <i class="fa fa-shopping-cart"></i>
+                coches
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link active" href="reporte_ventas.php">
             <i class="fa fa-file-alt"></i>
             Estadisticas
