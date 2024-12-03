@@ -164,7 +164,8 @@ JOIN cargos c on cl.fk_id_cargo =c.id_cargo
 
 function obtenercontenedores(){
     $pdo = conectarBaseDatos();
-    $sentencia = "SELECT * from contenedores ;";
+    $sentencia = "select * from contenedores cn
+inner join  puntos_criticos  pc on fk_idpuntocritico = id_puntocritico;";
     return select($sentencia);
 }
 

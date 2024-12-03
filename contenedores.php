@@ -26,10 +26,7 @@ $clientes = obtenercontenedores();
                 <th>MATERIAL</th>
                 <th>FECHA INSTALACION</th>
                 <th>PUNTO CRITICO</th>
-                <th>FK.IDCALLE</th>
-                <th>FK.ESTADOCONTENEDOR</th>
-                <th>FK.IDTOLERANCIA</th>
-                <th>FK.IDMEDIDA</th>
+                <th>FECHA REGISTRO</th>
             </tr>
         </thead>
         <tbody>
@@ -43,11 +40,8 @@ $clientes = obtenercontenedores();
                     <td><?php echo $cliente->ubicacion; ?></td>
                     <td><?php echo $cliente->materialconstruccion; ?></td>
                     <td><?php echo $cliente->fechainstalacion; ?></td>
-                    <td><?php echo $cliente->fk_idpuntocritico; ?></td>
-                    <td><?php echo $cliente->fk_idcalle; ?></td>
-                    <td><?php echo $cliente->fk_idestadocontenedor; ?></td>
-                    <td><?php echo $cliente->fk_idtolerancia; ?></td>
-                    <td><?php echo $cliente->fk_idmedida; ?></td>
+                    <td><?php echo $cliente->ubicacionpc; ?></td>
+                    <td><?php echo $cliente->fecharegistro; ?></td>
                     <td>
                         <a class="btn btn-info" href="editar_cliente.php?id=<?php echo $cliente->DNI_Persona;?>">
                             <i class="fa fa-edit"></i>
