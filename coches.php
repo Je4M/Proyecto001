@@ -1,4 +1,4 @@
-<!-- hola mundo -->
+<!-- hola mundo XD-->
 <?php
 include_once "encabezado.php";
 include_once "navbar.php";
