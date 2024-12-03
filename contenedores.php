@@ -11,7 +11,7 @@ $clientes = obtenercontenedores();
 ?>
 <div class="container">
     <h1>
-        <a class="btn btn-success btn-lg" href="personas.php">
+        <a class="btn btn-success btn-lg" href="contenedores.php">
             <i class="fa fa-plus"></i>
             Agregar contenedor 
         </a>
