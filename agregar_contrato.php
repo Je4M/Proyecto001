@@ -8,7 +8,11 @@ if (empty($_SESSION['usuario'])) {
     header("location: login.php");
     exit();
 }
+$cargo = obtenerCargos();
 
+$tipocon = ['0', '1']; // Definimos los roles directamente
+
+$contratos = obtenerContratos();
 $dni = '';
 $cliente = [];
 $mensajeContrato = '';
@@ -21,6 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
     if (!empty($cliente)) {
         $mensajeContrato = verificarContratoActivo($dni); // Implementa esta función para verificar el contrato
         echo "<pre>Mensaje contrato: $mensajeContrato</pre>";
+        $contratos = obtenerContratos();
     } else {
         $mensajeContrato = "No se encontró ningún cliente con el DNI ingresado.";
     }
@@ -68,8 +73,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
             <label for="contrato" class="form-label">Contrato</label>
             <select name="contrato" id="contrato" class="form-select" required>
                 <?php foreach ($contratos as $con): ?>
-                    <option value="<?php echo $con->id_contrato; ?>"><?php echo ucfirst($con->desccargo); ?></option>
+                    <option value="<?php echo $con->id_contrato; ?>"><?php echo ucfirst($con->descripcion); ?></option>
                 <?php endforeach; ?>
+                </select>
+                <div class="mb-3">
+            <label for="tipocon" class="form-label">Tipo contrato </label>
+            <select name="tipocon" id="tipocon" class="form-select" required>
+                <?php foreach ($tipocon as $tip): ?>
+                <option value="<?php echo htmlspecialchars($tip); ?>"><?php echo htmlspecialchars(ucfirst($tip)); ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+            <div class="mb-3">
+                <label for="sueldo" class="form-label">Sueldo</label>
+                <input type="number" name="sueldo" class="form-control" id="sueldo" placeholder="Ej. 2000" required>
+            </div>
+            <label for="cargo" class="form-label">Cargo</label>
+            <select name="descripcion" id="descripcion" class="form-select" required>
+                <?php foreach ($clientes as $cli): ?>
+                    <option value="<?php echo $car->id_contrato; ?>"><?php echo ucfirst($car->descripcion); ?></option>
+                <?php endforeach; ?>
+            </select>
+            
+
             </select>
             <div class="text-center mt-3">
                 <input type="submit" name="registrar" value="Registrar" class="btn btn-primary btn-lg">

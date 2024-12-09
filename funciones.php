@@ -198,6 +198,11 @@ function obtenerContratos() {
  join personas p on  p.id_persona = col.fk_id_persona"; 
     return select($sentencia); 
 }
+function obtenerContratosPorDNI($dni){
+    $sentencia = "SELECT DNI_Persona AS idCliente, CONCAT(Nombres, ' ', PrimerApellido, ' ', SegundoApellido) AS nombre, Telefonocli AS telefono, direccioncli AS direccion FROM persona WHERE DNI_Persona = ?";
+    $resultados = select($sentencia, [$dni]);
+    return count($resultados) > 0 ? $resultados[0] : null;
+}
 function obtenerEmpresas(){
     $sentencia = "SELECT * FROM empresa";
     return select($sentencia);
