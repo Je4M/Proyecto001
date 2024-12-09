@@ -70,11 +70,24 @@ function buscarClientePorDNI($dni) {
             <input type="number" name="telefono" class="form-control" id="telefono" placeholder="Ej. 2111568974">
         </div>
         
-
+            
+        <label for="cargo" class="form-label">Cargo</label>
+        <select name="cargo" id="cargo" class="form-select" required>
+             <?php foreach ($cargo as $car): ?>
+             <option value="<?php echo htmlspecialchars($car->id_cargo); ?>"><?php echo htmlspecialchars(ucfirst($car->desccargo)); ?></option>
+            <?php endforeach; ?>
+        </select>
+        <label for="contrato" class="form-label">Contrato</label>
+        <select name="contrato" id="contrato" class="form-select" required>
+             <?php foreach ($contrato as $con): ?>
+             <option value="<?php echo htmlspecialchars($con->id_contrato); ?>"><?php echo htmlspecialchars(ucfirst($con->desccargo)); ?></option>
+            <?php endforeach; ?>
+        </select>
+        </div>
         
         <div class="text-center mt-3">
             <input type="submit" name="registrar" value="Registrar" class="btn btn-primary btn-lg">
-            <a href="personas.php" class="btn btn-danger btn-lg">
+            <a href="clientes.php" class="btn btn-danger btn-lg">
                 <i class="fa fa-times"></i> 
                 Cancelar
             </a>
@@ -93,10 +106,10 @@ if(isset($_POST['registrar'])){
     $apellidopat = $_POST['apellidopat'];
     $apellidomat = $_POST['apellidomat'];
     $telefono = $_POST['telefono'];
- 
+    $direccion = $_POST['direccion'];
+    $email = $_POST['email'];
 
-
-    if(empty($dni) || empty($nombre) || empty($apellidopat) || empty($apellidomat)  || empty($telefono) ){
+    if(empty($dni) || empty($nombre) || empty($apellidopat) || empty($apellidomat)  || empty($telefono) || empty($direccion) ){
         echo'
         <div class="alert alert-danger mt-3" role="alert">
             Debes completar todos los datos.
@@ -105,11 +118,11 @@ if(isset($_POST['registrar'])){
     } 
     
     include_once "funciones.php";
-    $resultado = registrarCliente($dni, $nombre, $apellidopat, $apellidomat, $telefono);
+    $resultado = registrarCliente($dni, $nombre, $apellidopat, $apellidomat, $telefono, $direccion);
     if($resultado){
         echo'
         <div class="alert alert-success mt-3" role="alert">
-            Persona registrada con éxito.
+            Cliente registrado con éxito.
         </div>';
     }
    

@@ -84,7 +84,7 @@ function usuarioExiste($usuario) {
 
 
 function eliminarCliente($idPersona){
-    $sentencia = "DELETE FROM persona WHERE DNI_Persona = ?";
+    $sentencia = "DELETE FROM personas WHERE id_persona = ?";
     return eliminar($sentencia, $idPersona);
 }
 
@@ -98,9 +98,9 @@ function eliminarProveedor($id_Proveedor){
     return eliminar($sentencia, $id_Proveedor);
 }
 
-function editarCliente($DNI_Persona, $Nombres, $PrimerApellido, $SegundoApellido, $Telefonocli, $direccioncli, $emailcli) {
-    $sentencia = "UPDATE persona SET Nombres = ?, PrimerApellido = ?, SegundoApellido = ?, Telefonocli = ?, direccioncli = ?, emailcli = ? WHERE DNI_Persona = ?";
-    $parametros = [$Nombres, $PrimerApellido, $SegundoApellido, $Telefonocli, $direccioncli, $emailcli, $DNI_Persona];
+function editarCliente($DNI_Persona, $Nombres, $PrimerApellido, $SegundoApellido, $Telefonocli) {
+    $sentencia = "UPDATE personas SET nombre = ?, primer_apellido = ?, segundo_apellido = ?, telefono = ? WHERE DNI_Persona = ?";
+    $parametros = [$Nombres, $PrimerApellido, $SegundoApellido, $Telefonocli, $DNI_Persona];
     return editar($sentencia, $parametros);
 }
 
@@ -117,7 +117,7 @@ function editarProveedor($RUC_Prov, $NombreEmpresa,$Condicion,$Estado, $telefono
 }
 
 function obtenerClientePorId($idPersona){
-    $sentencia = "SELECT * FROM persona WHERE DNI_Persona = ?";
+    $sentencia = "SELECT * FROM personas WHERE id_persona = ?";
     $cliente = select($sentencia, [$idPersona]);
     if($cliente) return $cliente[0];
 }
@@ -162,12 +162,7 @@ JOIN cargos c on cl.fk_id_cargo =c.id_cargo
     return select($sentencia);
 }
 
-function obtenercontenedores(){
-    $pdo = conectarBaseDatos();
-    $sentencia = "select * from contenedores cn
-inner join  puntos_criticos  pc on fk_idpuntocritico = id_puntocritico;";
-    return select($sentencia);
-}
+
 
 function obtenerProveedores(){
     $sentencia = "SELECT * FROM proveedores";
@@ -178,14 +173,21 @@ function obtenerCargos() {
     return select($sentencia); 
 }
 
+function obtenerContratos() {
+    $sentencia = " select * from contratos c
+ join estado_contrato ec on c.fk_id_estado = ec.id_estado
+ join colaboradores col on col.fk_id_contrato=c.id_contrato
+ join personas p on  p.id_persona = col.fk_id_persona"; 
+    return select($sentencia); 
+}
 function obtenerEmpresas(){
     $sentencia = "SELECT * FROM empresa";
     return select($sentencia);
 }
 
-function registrarCliente($dni, $nombre, $apellidopat, $apellidomat, $telefono, $direccion){
-    $sentencia = "INSERT INTO persona (DNI_Persona, Nombres, PrimerApellido, SegundoApellido,Telefonocli, direccioncli, emailcli) VALUES (?,?,?,?,?,?,?)";
-    $parametros = [$dni, $nombre, $apellidopat, $apellidomat, $telefono, $direccion];
+function registrarCliente($dni, $nombre, $apellidopat, $apellidomat, $telefono){
+    $sentencia = "INSERT INTO personas (DNI_Persona, nombre, primer_apellido, segundo_apellido,telefono) VALUES (?,?,?,?,?)";
+    $parametros = [$dni, $nombre, $apellidopat, $apellidomat, $telefono];
     return insertar($sentencia, $parametros);
 }
 
