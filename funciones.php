@@ -161,8 +161,26 @@ JOIN cargos c on cl.fk_id_cargo =c.id_cargo
 ;";
     return select($sentencia);
 }
+function obtenerPersonasContrato($dni) {
+    // Consulta para obtener el nombre completo de la persona según el DNI
+    $sentencia = "SELECT concat(nombre, ' ', primer_apellido, ' ', segundo_apellido) AS nombres FROM personas WHERE DNI_Persona = ?";
+    return select($sentencia, [$dni]); // Asegúrate de que esta función esté definida
+}
 
+function verificarContratoActivo($dni) {
+    // Consulta para verificar si el colaborador tiene un contrato activo
+    $sentencia = "SELECT * FROM colaboradores c 
+                  JOIN contratos co ON co.id_contrato = c.fk_id_contrato 
+                  JOIN personas p ON c.fk_id_persona = p.id_persona 
+                  WHERE p.DNI_Persona = ? AND co.descripcion = '0';"; // Asegúrate que '0' sea el valor correcto para "activo"
+    
+    $resultado = select($sentencia, [$dni]); // Asegúrate de que esta función esté definida
 
+    if (!empty($resultado)) {
+        return "Esta persona ya tiene un contrato activo.";
+    }
+    return ""; // Sin mensaje si no hay contrato activo
+}
 
 function obtenerProveedores(){
     $sentencia = "SELECT * FROM proveedores";
@@ -659,6 +677,7 @@ function obtenerRoles2() {
     $sentencia = $pdo->query("SELECT * FROM usuarios");
     return $sentencia->fetchAll(PDO::FETCH_OBJ);
 }
+
 
 function registrarColaborador($usuario, $contrasena, $fk_idPersona, $fk_idRoles){
     $password = password_hash($contrasena, PASSWORD_DEFAULT);

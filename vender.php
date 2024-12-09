@@ -1,91 +1,81 @@
 <?php
 include_once "encabezado.php";
 include_once "navbar.php";
-include_once "funciones.php";
 include_once "sesion.php";
-if(empty($_SESSION['usuario'])) header("location: login.php");
-$_SESSION['lista'] = (isset($_SESSION['lista'])) ? $_SESSION['lista'] : [];
-$total = calcularTotalLista($_SESSION['lista']);
-$clienteSeleccionado = (isset($_SESSION['clienteVenta'])) ? $_SESSION['clienteVenta'] : null;
-$mensajeClienteNoEncontrado = isset($_SESSION['mensajeClienteNoEncontrado']) ? $_SESSION['mensajeClienteNoEncontrado'] : '';
+include_once "funciones.php";
+
+if (empty($_SESSION['usuario'])) {
+    header("location: login.php");
+    exit();
+}
+
+$dni = '';
+$cliente = [];
+$mensajeContrato = '';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
+    $dni = $_POST['dni'];
+    $cliente = obtenerPersonasContrato($dni);
+    
+    // Verifica si el cliente tiene un contrato activo
+    if (!empty($cliente)) {
+        $mensajeContrato = verificarContratoActivo($dni);
+    } else {
+        $mensajeContrato = "No se encontró ningún cliente con el DNI ingresado.";
+    }
+}
 ?>
-<div class="container mt-3"> 
-    <form action="agregar_producto_venta.php" method="post" class="row">
-        <div class="col-10">
-            <input class="form-control form-control-lg" name="codigo" autofocus id="codigo" type="number" placeholder="Código de barras del producto" aria-label="codigoBarras">
+
+<div class="container">
+    <h3>Asignar contrato</h3>
+    <form method="post">
+        <div class="mb-3">
+            <label for="dni" class="form-label">DNI</label>
+            <div class="input-group">
+                <input type="number" name="dni" class="form-control" id="dni" placeholder="Ej. 12345678" value="<?php echo $dni; ?>" required>
+                <button type="submit" name="buscar" class="btn btn-info">Buscar</button>
+            </div>  
         </div>
-        <div class="col">
-            <input type="submit" value="Agregar" name="agregar" class="btn btn-success mt-2">
+
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre y Apellidos</label>
+            <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Escribe el nombre del cliente" value="<?php echo !empty($cliente) ? $cliente[0]['nombres'] : ''; ?>" readonly>
         </div>
+        
+        <?php if ($mensajeContrato): ?>
+            <div class="alert alert-warning" role="alert">
+                <?php echo $mensajeContrato; ?>
+            </div>
+        <?php endif; ?>
+        
+        <?php if (empty($mensajeContrato) && !empty($cliente)): ?>
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="number" name="telefono" class="form-control" id="telefono" placeholder="Ej. 2111568974" required>
+            </div>
+            <div class="col-5">
+                <label for="inicio" class="form-label">Inicio del contrato</label>
+                <input type="date" name="inicio" class="form-control" id="inicio" required>
+                <label for="final" class="form-label">Fecha final de contrato</label>
+                <input type="date" name="final" class="form-control" id="final" required>
+            </div>
+            <label for="cargo" class="form-label">Cargo</label>
+            <select name="cargo" id="cargo" class="form-select" required>
+                <?php foreach ($cargo as $car): ?>
+                    <option value="<?php echo $car->id_cargo; ?>"><?php echo ucfirst($car->desccargo); ?></option>
+                <?php endforeach; ?>
+            </select>
+            <label for="contrato" class="form-label">Contrato</label>
+            <select name="contrato" id="contrato" class="form-select" required>
+                <?php foreach ($contratos as $con): ?>
+                    <option value="<?php echo $con->id_contrato; ?>"><?php echo ucfirst($con->desccargo); ?></option>
+                <?php endforeach; ?>
+            </select>
+            <div class="text-center mt-3">
+                <input type="submit" name="registrar" value="Registrar" class="btn btn-primary btn-lg">
+                <a href="clientes.php" class="btn btn-danger btn-lg">Cancelar</a>
+                <a href="vender.php" class="btn btn-warning btn-lg">Regresar</a>
+            </div>
+        <?php endif; ?>
     </form>
-    <?php if($_SESSION['lista']) {?>
-    <div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Código</th>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Subtotal</th>
-                    <th>Quitar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach($_SESSION['lista'] as $lista) {?>
-                    <tr>
-                        <td><?php echo $lista->codigo;?></td>
-                        <td><?php echo $lista->nombreProd;?></td>
-                        <td>S/. <?php echo $lista->precioVenta;?></td>
-                        <td><?php echo $lista->cantidad;?></td>
-                        <td>S/. <?php echo floatval($lista->cantidad * $lista->precioVenta);?></td>
-                        <td>
-                            <a href="quitar_producto_venta.php?idProducto=<?php echo $lista->idProducto?>" class="btn btn-danger">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        </td>
-                    </tr>
-                <?php }?>
-            </tbody>
-        </table>
-
-        <!-- Formulario para buscar cliente por DNI o RUC -->
-        <form class="row" method="post" action="establecer_cliente_venta.php">
-            <div class="col-10">
-                <input type="text" class="form-control" id="identificador_cliente" name="identificador_cliente" placeholder="Ingrese el DNI o RUC del cliente">
-            </div>
-            <div class="col-auto">
-                <input class="btn btn-info" type="submit" value="Buscar cliente">
-            </div>
-        </form>
-
-        <?php if($clienteSeleccionado){?>
-            <div class="alert alert-primary mt-3" role="alert">
-                <b>Cliente seleccionado: </b>
-                <br>
-                <b>Nombre: </b> <?php echo $clienteSeleccionado->nombre?><br>
-                <b>Teléfono: </b> <?php echo $clienteSeleccionado->telefono?><br>
-                <b>Dirección: </b> <?php echo $clienteSeleccionado->direccion?><br>
-                <a href="quitar_cliente_venta.php" class="btn btn-warning">Quitar</a>
-                <a href="confirmar_cliente.php" class="btn btn-warning">Confirmar</a>
-            </div>
-        <?php } else if($mensajeClienteNoEncontrado){?>
-            <div class="alert alert-danger mt-3" role="alert">
-                <?php echo $mensajeClienteNoEncontrado;?>
-            </div>
-        <?php }?>
-
-        <div class="text-center mt-3">
-            <h1>Total: S/. <?php echo $total;?></h1>
-            <a class="btn btn-primary btn-lg" href="registrar_venta.php">  
-                <i class="fa fa-check"></i> 
-                Terminar venta 
-            </a>
-            <a class="btn btn-danger btn-lg" href="cancelar_venta.php">
-                <i class="fa fa-times"></i> 
-                Cancelar
-            </a>
-        </div>
-    </div>
-    <?php }?>
 </div>
