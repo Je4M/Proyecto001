@@ -24,30 +24,29 @@ if (isset($_POST['buscar'])) {
     <h3>Agregar vehiculo</h3>
     <form method="post">
     <div class="mb-3">
-            <label for="placa" class="form-label">PLACA</label>
-            <div class="input-group">
-                <input type="number" name="dni" class="form-control" id="dni" placeholder="ABC-456" value="<?php echo isset($dni) ? $dni : ''; ?>">
-            </div>  
-        </div>
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Escribe el nombre del cliente" value="<?php echo isset($cliente['nombres']) ? $cliente['nombres'] : ''; ?>" readonly>
-        </div>
-        
-        <div class="mb-3">
-            <label for="apellidopat" class="form-label">Apellido Paterno</label>
-            <input type="text" name="apellidopat" class="form-control" id="apellidopat" placeholder="Escribe el apellido paterno del cliente" value="<?php echo isset($cliente['apellidoPaterno']) ? $cliente['apellidoPaterno'] : ''; ?>"readonly>
-        </div>
-        <div class="mb-3">
-            <label for="apellidomat" class="form-label">Apellido Materno</label>
-            <input type="text" name="apellidomat" class="form-control" id="apellidomat" placeholder="Escribe el apellido materno del cliente" value="<?php echo isset($cliente['apellidoMaterno']) ? $cliente['apellidoMaterno'] : ''; ?>"readonly>
-        </div>
-        <div class="mb-3">
-            <label for="telefono" class="form-label">Teléfono</label>
-            <input type="number" name="telefono" class="form-control" id="telefono" placeholder="Ej. 2111568974">
-        </div>
-        
 
+        <div class="mb-3">
+            <label for="placa" class="form-label"  id="placa" >PLACA</label>
+            <input  name="placa" class="form-control" id="placa" placeholder="Ej. ABC-456">
+         </div>
+        
+         <div class="mb-3">
+            <label for="yardas" class="form-label"  id="yardas" >YARDAS CUBICAS</label>
+            <input name="yardas" class="form-control" id="marca" placeholder="Ej. 2111568974">
+         </div>
+         <div class="mb-3">
+            <label for="colaborador" class="form-label"  id="colaborador" >COLABORADOR</label>
+            <input name="cola" class="form-control" id="marca" placeholder="Ej. 2111568974">
+         </div>
+         <div class="mb-3">
+            <label for="marca" class="form-label"  id="marca" placeholder="VOLVO">MARCA</label>
+            <input  name="marca" class="form-control" id="marca" placeholder="Ej. volvo">
+         </div>
+         <div class="mb-3">
+            <label for="estadp" class="form-label"  id="esvehiculo" >ESTADO DEL VEHICULO</label>
+            <input  name="estado" class="form-control" id="estado" placeholder="seleccionar">
+         </div>
+        
         
         <div class="text-center mt-3">
             <input type="submit" name="registrar" value="Registrar" class="btn btn-primary btn-lg">
