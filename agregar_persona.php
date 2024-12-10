@@ -99,7 +99,7 @@ function buscarClientePorDNI($dni) {
 
 <?php
 if(isset($_POST['registrar'])){
-     $dni = $_POST['dni'];
+    $dni = $_POST['dni'];
     $nombre = $_POST['nombre'];
     $apellidopat = $_POST['apellidopat'];
     $apellidomat = $_POST['apellidomat'];
