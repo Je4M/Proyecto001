@@ -121,7 +121,22 @@ function obtenerClientePorId($idPersona){
     $cliente = select($sentencia, [$idPersona]);
     if($cliente) return $cliente[0];
 }
+function obtenerClientes7($search, $offset, $limit) {
+    $bd = conectarBaseDatos();
 
+    // Consulta SQL con búsqueda
+    $sql = "SELECT * FROM personas WHERE DNI_Persona LIKE :search LIMIT :offset, :limit";
+    $stmt = $bd->prepare($sql);
+    
+    // Usar parámetros con PDO
+    $searchParam = "%$search%";
+    $stmt->bindParam(':search', $searchParam, PDO::PARAM_STR);
+    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
+    
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
 function obtenerEmpresaPorId($id_Empresa){
     $sentencia = "SELECT * FROM empresa WHERE RUC = ?";
     $cliente = select($sentencia, [$id_Empresa]);
@@ -133,25 +148,19 @@ function obtenerProveedorPorId($id_Proveedor){
     $cliente = select($sentencia, [$id_Proveedor]);
     if($cliente) return $cliente[0];
 }
-function obtenerClientes() {
-    $pdo = conectarBaseDatos();
+function contarClientes($search) {
+    $bd = conectarBaseDatos();
 
-    // Obtener clientes únicos por idCliente y nombre
-    $sentencia = "
-        SELECT cv.idCliente, p.Nombres AS nombre 
-        FROM clienteventa cv
-        INNER JOIN persona p ON p.DNI_Persona = cv.fk_dni
-        UNION
-        SELECT cv.idCliente, em.NombreEmpresa AS nombre 
-        FROM clienteventa cv
-        INNER JOIN empresa em ON em.RUC = cv.fk_ruc
-    ";
-
-    $stmt = $pdo->prepare($sentencia);
+    // Consulta SQL para contar registros
+    $sql = "SELECT COUNT(*) as total FROM personas WHERE DNI_Persona LIKE :search";
+    $stmt = $bd->prepare($sql);
+    
+    // Usar parámetros con PDO
+    $searchParam = "%$search%";
+    $stmt->bindParam(':search', $searchParam, PDO::PARAM_STR);
+    
     $stmt->execute();
-    $clientes = $stmt->fetchAll(PDO::FETCH_OBJ);
-
-    return $clientes;
+    return $stmt->fetch()->total; // Retorna el total
 }
 
 function obtenerPersonas(){
@@ -208,8 +217,12 @@ function buscarDescContrato($dni) {
     return 'Sin contrato'; // Indica que no hay contrato
 }
 
-function obtenerProveedores(){
-    $sentencia = "SELECT * FROM proveedores";
+function obtenerIncidentes(){
+    $sentencia = "SELECT * FROM incidentes i
+    join colaboradores c on c.id_colaborador=i.fk_id_colaborador
+    join personas p on p.id_persona = c.fk_id_persona
+    join gravedad_incidente gi on i.fk_id_gravedad=gi.id_gravedad
+    join recuperacion r on r.fk_id_incidente=i.id_incidentes";
     return select($sentencia);
 }
 function obtenerCargos() {
@@ -793,12 +806,7 @@ function clienteExiste($idCliente) {
 
 
 
-function obtenerUltimoId() {
-    $bd = conectarBaseDatos();
-    $sentencia = "SELECT MAX(idCliente) AS id FROM clienteventa";
-    $respuesta = $bd->query($sentencia);
-    return $respuesta->fetchColumn();
-}
+
 
 function registrarContrato($dni, $cargoId, $fechaInicio, $fechaFinal, $sueldo) {
     try {
@@ -868,4 +876,64 @@ function registrarContrato($dni, $cargoId, $fechaInicio, $fechaFinal, $sueldo) {
     } catch (Exception $e) {
         return "Error: " . $e->getMessage();
     }
+}
+
+
+
+function obtenerColaboradorPorDNI($dni) {
+    // Busca la persona por DNI
+    $sentenciaPersona = "SELECT id_persona FROM personas WHERE DNI_Persona = ?";
+    $persona = select($sentenciaPersona, [$dni]);
+
+    // Si se encuentra la persona, busca el colaborador
+    if (!empty($persona)) {
+        $id_persona = $persona[0]->id_persona; // Obtener el ID de la persona
+
+        // Ahora busca el colaborador usando el ID de la persona
+        $sentenciaColaborador = "
+            SELECT c.id_colaborador, p.nombre, p.primer_apellido, p.segundo_apellido 
+            FROM colaboradores c
+            JOIN personas p ON c.fk_id_persona = p.id_persona
+            WHERE c.fk_id_persona = ?";
+        $colaborador = select($sentenciaColaborador, [$id_persona]);
+
+        return !empty($colaborador) ? $colaborador[0] : null; // Devuelve el primer resultado o null
+    }
+    return null; // Si no se encuentra la persona, retornar null
+}
+
+// Función para obtener las gravedades de incidentes
+function obtenerGravedades() {
+    $sentencia = "SELECT id_gravedad, descripcion FROM gravedad_incidente";
+    return select($sentencia);
+}
+
+// Función para registrar un nuevo incidente
+function registrarIncidente($descripcion, $fk_id_colaborador, $fk_id_gravedad) {
+    $sentencia = "INSERT INTO incidentes (descripcion_incidente, fk_id_colaborador, fk_id_gravedad) VALUES (?, ?, ?)";
+    $resultado = insertar($sentencia, [$descripcion, $fk_id_colaborador, $fk_id_gravedad]);
+    
+    // Asegúrate de que la función `insertar` esté devolviendo el ID del último incidente
+    return obtenerUltimoId(); // Obtener el ID del último incidente insertado
+}
+
+// Función para registrar la recuperación
+function registrarRecuperacion($id_incidente, $fecha_inicio_rec, $fecha_final_rec) {
+    // Verifica que el incidente exista
+    $sentencia = "SELECT * FROM incidentes WHERE id_incidentes = ?";
+    $resultado = select($sentencia, [$id_incidente]);
+
+    if (empty($resultado)) {
+        echo '<div class="alert alert-danger">El incidente no existe.</div>';
+        return false; // Maneja el error
+    }
+
+    // Si el incidente existe, procede a la inserción
+    $sentenciaInsert = "INSERT INTO recuperacion (fk_id_incidente, fecha_inicio_rec, fecha_final_rec) VALUES (?, ?, ?)";
+    return insertar($sentenciaInsert, [$id_incidente, $fecha_inicio_rec, $fecha_final_rec]);
+}
+
+function obtenerUltimoId() {
+    global $pdo; // Asumiendo que tienes una conexión PDO
+    return $pdo->lastInsertId();
 }
