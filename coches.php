@@ -12,7 +12,7 @@ $clientes = obtenervehiculos();
     <h1>
         <a class="btn btn-success btn-lg" href="coches.php">
             <i class="fa fa-plus"></i>
-            Agregar contenedor 
+            Agregar vehiculo  
         </a>
       
     </h1>
