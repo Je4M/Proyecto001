@@ -8,7 +8,7 @@ include_once "funciones.php";
 
 if(empty($_SESSION['usuario'])) header("location: login.php");
 $cargo = obtenerCargos();
-$contratos = obtenerContratos();
+$contratos = obtenerContratos2();
 if (isset($_POST['buscar'])) {
     $dni = $_POST['dni'];
     if (!empty($dni)) {

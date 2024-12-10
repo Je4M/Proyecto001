@@ -181,6 +181,32 @@ function verificarContratoActivo($dni) {
     }
     return ""; // Sin mensaje si no hay contrato activo
 }
+function estadoContrato($dni) {
+    $sentencia = "SELECT co.descripcion FROM colaboradores c 
+                  JOIN contratos co ON co.id_contrato = c.fk_id_contrato 
+                  JOIN personas p ON c.fk_id_persona = p.id_persona 
+                  WHERE p.DNI_Persona = ?";
+
+    $resultado = select($sentencia, [$dni]);
+
+    if (!empty($resultado)) {
+        return $resultado[0]->descripcion; // Devuelve '0' o '1' como string
+    }
+    
+    return null; // Sin contrato
+}
+function buscarDescContrato($dni) {
+    $estadoContrato = estadoContrato($dni); // Obtiene el estado del contrato
+
+    // Ahora compara con un entero
+    if ($estadoContrato === 0) { // Cambia '0' a 0
+        return 'Activo'; // Contrato activo
+    } elseif ($estadoContrato === 1) {
+        return 'Caducado'; // Contrato caducado
+    }
+    
+    return 'Sin contrato'; // Indica que no hay contrato
+}
 
 function obtenerProveedores(){
     $sentencia = "SELECT * FROM proveedores";
@@ -190,13 +216,37 @@ function obtenerCargos() {
     $sentencia = "SELECT * FROM cargos"; 
     return select($sentencia); 
 }
-
-function obtenerContratos() {
+function obtenerContratos2() {
     $sentencia = " select * from contratos c
  join estado_contrato ec on c.fk_id_estado = ec.id_estado
  join colaboradores col on col.fk_id_contrato=c.id_contrato
  join personas p on  p.id_persona = col.fk_id_persona"; 
     return select($sentencia); 
+}
+function obtenerContratos($search, $limit, $offset) {
+    $bd = conectarBaseDatos();
+    $query = "SELECT c.*, ec.descripcion_estad, p.DNI_Persona FROM contratos c
+              JOIN estado_contrato ec ON c.fk_id_estado = ec.id_estado
+              JOIN colaboradores col ON col.fk_id_contrato = c.id_contrato
+              JOIN personas p ON p.id_persona = col.fk_id_persona
+              WHERE p.DNI_Persona LIKE ?
+              LIMIT ? OFFSET ?";
+              
+    $stmt = $bd->prepare($query);
+    $stmt->execute(["%$search%", $limit, $offset]);
+    return $stmt->fetchAll();
+}
+function contarContratos($search) {
+    $bd = conectarBaseDatos();
+    $query = "SELECT COUNT(*) as total FROM contratos c
+              JOIN estado_contrato ec ON c.fk_id_estado = ec.id_estado
+              JOIN colaboradores col ON col.fk_id_contrato = c.id_contrato
+              JOIN personas p ON p.id_persona = col.fk_id_persona
+              WHERE p.DNI_Persona LIKE ?";
+              
+    $stmt = $bd->prepare($query);
+    $stmt->execute(["%$search%"]);
+    return $stmt->fetch()->total;
 }
 function obtenerContratosPorDNI($dni){
     $sentencia = "SELECT DNI_Persona AS idCliente, CONCAT(Nombres, ' ', PrimerApellido, ' ', SegundoApellido) AS nombre, Telefonocli AS telefono, direccioncli AS direccion FROM persona WHERE DNI_Persona = ?";
@@ -750,4 +800,72 @@ function obtenerUltimoId() {
     return $respuesta->fetchColumn();
 }
 
+function registrarContrato($dni, $cargoId, $fechaInicio, $fechaFinal, $sueldo) {
+    try {
+        $bd = conectarBaseDatos();
 
+        // Verificar si la persona ya existe
+        $stmt = $bd->prepare("SELECT id_persona FROM personas WHERE DNI_Persona = ?");
+        $stmt->execute([$dni]);
+        $persona = $stmt->fetch();
+
+        if ($persona) {
+            // Persona existe, obtener el ID
+            $idPersona = $persona->id_persona;
+
+            // Verificar si ya hay un contrato existente para esta persona
+            $stmt = $bd->prepare("SELECT id_contrato FROM contratos c
+                                   JOIN colaboradores col ON c.id_contrato = col.fk_id_contrato
+                                   WHERE col.fk_id_persona = ? ORDER BY c.id_contrato DESC LIMIT 1");
+            $stmt->execute([$idPersona]);
+            $contrato = $stmt->fetch();
+
+            // Determina el estado y la descripción
+            $nuevoEstado = empty($fechaFinal) ? 0 : 1; // 0 para "Caducado", 1 para "Activo"
+            $descripcion = $nuevoEstado; // Estado del contrato (0 o 1)
+            $fk_id_estado = ($descripcion == 1) ? 1 : 2; // 1 para "Activo", 2 para "Caducado"
+
+            if ($contrato) {
+                // Actualizar el contrato existente
+                $stmt = $bd->prepare("UPDATE contratos SET descripcion = ?, sueldo = ?, fecha_inicio = ?, fecha_final = ?, fk_id_estado = ? WHERE id_contrato = ?");
+                $stmt->execute([$descripcion, $sueldo, $fechaInicio, $fechaFinal ?: null, $fk_id_estado, $contrato->id_contrato]);
+
+                return "Contrato actualizado correctamente.";
+            } else {
+                // No hay contrato existente, insertar uno nuevo
+                $stmt = $bd->prepare("INSERT INTO contratos (descripcion, sueldo, fecha_inicio, fecha_final, fk_id_estado) VALUES (?, ?, ?, ?, ?)");
+                $stmt->execute([$descripcion, $sueldo, $fechaInicio, $fechaFinal ?: null, $fk_id_estado]);
+                $idContrato = $bd->lastInsertId(); // Obtener el ID del nuevo contrato
+
+                // Insertar en la tabla colaboradores
+                $stmt = $bd->prepare("INSERT INTO colaboradores (fk_id_cargo, fk_id_persona, fk_id_contrato) VALUES (?, ?, ?)");
+                $stmt->execute([$cargoId, $idPersona, $idContrato]);
+
+                return "Contrato registrado correctamente.";
+            }
+        } else {
+            // Persona no existe, insertar nueva persona
+            $stmt = $bd->prepare("INSERT INTO personas (DNI_Persona) VALUES (?)");
+            $stmt->execute([$dni]);
+            $idPersona = $bd->lastInsertId();
+
+            // Estado y descripción
+            $nuevoEstado = empty($fechaFinal) ? 0 : 1; // 0 para "Caducado", 1 para "Activo"
+            $descripcion = $nuevoEstado; // Estado del contrato (0 o 1)
+            $fk_id_estado = ($descripcion == 1) ? 1 : 2; // 1 para "Activo", 2 para "Caducado"
+
+            // Insertar nuevo contrato
+            $stmt = $bd->prepare("INSERT INTO contratos (descripcion, sueldo, fecha_inicio, fecha_final, fk_id_estado) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([$descripcion, $sueldo, $fechaInicio, $fechaFinal ?: null, $fk_id_estado]);
+            $idContrato = $bd->lastInsertId(); // Obtener el ID del nuevo contrato
+
+            // Insertar en la tabla colaboradores
+            $stmt = $bd->prepare("INSERT INTO colaboradores (fk_id_cargo, fk_id_persona, fk_id_contrato) VALUES (?, ?, ?)");
+            $stmt->execute([$cargoId, $idPersona, $idContrato]);
+
+            return "Nueva persona y contrato registrado correctamente.";
+        }
+    } catch (Exception $e) {
+        return "Error: " . $e->getMessage();
+    }
+}
