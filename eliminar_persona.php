@@ -9,5 +9,5 @@ include_once "funciones.php";
 $resultado = eliminarCliente($idPersona);
 
 
-header("Location: clientes.php");
+header("Location: personas.php");
 ?>

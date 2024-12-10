@@ -26,7 +26,7 @@ $clientes = obtenerPersonas();
                 <th>P.APELLIDO</th>
                 <th>S.APELLIDO</th>
                 <th>TELEFONO</th>
-                <th>CARGO</th>
+               
                 <th>Editar</th>
                 <th>Eliminar</th>
             </tr>
@@ -43,15 +43,15 @@ $clientes = obtenerPersonas();
                     <td><?php echo $cliente->primer_apellido; ?></td>
                     <td><?php echo $cliente->segundo_apellido; ?></td>
                     <td><?php echo $cliente->telefono; ?></td>
-                    <td><?php echo $cliente->desccargo; ?></td>
+                   
                     <td>
-                        <a class="btn btn-info" href="editar_cliente.php?id=<?php echo $cliente->DNI_Persona;?>">
+                        <a class="btn btn-info" href="editar_persona.php?id=<?php echo $cliente->id_persona;?>">
                             <i class="fa fa-edit"></i>
                             Editar
                         </a>
                     </td>
                     <td>
-                        <a class="btn btn-danger" href="eliminar_cliente.php?id=<?php echo $cliente->DNI_Persona;?>">
+                        <a class="btn btn-danger" href="eliminar_persona.php?id=<?php echo $cliente->id_persona;?>">
                             <i class="fa fa-trash"></i>
                             Eliminar
                         </a>

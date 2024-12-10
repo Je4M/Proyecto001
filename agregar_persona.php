@@ -8,7 +8,7 @@ include_once "funciones.php";
 
 if(empty($_SESSION['usuario'])) header("location: login.php");
 $cargo = obtenerCargos();
-
+$contratos = obtenerContratos2();
 if (isset($_POST['buscar'])) {
     $dni = $_POST['dni'];
     if (!empty($dni)) {
@@ -69,23 +69,12 @@ function buscarClientePorDNI($dni) {
             <label for="telefono" class="form-label">Teléfono</label>
             <input type="number" name="telefono" class="form-control" id="telefono" placeholder="Ej. 2111568974">
         </div>
-        <div class="mb-3">
-            <label for="direccion" class="form-label">Cargo</label>
-            <input type="text" name="direccion" class="form-control" id="direccion" placeholder="Ej. Av Collar 1005 Col Las Cruces">
-        </div>
-        <div class="mb-3">
-            
-        <label for="cargo" class="form-label">Cargo</label>
-        <select name="cargo" id="cargo" class="form-select" required>
-             <?php foreach ($cargo as $car): ?>
-             <option value="<?php echo htmlspecialchars($car->id_cargo); ?>"><?php echo htmlspecialchars(ucfirst($car->desccargo)); ?></option>
-            <?php endforeach; ?>
-        </select>
-        </div>
+        
+
         
         <div class="text-center mt-3">
             <input type="submit" name="registrar" value="Registrar" class="btn btn-primary btn-lg">
-            <a href="clientes.php" class="btn btn-danger btn-lg">
+            <a href="personas.php" class="btn btn-danger btn-lg">
                 <i class="fa fa-times"></i> 
                 Cancelar
             </a>
@@ -104,10 +93,10 @@ if(isset($_POST['registrar'])){
     $apellidopat = $_POST['apellidopat'];
     $apellidomat = $_POST['apellidomat'];
     $telefono = $_POST['telefono'];
-    $direccion = $_POST['direccion'];
-    $email = $_POST['email'];
+ 
 
-    if(empty($dni) || empty($nombre) || empty($apellidopat) || empty($apellidomat)  || empty($telefono) || empty($direccion) ){
+
+    if(empty($dni) || empty($nombre) || empty($apellidopat) || empty($apellidomat)  || empty($telefono) ){
         echo'
         <div class="alert alert-danger mt-3" role="alert">
             Debes completar todos los datos.
@@ -116,11 +105,11 @@ if(isset($_POST['registrar'])){
     } 
     
     include_once "funciones.php";
-    $resultado = registrarCliente($dni, $nombre, $apellidopat, $apellidomat, $telefono, $direccion);
+    $resultado = registrarCliente($dni, $nombre, $apellidopat, $apellidomat, $telefono);
     if($resultado){
         echo'
         <div class="alert alert-success mt-3" role="alert">
-            Cliente registrado con éxito.
+            Persona registrada con éxito.
         </div>';
     }
    
