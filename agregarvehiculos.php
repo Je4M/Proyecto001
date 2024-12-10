@@ -9,16 +9,20 @@ include_once "funciones.php";
 if(empty($_SESSION['usuario'])) header("location: login.php");
 $cargo = obtenerCargos();
 $contratos = obtenerContratos2();
+$pers = obtenerPersonas() ;
 if (isset($_POST['buscar'])) {
     $dni = $_POST['dni'];
     if (!empty($dni)) {
         $cliente = buscarClientePorDNI($dni);
     }
 }
-
-
-
 ?>
+
+<?php
+// En procesar.php, verifica si los datos del formulario están siendo recibidos
+var_dump($_POST);  // Esto imprimirá todos los datos enviados por el formulario.
+?>
+
 
 <div class="container">
     <h3>Agregar vehiculo</h3>
@@ -47,7 +51,24 @@ if (isset($_POST['buscar'])) {
             <input  name="estado" class="form-control" id="estado" placeholder="seleccionar">
          </div>
         
-        
+ 
+        <label for="opciones">Elige una opción:</label><br>
+        <select name="opciones" id="opciones">
+ 
+            <?php
+        if (is_array($pers)) {
+            foreach ($pers as $persona) {
+                // Verifica que cada elemento tiene las claves necesarias
+                if (isset($persona['id_persona'], $persona['nombre'], $persona['cargo'])) {
+                    echo "<option value=\"" . $persona['id_persona'] . "\">" . $persona['nombre'] . " - " . $persona['cargo'] . "</option>";
+                }
+            }
+        } else {
+            echo "<option value=\"\">No se encontraron personas.</option>";
+        }
+        ?>
+        </select><br><br>
+
         <div class="text-center mt-3">
             <input type="submit" name="registrar" value="Registrar" class="btn btn-primary btn-lg">
             <a href="personas.php" class="btn btn-danger btn-lg">
