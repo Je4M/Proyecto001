@@ -330,16 +330,12 @@ function obtenerVentasPorUsuario(){
 }
 
 function obtenerVentasPorCliente(){
-    $sentencia = "SELECT SUM(v.totalVenta) AS total, 
-       IFNULL(p.Nombres, em.NombreEmpresa) AS cliente,
-       COUNT(*) AS numeroCompras
-FROM venta v
-LEFT JOIN clienteventa cv ON v.fk_clienteVenta = cv.idCliente
-LEFT JOIN persona p ON cv.fk_dni = p.DNI_Persona
-LEFT JOIN empresa em ON cv.fk_ruc = em.RUC
-GROUP BY v.fk_clienteVenta
-ORDER BY total DESC
-LIMIT 5";
+    $sentencia = "SELECT ec.descestadocont, 
+                         COUNT(c.id_contenedor) AS cantidadContenedores 
+                  FROM estado_contenedores ec
+                  LEFT JOIN contenedores c ON c.fk_idestadocontenedor = ec.id_estadocontenedor
+                  GROUP BY ec.id_estadocontenedor
+                  ORDER BY cantidadContenedores DESC;";
     return select($sentencia);
 }
 
@@ -949,4 +945,56 @@ function registrarRecuperacion($id_incidente, $fecha_inicio_rec, $fecha_final_re
 function obtenerUltimoId() {
     global $pdo; // Asumiendo que tienes una conexión PDO
     return $pdo->lastInsertId();
+}
+
+function obtenerResiduosPorTipo() {
+    $sentencia = "SELECT tr.nombre, 
+                         SUM(r.descresiduo) AS totalResiduos 
+                  FROM residuos r
+                  INNER JOIN tipo_residuos tr ON r.fk_idtiporesiduo = tr.id_tiporesiduo
+                  GROUP BY tr.id_tiporesiduo
+                  ORDER BY totalResiduos DESC";
+    return select($sentencia);
+}
+function obtenerEstadoContenedores() {
+    $sentencia = "SELECT ec.descestadocont, 
+                         COUNT(c.id_contenedor) AS cantidadContenedores 
+                  FROM estado_contenedores ec
+                  LEFT JOIN contenedores c ON c.fk_idestadocontenedor = ec.id_estadocontenedor
+                  GROUP BY ec.id_estadocontenedor
+                  ORDER BY cantidadContenedores DESC";
+    return select($sentencia);
+}
+function obtenerIncidentesPorGravedad() {
+    $sentencia = "SELECT gi.descripcion, 
+                         COUNT(i.id_incidentes) AS totalIncidentes 
+                  FROM gravedad_incidente gi
+                  LEFT JOIN incidentes i ON i.fk_id_gravedad = gi.id_gravedad
+                  GROUP BY gi.id_gravedad
+                  ORDER BY totalIncidentes DESC";
+    return select($sentencia);
+}
+function obtenerAuditoria() {
+    // Definir la consulta SQL para obtener los registros de auditoría
+    $sentencia = "SELECT * from reg_estados";
+
+    // Ejecutar la consulta y devolver los resultados
+    return select($sentencia);
+}
+function asignarColaboradorAVehiculo($idColaborador, $idVehiculo) {
+    $sentencia = "UPDATE vehiculos SET fk_id_colaborador = ? WHERE id_vehiculo = ?";
+    $parametros = [$idColaborador, $idVehiculo];
+    
+    return insertar($sentencia, $parametros);
+}
+function obtenerColaboradores() {
+    $sentencia = "SELECT id_colaborador, nombre FROM colaboradores c
+join personas p on p.id_persona = c.fk_id_persona"; // Ajusta según tu tabla
+    return select($sentencia);
+}
+function obtenerEquipos() {
+    $sentencia = "SELECT e.id_equipo, e.nombre_equipo, e.descripcion, p.nombre AS planta 
+                  FROM equipos e 
+                  LEFT JOIN plantas p ON e.fk_id_planta = p.id_planta";
+    return select($sentencia);
 }

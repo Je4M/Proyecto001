@@ -82,13 +82,13 @@ error_log("Rol de usuario: " . print_r($rol, true));  // Inicializa $rol desde l
         <li class="nav-item">
             <a class="nav-link active" href="empresas.php">
             <i class="fa fa-user-friends"></i>
-            Empresas
+            Asig Colaborador vehiculo
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="vender.php">
             <i class="fa fa-cash-register"></i>
-            Vender
+            Auditorias
             </a>
         </li>
       </ul>
