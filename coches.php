@@ -10,11 +10,9 @@ $clientes = obtenervehiculos();
 ?>
 <div class="container">
     <h1>
-        <a class="btn btn-success btn-lg" href="coches.php">
-            <i class="fa fa-plus"></i>
-            Agregar vehiculo  
-        </a>
-      
+        <a class="btn btn-success btn-lg" href="agregarvehiculos.php"><i class="fa fa-plus"></i>  Agregar vehiculo </a>
+        <a class="btn btn-success btn-lg" href="agregarmarca.php"><i class="fa fa-plus"></i>  Agregar marca </a>
+        <a class="btn btn-success btn-lg" href="agregar modelo.php"><i class="fa fa-plus"></i>  Agregar modelo </a>
     </h1>
     <table class="table">
         <thead>
