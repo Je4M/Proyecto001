@@ -16,40 +16,17 @@ if (isset($_POST['buscar'])) {
     }
 }
 
-function buscarClientePorDNI($dni) {
-    $token = 'apis-token-7410.rcjsAzQ2MeFkxq92XKMITNsQhkfO4bZC';
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://api.apis.net.pe/v2/reniec/dni?numero=' . $dni,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_SSL_VERIFYPEER => 0,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 2,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_CUSTOMREQUEST => 'GET',
-        CURLOPT_HTTPHEADER => array(
-            'Referer: https://apis.net.pe/consulta-dni-api',
-            'Authorization: Bearer ' . $token
-        ),
-    ));
 
-    $response = curl_exec($curl);
-    curl_close($curl);
-    
-    return json_decode($response, true);
-}
 
 ?>
 
 <div class="container">
-    <h3>Agregar persona</h3>
+    <h3>Agregar vehiculo</h3>
     <form method="post">
     <div class="mb-3">
-            <label for="dni" class="form-label">DNI</label>
+            <label for="placa" class="form-label">PLACA</label>
             <div class="input-group">
-                <input type="number" name="dni" class="form-control" id="dni" placeholder="Ej. 76895547" value="<?php echo isset($dni) ? $dni : ''; ?>">
-                <button type="submit" name="buscar" class="btn btn-info">Buscar</button>
+                <input type="number" name="dni" class="form-control" id="dni" placeholder="ABC-456" value="<?php echo isset($dni) ? $dni : ''; ?>">
             </div>  
         </div>
         <div class="mb-3">

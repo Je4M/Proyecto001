@@ -236,6 +236,12 @@ function obtenerContratos2() {
  join personas p on  p.id_persona = col.fk_id_persona"; 
     return select($sentencia); 
 }
+function obtenercontenedores() {
+    $sentencia = "  SELECT  * from contenedores cn
+inner join  puntos_criticos  pc on fk_idpuntocritico = id_puntocritico;"; 
+    return select($sentencia); 
+}
+
 function obtenerContratos($search, $limit, $offset) {
     $bd = conectarBaseDatos();
     $query = "SELECT c.*, ec.descripcion_estad, p.DNI_Persona FROM contratos c
@@ -305,7 +311,14 @@ function obtenerNumeroClientes(){
     (SELECT COUNT(*) FROM empresa) AS total";
     return select($sentencia)[0]->total;
 }
-
+function obtenervehiculos(){
+    $sentencia = " SELECT  * from vehiculos 
+inner join marcas on  marcas.id_marca = vehiculos.fk_id_marca
+inner join estado_vehiculos on vehiculos.fk_id_estadovehiculo =  estado_vehiculos.id_estadovehiculo
+inner join modelos on modelos.id_modelo = vehiculos.fk_id_modelo ;
+";
+return select($sentencia);
+}
 
 function obtenerVentasPorUsuario(){
     $sentencia = "SELECT SUM(v.totalVenta) AS totalVenta, c.Usuario, COUNT(*) AS numeroVentas 
