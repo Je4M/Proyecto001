@@ -1,0 +1,2756 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 11-12-2024 a las 23:32:30
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `residuosfinal`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `asignacion`
+--
+
+CREATE TABLE `asignacion` (
+  `id_asignacion` int(11) NOT NULL,
+  `fk_idhorario` int(11) NOT NULL,
+  `fk_idruta` int(11) NOT NULL,
+  `fk_id_turno` int(11) NOT NULL,
+  `fk_id_vehiculo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `asignacion`
+--
+
+INSERT INTO `asignacion` (`id_asignacion`, `fk_idhorario`, `fk_idruta`, `fk_id_turno`, `fk_id_vehiculo`) VALUES
+(1, 1, 1, 1, 1),
+(2, 2, 2, 1, 5),
+(3, 3, 3, 2, 10),
+(4, 4, 4, 2, 15),
+(5, 5, 5, 1, 20),
+(6, 1, 6, 2, 2),
+(7, 2, 7, 1, 3),
+(8, 3, 8, 2, 4),
+(9, 4, 9, 1, 6),
+(10, 5, 10, 2, 8),
+(11, 1, 11, 1, 9),
+(12, 2, 12, 2, 11),
+(13, 3, 13, 1, 12),
+(14, 4, 14, 2, 13),
+(15, 5, 15, 1, 14),
+(16, 1, 1, 2, 16),
+(17, 2, 2, 1, 17),
+(18, 3, 3, 2, 18),
+(19, 4, 4, 1, 19),
+(20, 5, 5, 2, 20);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cargos`
+--
+
+CREATE TABLE `cargos` (
+  `id_cargo` int(11) NOT NULL,
+  `desccargo` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `cargos`
+--
+
+INSERT INTO `cargos` (`id_cargo`, `desccargo`) VALUES
+(1, 'Operador de planta'),
+(2, 'Encargado de limpieza'),
+(3, 'Técnico de mantenimiento'),
+(4, 'Supervisor de operaciones'),
+(5, 'Jefe de planta'),
+(6, 'Asistente administrativo'),
+(7, 'Operador de maquinaria'),
+(8, 'Coordinador de reciclaje'),
+(9, 'Auxiliar de recolección'),
+(10, 'Especialista en residuos peligrosos'),
+(11, 'Analista de calidad'),
+(12, 'Técnico en tratamiento de residuos'),
+(13, 'Gestor de residuos sólidos'),
+(14, 'Inspector ambiental'),
+(15, 'Planificador de rutas'),
+(16, 'Operador de camiones'),
+(17, 'Coordinador de seguridad'),
+(18, 'Promotor de reciclaje'),
+(19, 'Capacitador en residuos'),
+(20, 'Encargado de logística'),
+(21, 'Operador de compactadora'),
+(22, 'Jefe de seguridad'),
+(23, 'Analista de datos'),
+(24, 'Coordinador de transporte'),
+(25, 'Técnico en limpieza'),
+(26, 'Encargado de gestión ambiental'),
+(27, 'Asesor técnico'),
+(28, 'Gestor de proyectos'),
+(29, 'Encargado de comunicación'),
+(30, 'Operador de balanza'),
+(31, 'Operador camion recolector de basura');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categorias`
+--
+
+CREATE TABLE `categorias` (
+  `idCategoria` int(11) NOT NULL,
+  `categoria` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `categorias`
+--
+
+INSERT INTO `categorias` (`idCategoria`, `categoria`) VALUES
+(2, 'Bebidas, jugos y agua'),
+(15, 'Lácteos y frescos '),
+(16, 'Huevos y fiambres'),
+(27, 'Ambientadores e insecticidas'),
+(29, 'Utensilios de aseo'),
+(34, 'Mascotas'),
+(36, 'Dulces y snackz'),
+(38, 'Abarrotes'),
+(39, 'Lavandería'),
+(40, 'Lavavajillas'),
+(41, 'Cuidado personal'),
+(42, '12345');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `clientes`
+--
+
+CREATE TABLE `clientes` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `dni` int(11) NOT NULL,
+  `nombre` varchar(255) NOT NULL,
+  `apellidopat` varchar(45) NOT NULL,
+  `apellidomat` varchar(45) NOT NULL,
+  `telefono` varchar(25) NOT NULL,
+  `direccion` varchar(255) NOT NULL,
+  `email` varchar(80) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `dni`, `nombre`, `apellidopat`, `apellidomat`, `telefono`, `direccion`, `email`) VALUES
+(1, 68795543, 'David Mayhuay Guzman', '', '', '933568718', 'Huaraz', 'gusman@gmail.com'),
+(9, 70222227, 'DAVID ENRIQUE', 'HUAMAN', 'LEYVA', '902975917', 'huaraz', 'davidl@gmail.com'),
+(12, 70511134, 'FERNANDO JEAMPIERRE', 'FLORES', 'VILLARREAL', '933535184', 'yungay', 'fernando6@gmail.com'),
+(16, 74360592, 'DAVID BRIAN', 'MAYHUAY', 'GUZMAN', 'esfsdfds', 'fdsfds', 'dsdfs'),
+(17, 72753106, 'JONATHAN JOSEPH', 'RODRIGUEZ', 'YABAR', '98635478', 'huraz', 'jh@62.com'),
+(18, 42953649, 'WALTER JUNIOR', 'MEDINA', 'LOPEZ', '96689745', 'huaraz', 'sadadsa@unasam.edu.pe'),
+(20, 0, '70511134', '', '', 'FERNANDO JEAMPIERRE', 'FLORES', '96689745');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `clienteventa`
+--
+
+CREATE TABLE `clienteventa` (
+  `idCliente` int(11) NOT NULL,
+  `fk_dni` int(11) DEFAULT NULL,
+  `fk_ruc` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `clienteventa`
+--
+
+INSERT INTO `clienteventa` (`idCliente`, `fk_dni`, `fk_ruc`) VALUES
+(1, NULL, 20103795631),
+(2, NULL, 20103795631),
+(3, 70511134, NULL),
+(4, 70511134, NULL),
+(5, NULL, 20103795631),
+(6, NULL, 20103795631),
+(7, NULL, 20103795631),
+(8, 70511134, NULL),
+(9, 74360592, NULL),
+(10, 74360592, NULL),
+(11, 74360592, NULL),
+(12, 74360592, NULL),
+(13, 70511134, NULL),
+(14, NULL, 20103795631),
+(15, 70511134, NULL),
+(16, 70511134, NULL),
+(17, 70511134, NULL),
+(18, 70511134, NULL),
+(19, NULL, 20103795631),
+(20, NULL, 20103795631),
+(21, NULL, 20103795631),
+(22, 70511134, NULL),
+(23, NULL, 20103795631),
+(24, NULL, 20103795631),
+(25, NULL, 20103795631),
+(26, 70511134, NULL),
+(27, 70511134, NULL),
+(28, 70511134, NULL),
+(29, NULL, 20103795631),
+(30, NULL, 20103795631),
+(31, NULL, 20103795631),
+(32, NULL, 20103795631),
+(33, 70511134, NULL),
+(34, NULL, 20103795631);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `colaboradores`
+--
+
+CREATE TABLE `colaboradores` (
+  `id_colaborador` int(11) NOT NULL,
+  `fk_id_cargo` int(11) NOT NULL,
+  `fk_id_persona` int(11) NOT NULL,
+  `fk_id_contrato` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `colaboradores`
+--
+
+INSERT INTO `colaboradores` (`id_colaborador`, `fk_id_cargo`, `fk_id_persona`, `fk_id_contrato`) VALUES
+(1, 1, 1, 1),
+(2, 2, 2, 1),
+(3, 3, 3, 1),
+(4, 4, 4, 1),
+(5, 5, 5, 1),
+(6, 6, 6, 1),
+(7, 7, 7, 1),
+(8, 8, 8, 1),
+(9, 9, 9, 1),
+(10, 10, 10, 1),
+(11, 11, 11, 1),
+(12, 12, 12, 1),
+(13, 13, 13, 1),
+(14, 14, 14, 1),
+(15, 15, 15, 1),
+(16, 16, 16, 1),
+(17, 17, 17, 1),
+(18, 18, 18, 1),
+(19, 19, 19, 1),
+(20, 20, 20, 1),
+(21, 21, 21, 1),
+(22, 22, 22, 1),
+(23, 23, 23, 1),
+(24, 24, 24, 1),
+(25, 25, 25, 1),
+(26, 26, 26, 1),
+(27, 27, 27, 1),
+(28, 28, 28, 1),
+(29, 29, 29, 1),
+(30, 30, 30, 1),
+(31, 31, 31, 1),
+(32, 31, 32, 1),
+(33, 31, 33, 1),
+(34, 31, 34, 1),
+(35, 31, 35, 1),
+(36, 31, 36, 1),
+(37, 31, 37, 1),
+(38, 31, 38, 1),
+(39, 31, 39, 1),
+(40, 31, 40, 1),
+(41, 31, 41, 1),
+(42, 31, 42, 1),
+(43, 31, 43, 1),
+(44, 31, 44, 1),
+(45, 31, 45, 1),
+(46, 31, 46, 1),
+(47, 31, 47, 1),
+(48, 31, 48, 1),
+(49, 31, 49, 1),
+(50, 31, 50, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contenedores`
+--
+
+CREATE TABLE `contenedores` (
+  `id_contenedor` int(11) NOT NULL,
+  `capacidad` varchar(10) NOT NULL,
+  `ubicacion` varchar(50) NOT NULL,
+  `materialconstruccion` varchar(50) NOT NULL,
+  `fechainstalacion` date NOT NULL,
+  `fk_idpuntocritico` int(11) NOT NULL,
+  `fk_idcalle` int(11) NOT NULL,
+  `fk_idestadocontenedor` int(11) NOT NULL,
+  `fk_idtolerancia` int(11) NOT NULL,
+  `fk_idmedida` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `contenedores`
+--
+
+INSERT INTO `contenedores` (`id_contenedor`, `capacidad`, `ubicacion`, `materialconstruccion`, `fechainstalacion`, `fk_idpuntocritico`, `fk_idcalle`, `fk_idestadocontenedor`, `fk_idtolerancia`, `fk_idmedida`) VALUES
+(1, '15', 'Jirón Los Pinos', 'aluminio', '2017-02-02', 1, 1, 1, 1, 1),
+(2, '18', 'Calle Las Flores', 'plástico', '2018-03-12', 2, 2, 2, 2, 2),
+(3, '20', 'Jirón Los Rosales', 'aluminio', '2019-04-15', 3, 3, 3, 3, 1),
+(4, '16', 'Avenida Central', 'plástico', '2018-05-20', 4, 4, 1, 1, 2),
+(5, '19', 'Calle Magnolias', 'aluminio', '2017-06-10', 5, 5, 2, 2, 1),
+(6, '17', 'Jirón Mariscal', 'plástico', '2018-07-25', 6, 6, 3, 3, 2),
+(7, '20', 'Avenida Primavera', 'aluminio', '2019-08-01', 7, 7, 1, 1, 1),
+(8, '15', 'Jirón Los Olivos', 'plástico', '2019-09-15', 8, 8, 2, 2, 2),
+(9, '19', 'Calle Las Gardenias', 'aluminio', '2020-10-20', 9, 9, 3, 3, 1),
+(10, '17', 'Avenida Las Palmas', 'plástico', '2021-11-30', 10, 10, 1, 1, 2),
+(11, '18', 'Jirón Los Claveles', 'aluminio', '2021-12-10', 11, 11, 2, 2, 1),
+(12, '16', 'Calle Los Geranios', 'plástico', '2022-01-15', 12, 12, 3, 3, 2),
+(13, '20', 'Avenida Las Lomas', 'aluminio', '2022-02-20', 13, 13, 1, 1, 1),
+(14, '15', 'Jirón Las Magnolias', 'plástico', '2022-03-25', 14, 14, 2, 2, 2),
+(15, '19', 'Calle Los Cedros', 'aluminio', '2022-04-30', 15, 15, 3, 3, 1),
+(16, '20', 'Avenida Las Palmeras', 'plástico', '2022-05-15', 1, 16, 1, 2, 2),
+(17, '17', 'Calle Las Violetas', 'aluminio', '2022-06-10', 2, 17, 2, 1, 1),
+(18, '16', 'Jirón Los Eucaliptos', 'plástico', '2022-07-20', 3, 18, 3, 2, 2),
+(19, '18', 'Avenida San Martín', 'aluminio', '2022-08-01', 4, 19, 1, 3, 1),
+(20, '19', 'Calle Los Jazmines', 'plástico', '2022-09-15', 5, 20, 2, 1, 2),
+(21, '16', 'Jirón Las Margaritas', 'aluminio', '2022-10-10', 6, 1, 3, 2, 1),
+(22, '20', 'Calle La Paz', 'plástico', '2022-11-20', 7, 2, 1, 3, 2),
+(23, '15', 'Jirón Los Almendros', 'aluminio', '2022-12-05', 8, 3, 2, 1, 1),
+(24, '18', 'Avenida Las Acacias', 'plástico', '2023-01-10', 9, 4, 3, 2, 2),
+(25, '19', 'Calle Los Tulipanes', 'aluminio', '2023-02-20', 10, 5, 1, 1, 1),
+(26, '17', 'Jirón La Unión', 'plástico', '2023-03-05', 11, 6, 2, 3, 2),
+(27, '20', 'Avenida Los Sauces', 'aluminio', '2023-04-10', 12, 7, 3, 1, 1),
+(28, '15', 'Calle Los Robles', 'plástico', '2023-05-15', 13, 8, 1, 2, 2),
+(29, '18', 'Jirón Las Hortensias', 'aluminio', '2023-06-20', 14, 9, 2, 3, 1),
+(30, '19', 'Avenida Las Palmas', 'plástico', '2023-07-10', 15, 10, 3, 1, 2),
+(31, '16', 'Jirón Los Cedros', 'aluminio', '2023-08-01', 1, 11, 1, 2, 1),
+(32, '20', 'Calle La Estrella', 'plástico', '2023-09-15', 2, 12, 2, 3, 2),
+(33, '15', 'Jirón El Sol', 'aluminio', '2023-10-10', 3, 13, 3, 1, 1),
+(34, '18', 'Avenida Los Cipreses', 'plástico', '2023-11-20', 4, 14, 1, 2, 2),
+(35, '17', 'Calle Las Palmas', 'aluminio', '2023-12-05', 5, 15, 2, 3, 1),
+(36, '20', 'Jirón La Aurora', 'plástico', '2024-01-10', 6, 16, 3, 1, 2),
+(37, '19', 'Avenida Los Nogales', 'aluminio', '2024-02-20', 7, 17, 1, 2, 1),
+(38, '16', 'Calle Las Orquídeas', 'plástico', '2024-03-05', 8, 18, 2, 3, 2),
+(39, '18', 'Jirón El Triunfo', 'aluminio', '2024-04-10', 9, 19, 3, 1, 1),
+(40, '19', 'Avenida La Libertad', 'plástico', '2024-05-15', 10, 20, 1, 2, 2),
+(41, '16', 'Calle Los Álamos', 'aluminio', '2024-06-01', 11, 1, 2, 3, 1),
+(42, '17', 'Jirón Las Violetas', 'plástico', '2024-07-15', 12, 2, 3, 1, 2),
+(43, '15', 'Avenida Los Laureles', 'aluminio', '2024-08-10', 13, 3, 1, 2, 1),
+(44, '19', 'Calle La Esperanza', 'plástico', '2024-09-20', 14, 4, 2, 3, 2),
+(45, '16', 'Jirón Las Camelias', 'aluminio', '2024-10-05', 15, 5, 3, 1, 1),
+(46, '18', 'Avenida Las Magnolias', 'plástico', '2024-11-10', 1, 6, 1, 2, 2),
+(47, '19', 'Calle La Victoria', 'aluminio', '2024-12-01', 2, 7, 2, 3, 1),
+(48, '20', 'Jirón Las Rosas', 'plástico', '2025-01-10', 3, 8, 3, 1, 2),
+(49, '17', 'Avenida El Bosque', 'aluminio', '2025-02-20', 4, 9, 1, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contratos`
+--
+
+CREATE TABLE `contratos` (
+  `id_contrato` int(11) NOT NULL,
+  `descripcion` tinyint(4) NOT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_final` date DEFAULT NULL,
+  `sueldo` double NOT NULL,
+  `fk_id_estado` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `contratos`
+--
+
+INSERT INTO `contratos` (`id_contrato`, `descripcion`, `fecha_inicio`, `fecha_final`, `sueldo`, `fk_id_estado`) VALUES
+(1, 0, '2022-07-05', NULL, 2644, 1),
+(2, 0, '2018-09-01', NULL, 1689, 1),
+(3, 0, '2020-11-04', NULL, 2020, 1),
+(4, 1, '2021-06-08', '2022-05-14', 2953, 1),
+(5, 1, '2018-08-05', '2023-11-12', 2215, 1),
+(6, 1, '2020-06-18', '2021-08-01', 1599, 1),
+(7, 0, '2022-04-18', NULL, 2830, 1),
+(8, 1, '2021-05-19', '2022-06-28', 1879, 1),
+(9, 1, '2020-08-21', '2021-02-08', 1517, 1),
+(10, 1, '2021-07-11', '2022-12-30', 2984, 1),
+(11, 0, '2021-12-21', NULL, 1804, 1),
+(12, 0, '2020-06-26', NULL, 2216, 1),
+(13, 1, '2023-07-01', '2023-08-28', 2985, 1),
+(14, 1, '2020-12-21', '2022-08-27', 1786, 1),
+(15, 1, '2022-04-08', '2023-03-06', 1846, 1),
+(16, 0, '2022-08-13', NULL, 2132, 1),
+(17, 0, '2021-10-24', NULL, 1566, 1),
+(18, 0, '2018-04-21', NULL, 1581, 1),
+(19, 1, '2023-09-21', '2023-11-04', 1718, 1),
+(20, 0, '2022-10-30', NULL, 1955, 1),
+(21, 0, '2019-04-02', NULL, 1598, 1),
+(22, 1, '2019-07-01', '2021-09-09', 1557, 1),
+(23, 0, '2023-06-09', NULL, 2416, 1),
+(24, 1, '2018-03-13', '2019-05-21', 1587, 1),
+(25, 0, '2023-01-18', NULL, 1970, 1),
+(26, 0, '2022-07-30', NULL, 1609, 1),
+(27, 1, '2018-07-21', '2019-04-15', 2821, 1),
+(28, 1, '2018-12-19', '2022-06-04', 1622, 1),
+(29, 1, '2022-02-16', '2023-05-23', 1921, 1),
+(30, 1, '2022-08-10', '2023-01-05', 2729, 1),
+(31, 1, '2018-02-17', '2021-09-12', 2455, 2),
+(32, 1, '2022-03-19', '2023-04-07', 2822, 2),
+(33, 1, '2020-02-15', '2023-07-06', 2223, 2),
+(34, 0, '2022-08-07', NULL, 2962, 2),
+(35, 0, '2020-05-10', NULL, 1608, 2),
+(36, 0, '2021-09-22', NULL, 2254, 2),
+(37, 1, '2022-01-07', '2023-01-01', 2599, 2),
+(38, 0, '2023-06-14', NULL, 1621, 2),
+(39, 1, '2020-12-24', '2021-10-23', 2947, 2),
+(40, 0, '2018-11-07', NULL, 1606, 2),
+(41, 1, '2019-06-28', '2019-08-07', 1776, 2),
+(42, 0, '2019-03-20', NULL, 2160, 2),
+(43, 0, '2021-06-16', NULL, 2087, 2),
+(44, 1, '2022-07-01', '2023-05-09', 1579, 2),
+(45, 0, '2020-07-18', NULL, 1875, 2),
+(46, 0, '2022-11-17', NULL, 2747, 2),
+(47, 1, '2021-07-06', '2022-04-09', 2111, 2),
+(48, 1, '2023-05-15', '2023-09-28', 1856, 2),
+(49, 0, '2020-11-08', NULL, 2155, 2),
+(50, 1, '2018-11-24', '2020-03-06', 2829, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `desechos`
+--
+
+CREATE TABLE `desechos` (
+  `id_desecho` int(11) NOT NULL,
+  `cantidad_desecho` double NOT NULL,
+  `Fecha` datetime NOT NULL,
+  `fk_id_salida` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `desechos`
+--
+
+INSERT INTO `desechos` (`id_desecho`, `cantidad_desecho`, `Fecha`, `fk_id_salida`) VALUES
+(1, 80, '2024-12-29 00:00:00', 1),
+(2, 150, '2024-12-30 00:00:00', 2),
+(3, 120, '2024-12-31 00:00:00', 3),
+(4, 90, '2025-01-01 00:00:00', 4),
+(5, 200, '2025-01-02 00:00:00', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `entradas`
+--
+
+CREATE TABLE `entradas` (
+  `id_entrada` int(11) NOT NULL,
+  `cantidad_en` double NOT NULL,
+  `fecha` date NOT NULL,
+  `fk_id_ruta` int(11) NOT NULL,
+  `fk_id_planta` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `entradas`
+--
+
+INSERT INTO `entradas` (`id_entrada`, `cantidad_en`, `fecha`, `fk_id_ruta`, `fk_id_planta`) VALUES
+(1, 100, '2024-09-08', 10, 1),
+(2, 150, '2024-09-08', 11, 2),
+(3, 200, '2024-09-09', 12, 3),
+(4, 180, '2024-09-09', 13, 4),
+(5, 220, '2024-09-10', 14, 5),
+(6, 190, '2024-09-10', 15, 6),
+(7, 170, '2024-09-11', 10, 7),
+(8, 210, '2024-09-11', 11, 8),
+(9, 160, '2024-09-12', 12, 9),
+(10, 130, '2024-09-12', 13, 10),
+(11, 140, '2024-09-13', 14, 1),
+(12, 180, '2024-09-13', 15, 2),
+(13, 200, '2024-09-14', 10, 3),
+(14, 220, '2024-09-14', 11, 4),
+(15, 240, '2024-09-15', 12, 5),
+(16, 160, '2024-09-15', 13, 6),
+(17, 150, '2024-09-16', 14, 7),
+(18, 175, '2024-09-16', 15, 8),
+(19, 165, '2024-09-17', 10, 9),
+(20, 185, '2024-09-17', 11, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `equipos`
+--
+
+CREATE TABLE `equipos` (
+  `idequipos` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `fecha_instalacion` date NOT NULL,
+  `fk_id_tipo_equipo` int(11) NOT NULL,
+  `fk_id_estado_equipo` int(11) NOT NULL,
+  `fk_id_fab_equipo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `equipos`
+--
+
+INSERT INTO `equipos` (`idequipos`, `nombre`, `fecha_instalacion`, `fk_id_tipo_equipo`, `fk_id_estado_equipo`, `fk_id_fab_equipo`) VALUES
+(1, 'Compactador', '2019-01-01', 1, 1, 1),
+(2, 'Trituradora', '2020-03-15', 2, 1, 2),
+(3, 'Tamizadora', '2021-05-20', 3, 2, 3),
+(4, 'Prensa Hidráulica', '2018-07-10', 4, 1, 4),
+(5, 'Separador Magnético', '2022-01-05', 5, 2, 5),
+(6, 'Compresor', '2020-11-30', 1, 1, 6),
+(7, 'Bioreactor', '2019-09-15', 6, 3, 7),
+(8, 'Camión de Recolección', '2017-04-12', 7, 1, 8),
+(9, 'Cargador Frontal', '2021-02-14', 8, 2, 9),
+(10, 'Generador de Biogás', '2020-06-25', 9, 3, 10),
+(11, 'Fresadora de Lodos', '2018-12-01', 10, 1, 1),
+(12, 'Chipeadora', '2019-10-15', 2, 1, 2),
+(13, 'Contenedor de Residuos', '2021-03-20', 3, 2, 3),
+(14, 'Máquina de Compostaje', '2022-02-01', 6, 1, 4),
+(15, 'Transportador de Banda', '2020-05-10', 5, 3, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_contenedores`
+--
+
+CREATE TABLE `estado_contenedores` (
+  `id_estadocontenedor` int(11) NOT NULL,
+  `descestadocont` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado_contenedores`
+--
+
+INSERT INTO `estado_contenedores` (`id_estadocontenedor`, `descestadocont`) VALUES
+(1, 'Operativo'),
+(2, 'Mantenimiento'),
+(3, 'Fuera de servicio');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_contrato`
+--
+
+CREATE TABLE `estado_contrato` (
+  `id_estado` int(11) NOT NULL,
+  `descripcion_estad` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado_contrato`
+--
+
+INSERT INTO `estado_contrato` (`id_estado`, `descripcion_estad`) VALUES
+(1, 1),
+(2, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_equipo`
+--
+
+CREATE TABLE `estado_equipo` (
+  `id_estado_equipo` int(11) NOT NULL,
+  `descripcion_estado` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado_equipo`
+--
+
+INSERT INTO `estado_equipo` (`id_estado_equipo`, `descripcion_estado`) VALUES
+(1, 'OPERANDO'),
+(2, 'EN MANTENIMIENTO'),
+(3, 'FUERA DE SERVICIO');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_vehiculos`
+--
+
+CREATE TABLE `estado_vehiculos` (
+  `id_estadovehiculo` int(11) NOT NULL,
+  `descvehiculo` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estado_vehiculos`
+--
+
+INSERT INTO `estado_vehiculos` (`id_estadovehiculo`, `descvehiculo`) VALUES
+(1, 'operando'),
+(2, 'mantenimiento'),
+(3, 'fuera de servicio');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `fabricante_equipo`
+--
+
+CREATE TABLE `fabricante_equipo` (
+  `id_fab_equipo` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `fabricante_equipo`
+--
+
+INSERT INTO `fabricante_equipo` (`id_fab_equipo`, `nombre`) VALUES
+(1, 'Komplet'),
+(2, 'Metso Outotec'),
+(3, 'Terex Environmental Equipment'),
+(4, 'Doppstadt'),
+(5, 'Ecoverse'),
+(6, 'SSI Shredding Systems'),
+(7, 'BHS-Sonthofen'),
+(8, 'Komptech'),
+(9, 'Ecohog'),
+(10, 'Ruf Briquetting Systems');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `gravedad_incidente`
+--
+
+CREATE TABLE `gravedad_incidente` (
+  `id_gravedad` int(11) NOT NULL,
+  `descripcion` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `gravedad_incidente`
+--
+
+INSERT INTO `gravedad_incidente` (`id_gravedad`, `descripcion`) VALUES
+(1, 'Leve'),
+(2, 'Grave'),
+(3, 'mortal');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `horarios`
+--
+
+CREATE TABLE `horarios` (
+  `id_horario` int(11) NOT NULL,
+  `horaini` time NOT NULL,
+  `horafin` time NOT NULL,
+  `fechaprogramada` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `horarios`
+--
+
+INSERT INTO `horarios` (`id_horario`, `horaini`, `horafin`, `fechaprogramada`) VALUES
+(1, '06:00:00', '09:00:00', '2024-10-14'),
+(2, '10:00:00', '12:00:00', '2024-10-15'),
+(3, '14:00:00', '16:00:00', '2024-10-16'),
+(4, '17:00:00', '19:00:00', '2024-10-17'),
+(5, '08:00:00', '10:00:00', '2024-10-18');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `incidentes`
+--
+
+CREATE TABLE `incidentes` (
+  `id_incidentes` int(11) NOT NULL,
+  `descripcion_incidente` varchar(250) NOT NULL,
+  `fk_id_colaborador` int(11) NOT NULL,
+  `fk_id_gravedad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `incidentes`
+--
+
+INSERT INTO `incidentes` (`id_incidentes`, `descripcion_incidente`, `fk_id_colaborador`, `fk_id_gravedad`) VALUES
+(1, 'cortadura leve de vidrio en el antebrazo', 1, 1),
+(2, 'golpe grave en la cabeza por caída de objeto', 2, 2),
+(3, 'quemadura leve en la mano', 3, 1),
+(4, 'fractura mortal de tobillo por resbalón', 4, 3),
+(5, 'esguince grave en el brazo por mal levantamiento de peso', 5, 2),
+(6, 'intoxicación leve por inhalación de productos químicos', 6, 1),
+(7, 'lesión mortal en la espalda por caída', 7, 3),
+(8, 'electrocución grave en la mano', 8, 2),
+(9, 'herida mortal por herramienta afilada', 9, 3),
+(10, 'quemadura grave de segundo grado en la pierna', 10, 2),
+(11, 'corte leve en el dedo por mal uso de herramientas', 11, 1),
+(12, 'caída mortal desde una escalera', 12, 3),
+(13, 'golpe grave en el hombro por caída de objeto', 13, 2),
+(14, 'lesión leve en la rodilla por tropiezo', 14, 1),
+(15, 'fractura mortal en la muñeca por caída', 15, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `marcas`
+--
+
+CREATE TABLE `marcas` (
+  `id_marca` int(11) NOT NULL,
+  `descmarca` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `marcas`
+--
+
+INSERT INTO `marcas` (`id_marca`, `descmarca`) VALUES
+(1, 'Volvo'),
+(2, 'Scania'),
+(3, 'Mercedes-Benz'),
+(4, 'MAN'),
+(5, 'Mack'),
+(6, 'Freightliner'),
+(7, 'Peterbilt'),
+(8, 'International'),
+(9, 'Iveco'),
+(10, 'Kenworth'),
+(13, 'prueba');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `medidas`
+--
+
+CREATE TABLE `medidas` (
+  `id_medida` int(11) NOT NULL,
+  `descmedida` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `medidas`
+--
+
+INSERT INTO `medidas` (`id_medida`, `descmedida`) VALUES
+(1, 'Kilogramos'),
+(2, 'Toneladas');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `modelos`
+--
+
+CREATE TABLE `modelos` (
+  `id_modelo` int(11) NOT NULL,
+  `descmodelo` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `modelos`
+--
+
+INSERT INTO `modelos` (`id_modelo`, `descmodelo`) VALUES
+(1, 'Volvo FE'),
+(2, 'Volvo FL'),
+(3, 'Scania P-Series'),
+(4, 'Mercedes-Benz Econic'),
+(5, 'MAN TGM'),
+(6, 'Mack LR'),
+(7, 'Freightliner M2 106'),
+(8, 'Peterbilt 520'),
+(9, 'International HV Series'),
+(10, 'Iveco Eurocargo'),
+(11, 'Kenworth T370'),
+(12, 'Dennis Eagle Elite 6'),
+(13, 'Hino 500 Series'),
+(14, 'Isuzu F-Series'),
+(15, 'Autocar ACX Xpeditor');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `personas`
+--
+
+CREATE TABLE `personas` (
+  `id_persona` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `primer_apellido` varchar(50) NOT NULL,
+  `segundo_apellido` varchar(50) NOT NULL,
+  `telefono` varchar(12) NOT NULL,
+  `DNI_Persona` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `personas`
+--
+
+INSERT INTO `personas` (`id_persona`, `nombre`, `primer_apellido`, `segundo_apellido`, `telefono`, `DNI_Persona`) VALUES
+(1, 'brandon', 'bernardo', 'mendez', '948777660', 0),
+(2, 'ana', 'gomez', 'lopez', '948777661', 0),
+(3, 'luis', 'martinez', 'reyes', '948777662', 0),
+(4, 'camila', 'ramirez', 'santos', '948777663', 0),
+(5, 'david', 'rodriguez', 'fernandez', '948777664', 0),
+(6, 'julia', 'gonzalez', 'vargas', '948777665', 0),
+(7, 'carlos', 'torres', 'mora', '948777666', 0),
+(8, 'mariana', 'sanchez', 'fuentes', '948777667', 0),
+(9, 'jorge', 'moreno', 'rios', '948777668', 0),
+(10, 'patricia', 'flores', 'martinez', '948777669', 0),
+(11, 'esteban', 'duran', 'aguilar', '948777670', 0),
+(12, 'sofia', 'delgado', 'ramos', '948777671', 0),
+(13, 'fernando', 'vega', 'perez', '948777672', 0),
+(14, 'paula', 'jimenez', 'carvajal', '948777673', 0),
+(15, 'ricardo', 'calderon', 'luna', '948777674', 0),
+(16, 'isabel', 'reyes', 'suarez', '948777675', 0),
+(17, 'daniel', 'rivas', 'marquez', '948777676', 0),
+(18, 'valeria', 'correa', 'salas', '948777677', 0),
+(19, 'manuel', 'arias', 'vera', '948777678', 0),
+(20, 'andrea', 'cuevas', 'guzman', '948777679', 0),
+(21, 'alex', 'muñoz', 'herrera', '948777680', 0),
+(22, 'karla', 'paz', 'campos', '948777681', 0),
+(23, 'pablo', 'blanco', 'naranjo', '948777682', 0),
+(24, 'alicia', 'acosta', 'quiroz', '948777683', 0),
+(25, 'victor', 'mendez', 'figueroa', '948777684', 0),
+(26, 'soledad', 'medina', 'salazar', '948777685', 0),
+(27, 'javier', 'villalobos', 'gomez', '948777686', 0),
+(28, 'liliana', 'paredes', 'avila', '948777687', 0),
+(29, 'sergio', 'garrido', 'palma', '948777688', 0),
+(30, 'alejandra', 'araya', 'uribe', '948777689', 0),
+(31, 'hector', 'bustos', 'pineda', '948777690', 0),
+(32, 'fernanda', 'valencia', 'castillo', '948777691', 0),
+(33, 'oscar', 'marin', 'tapia', '948777692', 0),
+(34, 'valentina', 'avila', 'rosales', '948777693', 0),
+(35, 'lucas', 'ruiz', 'vera', '948777694', 0),
+(36, 'veronica', 'ortega', 'alvarado', '948777695', 0),
+(37, 'hugo', 'guerrero', 'espinoza', '948777696', 0),
+(38, 'natalia', 'arce', 'cabrera', '948777697', 0),
+(39, 'gabriel', 'molina', 'rios', '948777698', 0),
+(40, 'adriana', 'reyna', 'muñoz', '948777699', 0),
+(41, 'jose', 'perez', 'garcia', '948123456', 0),
+(42, 'maria', 'lopez', 'sanchez', '947987654', 0),
+(43, 'carlos', 'martinez', 'rodriguez', '946852741', 0),
+(44, 'ana', 'fernandez', 'diaz', '944963852', 0),
+(45, 'luis', 'gonzalez', 'morales', '947159357', 0),
+(46, 'claudia', 'torres', 'ramirez', '949852456', 0),
+(47, 'andres', 'vargas', 'castillo', '945896321', 0),
+(48, 'sofia', 'mendoza', 'ortega', '944753951', 0),
+(49, 'jorge', 'navarro', 'rivas', '946325874', 0),
+(50, 'valeria', 'rios', 'martinez', '947852963', 0),
+(51, 'pedro', 'ramirez', 'soto', '948159357', 0),
+(52, 'camila', 'cruz', 'gomez', '944785321', 0),
+(53, 'diego', 'salazar', 'huaman', '947596325', 0),
+(54, 'natalia', 'carvajal', 'palacios', '944369852', 0),
+(55, 'sergio', 'reyes', 'alvarez', '946528741', 0),
+(56, 'liliana', 'valdez', 'quintana', '944896325', 0),
+(57, 'hugo', 'ortega', 'galvez', '948523951', 0),
+(58, 'flor', 'vega', 'cuellar', '945789632', 0),
+(59, 'alberto', 'luna', 'guillen', '949632147', 0),
+(60, 'paola', 'mejia', 'espinoza', '944852963', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `plantas`
+--
+
+CREATE TABLE `plantas` (
+  `id_planta` int(11) NOT NULL,
+  `nombre_plant` varchar(100) NOT NULL,
+  `capacidad_planta` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `plantas`
+--
+
+INSERT INTO `plantas` (`id_planta`, `nombre_plant`, `capacidad_planta`) VALUES
+(1, 'Planta de Tratamiento de Congor', 150),
+(2, 'Planta de Reciclaje EcoVerde', 300),
+(3, 'Complejo Ambiental Tierra Limpia', 500),
+(4, 'Centro de Gestión de Residuos Verdes', 200),
+(5, 'Planta de Compostaje Orgánico VerdeHuerto', 100),
+(6, 'Planta de Tratamiento Ecológico EcoAmigo', 400),
+(7, 'Estación de Transferencia VerdeVida', 250),
+(8, 'Planta de Valorización de Residuos BioCycle', 350),
+(9, 'Planta de Recuperación de Recursos Naturales', 450),
+(10, 'Planta de Energía a partir de Residuos Verdes', 600);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `plantas_has_equipos`
+--
+
+CREATE TABLE `plantas_has_equipos` (
+  `id_planta_equipo` int(11) NOT NULL,
+  `fk_id_planta` int(11) NOT NULL,
+  `fk_idequipos` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `plantas_has_equipos`
+--
+
+INSERT INTO `plantas_has_equipos` (`id_planta_equipo`, `fk_id_planta`, `fk_idequipos`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5),
+(6, 2, 1),
+(7, 2, 2),
+(8, 2, 3),
+(9, 2, 4),
+(10, 2, 5),
+(11, 3, 1),
+(12, 3, 2),
+(13, 3, 3),
+(14, 3, 4),
+(15, 3, 5),
+(16, 4, 1),
+(17, 4, 2),
+(18, 4, 3),
+(19, 4, 4),
+(20, 4, 5),
+(21, 5, 1),
+(22, 5, 2),
+(23, 5, 3),
+(24, 5, 4),
+(25, 5, 5),
+(26, 6, 1),
+(27, 6, 2),
+(28, 6, 3),
+(29, 6, 4),
+(30, 6, 5),
+(31, 7, 1),
+(32, 7, 2),
+(33, 7, 3),
+(34, 7, 4),
+(35, 7, 5),
+(36, 8, 1),
+(37, 8, 2),
+(38, 8, 3),
+(39, 8, 4),
+(40, 8, 5),
+(41, 9, 1),
+(42, 9, 2),
+(43, 9, 3),
+(44, 9, 4),
+(45, 9, 5),
+(46, 10, 1),
+(47, 10, 2),
+(48, 10, 3),
+(49, 10, 4),
+(50, 10, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `prediccion_llenado`
+--
+
+CREATE TABLE `prediccion_llenado` (
+  `id_predllenado` int(11) NOT NULL,
+  `fecha_predi` date NOT NULL,
+  `nivel_llenado` varchar(50) NOT NULL,
+  `fk_idcontenedor` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `prediccion_llenado`
+--
+
+INSERT INTO `prediccion_llenado` (`id_predllenado`, `fecha_predi`, `nivel_llenado`, `fk_idcontenedor`) VALUES
+(1, '2024-08-21', '80%', 1),
+(2, '2024-08-21', '100%', 2),
+(3, '2024-08-21', '60%', 3),
+(4, '2024-08-21', '75%', 4),
+(5, '2024-08-21', '85%', 5),
+(6, '2024-08-22', '90%', 6),
+(7, '2024-08-22', '70%', 7),
+(8, '2024-08-22', '50%', 8),
+(9, '2024-08-22', '95%', 9),
+(10, '2024-08-22', '65%', 10),
+(11, '2024-08-23', '55%', 11),
+(12, '2024-08-23', '80%', 12),
+(13, '2024-08-23', '100%', 13),
+(14, '2024-08-23', '60%', 14),
+(15, '2024-08-23', '75%', 15),
+(16, '2024-08-24', '85%', 16),
+(17, '2024-08-24', '90%', 17),
+(18, '2024-08-24', '70%', 18),
+(19, '2024-08-24', '50%', 19),
+(20, '2024-08-24', '95%', 20),
+(21, '2024-08-25', '65%', 21),
+(22, '2024-08-25', '55%', 22),
+(23, '2024-08-25', '80%', 23),
+(24, '2024-08-25', '100%', 24),
+(25, '2024-08-25', '60%', 25),
+(26, '2024-08-26', '75%', 26),
+(27, '2024-08-26', '85%', 27),
+(28, '2024-08-26', '90%', 28),
+(29, '2024-08-26', '70%', 29),
+(30, '2024-08-26', '50%', 30),
+(31, '2024-08-27', '95%', 31),
+(32, '2024-08-27', '65%', 32),
+(33, '2024-08-27', '55%', 33),
+(34, '2024-08-27', '80%', 34),
+(35, '2024-08-27', '100%', 35),
+(36, '2024-08-28', '60%', 36),
+(37, '2024-08-28', '75%', 37),
+(38, '2024-08-28', '85%', 38),
+(39, '2024-08-28', '90%', 39),
+(40, '2024-08-28', '70%', 40),
+(41, '2024-08-29', '50%', 41),
+(42, '2024-08-29', '95%', 42),
+(43, '2024-08-29', '65%', 43),
+(44, '2024-08-29', '55%', 44),
+(45, '2024-08-29', '80%', 45),
+(46, '2024-08-30', '100%', 46),
+(47, '2024-08-30', '60%', 47),
+(48, '2024-08-30', '75%', 48),
+(49, '2024-08-30', '85%', 49);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `productos`
+--
+
+CREATE TABLE `productos` (
+  `id_productos` int(11) NOT NULL,
+  `nom_prod` varchar(150) NOT NULL,
+  `FechaSal` datetime NOT NULL,
+  `cantidad_prod` double NOT NULL,
+  `categoria_prod` varchar(50) NOT NULL,
+  `fk_id_salida` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id_productos`, `nom_prod`, `FechaSal`, `cantidad_prod`, `categoria_prod`, `fk_id_salida`) VALUES
+(1, 'botellas', '2024-08-08 00:00:00', 150, 'plásticos', 1),
+(2, 'tapones', '2024-08-09 00:00:00', 200, 'plásticos', 1),
+(3, 'cajas de cartón', '2024-08-10 00:00:00', 100, 'papel', 2),
+(4, 'botellas de vidrio', '2024-08-11 00:00:00', 80, 'vidrio', 2),
+(5, 'latas de aluminio', '2024-08-12 00:00:00', 250, 'metales', 3),
+(6, 'juguetes reciclados', '2024-08-13 00:00:00', 300, 'plásticos', 3),
+(7, 'papel reciclado', '2024-08-14 00:00:00', 400, 'papel', 4),
+(8, 'residuos electrónicos', '2024-08-15 00:00:00', 50, 'electrónicos', 4),
+(9, 'tubos de cartón', '2024-08-16 00:00:00', 150, 'papel', 5),
+(10, 'botellas PET', '2024-08-17 00:00:00', 180, 'plásticos', 5),
+(11, 'latas de acero', '2024-08-18 00:00:00', 220, 'metales', 6),
+(12, 'envases de plástico', '2024-08-19 00:00:00', 130, 'plásticos', 6),
+(13, 'residuos de papel', '2024-08-20 00:00:00', 160, 'papel', 7),
+(14, 'botellas de PET recicladas', '2024-08-21 00:00:00', 140, 'plásticos', 7),
+(15, 'cartones de leche', '2024-08-22 00:00:00', 90, 'papel', 8),
+(16, 'plásticos duros', '2024-08-23 00:00:00', 200, 'plásticos', 8),
+(17, 'botellas de vidrio recicladas', '2024-08-24 00:00:00', 75, 'vidrio', 9),
+(18, 'tetrabrik', '2024-08-25 00:00:00', 120, 'papel', 9),
+(19, 'embalajes de cartón', '2024-08-26 00:00:00', 170, 'papel', 10),
+(20, 'plásticos biodegradables', '2024-08-27 00:00:00', 110, 'plásticos', 10),
+(21, 'residuos textiles', '2024-08-28 00:00:00', 130, 'textiles', 1),
+(22, 'juguetes de plástico', '2024-08-29 00:00:00', 90, 'plásticos', 1),
+(23, 'envases de vidrio', '2024-08-30 00:00:00', 150, 'vidrio', 2),
+(24, 'residuos de metal', '2024-08-31 00:00:00', 200, 'metales', 2),
+(25, 'papel de embalaje', '2024-09-01 00:00:00', 300, 'papel', 3),
+(26, 'plásticos blandos', '2024-09-02 00:00:00', 175, 'plásticos', 3),
+(27, 'residuos de alimentos', '2024-09-03 00:00:00', 80, 'orgánicos', 4),
+(28, 'botellas de agua', '2024-09-04 00:00:00', 220, 'plásticos', 4),
+(29, 'cajas de plástico', '2024-09-05 00:00:00', 160, 'plásticos', 5),
+(30, 'tubos de plástico', '2024-09-06 00:00:00', 130, 'plásticos', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `prueba`
+--
+
+CREATE TABLE `prueba` (
+  `id` int(11) NOT NULL,
+  `valores` varchar(150) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `puntos_criticos`
+--
+
+CREATE TABLE `puntos_criticos` (
+  `id_puntocritico` int(11) NOT NULL,
+  `ubicacionpc` varchar(100) NOT NULL,
+  `fecharegistro` date NOT NULL,
+  `fk_idcolaborador` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `puntos_criticos`
+--
+
+INSERT INTO `puntos_criticos` (`id_puntocritico`, `ubicacionpc`, `fecharegistro`, `fk_idcolaborador`) VALUES
+(1, 'Libertadores', '2024-11-11', 1),
+(2, 'Los Olivos', '2024-11-12', 2),
+(3, 'San Martín', '2024-11-13', 3),
+(4, 'Plaza Mayor', '2024-11-14', 1),
+(5, 'Santa Rosa', '2024-11-15', 4),
+(6, 'El Mirador', '2024-11-16', 5),
+(7, 'Parque Central', '2024-11-17', 6),
+(8, 'Callejón del Sol', '2024-11-18', 7),
+(9, '21 de Abril', '2024-11-19', 8),
+(10, 'Del Río', '2024-11-20', 9),
+(11, 'La Paz', '2024-11-21', 10),
+(12, 'Los Jardines', '2024-11-22', 1),
+(13, 'San Isidro', '2024-11-23', 2),
+(14, 'José Carlos Mariátegui', '2024-11-24', 3),
+(15, 'Calle de la Esperanza', '2024-11-25', 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `recuperacion`
+--
+
+CREATE TABLE `recuperacion` (
+  `id_recuperacion` int(11) NOT NULL,
+  `fecha_inicio_rec` date NOT NULL,
+  `fecha_final` date NOT NULL,
+  `fk_id_incidente` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `recuperacion`
+--
+
+INSERT INTO `recuperacion` (`id_recuperacion`, `fecha_inicio_rec`, `fecha_final`, `fk_id_incidente`) VALUES
+(1, '2020-04-05', '2020-05-06', 1),
+(2, '2020-02-10', '2020-03-15', 2),
+(3, '2020-07-01', '2020-08-01', 3),
+(4, '2020-01-05', '2020-02-05', 1),
+(5, '2020-03-12', '2020-04-10', 2),
+(6, '2020-05-07', '2020-06-07', 3),
+(7, '2020-09-10', '2020-10-10', 1),
+(8, '2020-04-20', '2020-05-20', 2),
+(9, '2020-06-15', '2020-07-15', 3),
+(10, '2020-03-01', '2020-04-01', 1),
+(11, '2020-05-18', '2020-06-18', 2),
+(12, '2020-07-20', '2020-08-20', 3),
+(13, '2020-01-25', '2020-02-25', 1),
+(14, '2020-09-10', '2020-10-09', 2),
+(15, '2020-06-05', '2020-07-05', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `reg_estados`
+--
+
+CREATE TABLE `reg_estados` (
+  `r_estado` varchar(145) NOT NULL,
+  `r_accion` varchar(150) NOT NULL,
+  `r_fecha` datetime NOT NULL,
+  `r_usuario` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `reg_estados`
+--
+
+INSERT INTO `reg_estados` (`r_estado`, `r_accion`, `r_fecha`, `r_usuario`) VALUES
+('Insertado: ID 1, Nombre: brandon, Apellido: bernardo mendez, Teléfono: 948777660', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 2, Nombre: ana, Apellido: gomez lopez, Teléfono: 948777661', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 3, Nombre: luis, Apellido: martinez reyes, Teléfono: 948777662', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 4, Nombre: camila, Apellido: ramirez santos, Teléfono: 948777663', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 5, Nombre: david, Apellido: rodriguez fernandez, Teléfono: 948777664', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 6, Nombre: julia, Apellido: gonzalez vargas, Teléfono: 948777665', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 7, Nombre: carlos, Apellido: torres mora, Teléfono: 948777666', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 8, Nombre: mariana, Apellido: sanchez fuentes, Teléfono: 948777667', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 9, Nombre: jorge, Apellido: moreno rios, Teléfono: 948777668', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 10, Nombre: patricia, Apellido: flores martinez, Teléfono: 948777669', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 11, Nombre: esteban, Apellido: duran aguilar, Teléfono: 948777670', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 12, Nombre: sofia, Apellido: delgado ramos, Teléfono: 948777671', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 13, Nombre: fernando, Apellido: vega perez, Teléfono: 948777672', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 14, Nombre: paula, Apellido: jimenez carvajal, Teléfono: 948777673', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 15, Nombre: ricardo, Apellido: calderon luna, Teléfono: 948777674', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 16, Nombre: isabel, Apellido: reyes suarez, Teléfono: 948777675', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 17, Nombre: daniel, Apellido: rivas marquez, Teléfono: 948777676', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 18, Nombre: valeria, Apellido: correa salas, Teléfono: 948777677', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 19, Nombre: manuel, Apellido: arias vera, Teléfono: 948777678', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 20, Nombre: andrea, Apellido: cuevas guzman, Teléfono: 948777679', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 21, Nombre: alex, Apellido: muñoz herrera, Teléfono: 948777680', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 22, Nombre: karla, Apellido: paz campos, Teléfono: 948777681', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 23, Nombre: pablo, Apellido: blanco naranjo, Teléfono: 948777682', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 24, Nombre: alicia, Apellido: acosta quiroz, Teléfono: 948777683', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 25, Nombre: victor, Apellido: mendez figueroa, Teléfono: 948777684', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 26, Nombre: soledad, Apellido: medina salazar, Teléfono: 948777685', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 27, Nombre: javier, Apellido: villalobos gomez, Teléfono: 948777686', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 28, Nombre: liliana, Apellido: paredes avila, Teléfono: 948777687', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 29, Nombre: sergio, Apellido: garrido palma, Teléfono: 948777688', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 30, Nombre: alejandra, Apellido: araya uribe, Teléfono: 948777689', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 31, Nombre: hector, Apellido: bustos pineda, Teléfono: 948777690', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 32, Nombre: fernanda, Apellido: valencia castillo, Teléfono: 948777691', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 33, Nombre: oscar, Apellido: marin tapia, Teléfono: 948777692', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 34, Nombre: valentina, Apellido: avila rosales, Teléfono: 948777693', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 35, Nombre: lucas, Apellido: ruiz vera, Teléfono: 948777694', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 36, Nombre: veronica, Apellido: ortega alvarado, Teléfono: 948777695', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 37, Nombre: hugo, Apellido: guerrero espinoza, Teléfono: 948777696', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 38, Nombre: natalia, Apellido: arce cabrera, Teléfono: 948777697', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 39, Nombre: gabriel, Apellido: molina rios, Teléfono: 948777698', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 40, Nombre: adriana, Apellido: reyna muñoz, Teléfono: 948777699', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 41, Nombre: jose, Apellido: perez garcia, Teléfono: 948123456', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 42, Nombre: maria, Apellido: lopez sanchez, Teléfono: 947987654', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 43, Nombre: carlos, Apellido: martinez rodriguez, Teléfono: 946852741', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 44, Nombre: ana, Apellido: fernandez diaz, Teléfono: 944963852', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 45, Nombre: luis, Apellido: gonzalez morales, Teléfono: 947159357', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 46, Nombre: claudia, Apellido: torres ramirez, Teléfono: 949852456', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 47, Nombre: andres, Apellido: vargas castillo, Teléfono: 945896321', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 48, Nombre: sofia, Apellido: mendoza ortega, Teléfono: 944753951', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 49, Nombre: jorge, Apellido: navarro rivas, Teléfono: 946325874', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 50, Nombre: valeria, Apellido: rios martinez, Teléfono: 947852963', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 51, Nombre: pedro, Apellido: ramirez soto, Teléfono: 948159357', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 52, Nombre: camila, Apellido: cruz gomez, Teléfono: 944785321', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 53, Nombre: diego, Apellido: salazar huaman, Teléfono: 947596325', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 54, Nombre: natalia, Apellido: carvajal palacios, Teléfono: 944369852', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 55, Nombre: sergio, Apellido: reyes alvarez, Teléfono: 946528741', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 56, Nombre: liliana, Apellido: valdez quintana, Teléfono: 944896325', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 57, Nombre: hugo, Apellido: ortega galvez, Teléfono: 948523951', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 58, Nombre: flor, Apellido: vega cuellar, Teléfono: 945789632', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 59, Nombre: alberto, Apellido: luna guillen, Teléfono: 949632147', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 60, Nombre: paola, Apellido: mejia espinoza, Teléfono: 944852963', 'AFTER INSERT', '2024-10-21 22:33:55', 'cliente1@localhost'),
+('Insertado: ID 1, Descripción: 0, Fecha Inicio: 2022-07-05, Sueldo: 2644, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 2, Descripción: 0, Fecha Inicio: 2018-09-01, Sueldo: 1689, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 3, Descripción: 0, Fecha Inicio: 2020-11-04, Sueldo: 2020, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 4, Descripción: 1, Fecha Inicio: 2021-06-08, Sueldo: 2953, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 5, Descripción: 1, Fecha Inicio: 2018-08-05, Sueldo: 2215, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 6, Descripción: 1, Fecha Inicio: 2020-06-18, Sueldo: 1599, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 7, Descripción: 0, Fecha Inicio: 2022-04-18, Sueldo: 2830, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 8, Descripción: 1, Fecha Inicio: 2021-05-19, Sueldo: 1879, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 9, Descripción: 1, Fecha Inicio: 2020-08-21, Sueldo: 1517, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 10, Descripción: 1, Fecha Inicio: 2021-07-11, Sueldo: 2984, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 11, Descripción: 0, Fecha Inicio: 2021-12-21, Sueldo: 1804, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 12, Descripción: 0, Fecha Inicio: 2020-06-26, Sueldo: 2216, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 13, Descripción: 1, Fecha Inicio: 2023-07-01, Sueldo: 2985, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 14, Descripción: 1, Fecha Inicio: 2020-12-21, Sueldo: 1786, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 15, Descripción: 1, Fecha Inicio: 2022-04-08, Sueldo: 1846, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 16, Descripción: 0, Fecha Inicio: 2022-08-13, Sueldo: 2132, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 17, Descripción: 0, Fecha Inicio: 2021-10-24, Sueldo: 1566, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 18, Descripción: 0, Fecha Inicio: 2018-04-21, Sueldo: 1581, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 19, Descripción: 1, Fecha Inicio: 2023-09-21, Sueldo: 1718, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 20, Descripción: 0, Fecha Inicio: 2022-10-30, Sueldo: 1955, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 21, Descripción: 0, Fecha Inicio: 2019-04-02, Sueldo: 1598, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 22, Descripción: 1, Fecha Inicio: 2019-07-01, Sueldo: 1557, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 23, Descripción: 0, Fecha Inicio: 2023-06-09, Sueldo: 2416, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 24, Descripción: 1, Fecha Inicio: 2018-03-13, Sueldo: 1587, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 25, Descripción: 0, Fecha Inicio: 2023-01-18, Sueldo: 1970, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 26, Descripción: 0, Fecha Inicio: 2022-07-30, Sueldo: 1609, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 27, Descripción: 1, Fecha Inicio: 2018-07-21, Sueldo: 2821, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 28, Descripción: 1, Fecha Inicio: 2018-12-19, Sueldo: 1622, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 29, Descripción: 1, Fecha Inicio: 2022-02-16, Sueldo: 1921, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 30, Descripción: 1, Fecha Inicio: 2022-08-10, Sueldo: 2729, ID Estado: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 31, Descripción: 1, Fecha Inicio: 2018-02-17, Sueldo: 2455, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 32, Descripción: 1, Fecha Inicio: 2022-03-19, Sueldo: 2822, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 33, Descripción: 1, Fecha Inicio: 2020-02-15, Sueldo: 2223, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 34, Descripción: 0, Fecha Inicio: 2022-08-07, Sueldo: 2962, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 35, Descripción: 0, Fecha Inicio: 2020-05-10, Sueldo: 1608, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 36, Descripción: 0, Fecha Inicio: 2021-09-22, Sueldo: 2254, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 37, Descripción: 1, Fecha Inicio: 2022-01-07, Sueldo: 2599, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 38, Descripción: 0, Fecha Inicio: 2023-06-14, Sueldo: 1621, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 39, Descripción: 1, Fecha Inicio: 2020-12-24, Sueldo: 2947, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 40, Descripción: 0, Fecha Inicio: 2018-11-07, Sueldo: 1606, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 41, Descripción: 1, Fecha Inicio: 2019-06-28, Sueldo: 1776, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 42, Descripción: 0, Fecha Inicio: 2019-03-20, Sueldo: 2160, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 43, Descripción: 0, Fecha Inicio: 2021-06-16, Sueldo: 2087, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 44, Descripción: 1, Fecha Inicio: 2022-07-01, Sueldo: 1579, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 45, Descripción: 0, Fecha Inicio: 2020-07-18, Sueldo: 1875, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 46, Descripción: 0, Fecha Inicio: 2022-11-17, Sueldo: 2747, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 47, Descripción: 1, Fecha Inicio: 2021-07-06, Sueldo: 2111, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 48, Descripción: 1, Fecha Inicio: 2023-05-15, Sueldo: 1856, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 49, Descripción: 0, Fecha Inicio: 2020-11-08, Sueldo: 2155, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 50, Descripción: 1, Fecha Inicio: 2018-11-24, Sueldo: 2829, ID Estado: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 1, ID Persona: 1, ID Cargo: 1, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 2, ID Persona: 2, ID Cargo: 2, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 3, ID Persona: 3, ID Cargo: 3, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 4, ID Persona: 4, ID Cargo: 4, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 5, ID Persona: 5, ID Cargo: 5, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 6, ID Persona: 6, ID Cargo: 6, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 7, ID Persona: 7, ID Cargo: 7, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 8, ID Persona: 8, ID Cargo: 8, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 9, ID Persona: 9, ID Cargo: 9, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 10, ID Persona: 10, ID Cargo: 10, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 11, ID Persona: 11, ID Cargo: 11, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 12, ID Persona: 12, ID Cargo: 12, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 13, ID Persona: 13, ID Cargo: 13, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 14, ID Persona: 14, ID Cargo: 14, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 15, ID Persona: 15, ID Cargo: 15, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 16, ID Persona: 16, ID Cargo: 16, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 17, ID Persona: 17, ID Cargo: 17, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 18, ID Persona: 18, ID Cargo: 18, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 19, ID Persona: 19, ID Cargo: 19, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 20, ID Persona: 20, ID Cargo: 20, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 21, ID Persona: 21, ID Cargo: 21, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 22, ID Persona: 22, ID Cargo: 22, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 23, ID Persona: 23, ID Cargo: 23, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 24, ID Persona: 24, ID Cargo: 24, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 25, ID Persona: 25, ID Cargo: 25, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 26, ID Persona: 26, ID Cargo: 26, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 27, ID Persona: 27, ID Cargo: 27, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 28, ID Persona: 28, ID Cargo: 28, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 29, ID Persona: 29, ID Cargo: 29, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 30, ID Persona: 30, ID Cargo: 30, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 31, ID Persona: 31, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 32, ID Persona: 32, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 33, ID Persona: 33, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 34, ID Persona: 34, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 35, ID Persona: 35, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 36, ID Persona: 36, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 37, ID Persona: 37, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 38, ID Persona: 38, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 39, ID Persona: 39, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 40, ID Persona: 40, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 41, ID Persona: 41, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 42, ID Persona: 42, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 43, ID Persona: 43, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 44, ID Persona: 44, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 45, ID Persona: 45, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 46, ID Persona: 46, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 47, ID Persona: 47, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 48, ID Persona: 48, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 49, ID Persona: 49, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 50, ID Persona: 50, ID Cargo: 31, ID Contrato: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 1, Placa: ABC-456, Yardas Cúbicas: 19, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 2, Placa: DEF-789, Yardas Cúbicas: 20, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 3, Placa: GHI-012, Yardas Cúbicas: 21, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 4, Placa: JKL-345, Yardas Cúbicas: 22, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 5, Placa: MNO-678, Yardas Cúbicas: 23, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 6, Placa: PQR-901, Yardas Cúbicas: 19, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 7, Placa: STU-234, Yardas Cúbicas: 20, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 8, Placa: VWX-567, Yardas Cúbicas: 21, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 9, Placa: YZA-890, Yardas Cúbicas: 22, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 10, Placa: BCD-123, Yardas Cúbicas: 23, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 11, Placa: EFG-456, Yardas Cúbicas: 19, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 12, Placa: HIJ-789, Yardas Cúbicas: 20, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 13, Placa: KLM-012, Yardas Cúbicas: 21, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 14, Placa: NOP-345, Yardas Cúbicas: 22, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 15, Placa: QRS-678, Yardas Cúbicas: 23, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 16, Placa: TUV-901, Yardas Cúbicas: 19, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 17, Placa: WXY-234, Yardas Cúbicas: 20, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 18, Placa: ZAB-567, Yardas Cúbicas: 21, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 19, Placa: CDE-890, Yardas Cúbicas: 22, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 20, Placa: FGH-123, Yardas Cúbicas: 23, ID Colaborador: 31', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 1, Ubicación: Libertadores, Fecha Registro: 2024-11-11, ID Colaborador: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 2, Ubicación: Los Olivos, Fecha Registro: 2024-11-12, ID Colaborador: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 3, Ubicación: San Martín, Fecha Registro: 2024-11-13, ID Colaborador: 3', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 4, Ubicación: Plaza Mayor, Fecha Registro: 2024-11-14, ID Colaborador: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 5, Ubicación: Santa Rosa, Fecha Registro: 2024-11-15, ID Colaborador: 4', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 6, Ubicación: El Mirador, Fecha Registro: 2024-11-16, ID Colaborador: 5', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 7, Ubicación: Parque Central, Fecha Registro: 2024-11-17, ID Colaborador: 6', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 8, Ubicación: Callejón del Sol, Fecha Registro: 2024-11-18, ID Colaborador: 7', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 9, Ubicación: 21 de Abril, Fecha Registro: 2024-11-19, ID Colaborador: 8', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 10, Ubicación: Del Río, Fecha Registro: 2024-11-20, ID Colaborador: 9', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 11, Ubicación: La Paz, Fecha Registro: 2024-11-21, ID Colaborador: 10', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 12, Ubicación: Los Jardines, Fecha Registro: 2024-11-22, ID Colaborador: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 13, Ubicación: San Isidro, Fecha Registro: 2024-11-23, ID Colaborador: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 14, Ubicación: José Carlos Mariátegui, Fecha Registro: 2024-11-24, ID Colaborador: 3', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 15, Ubicación: Calle de la Esperanza, Fecha Registro: 2024-11-25, ID Colaborador: 4', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 1, Nombre: Plásticos', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 2, Nombre: Papeles', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 3, Nombre: Metales', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 4, Nombre: Vidrios', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 5, Nombre: Orgánicos', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 6, Nombre: Electrónicos', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 7, Nombre: Ropa y Textiles', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 8, Nombre: Residuos Peligrosos', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 9, Nombre: Construcción y Demolición', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 10, Nombre: Aceites y Grasas', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 1, Hora Inicio: 06:00:00, Hora Fin: 09:00:00, Fecha Programada: 2024-10-14', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 2, Hora Inicio: 10:00:00, Hora Fin: 12:00:00, Fecha Programada: 2024-10-15', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 3, Hora Inicio: 14:00:00, Hora Fin: 16:00:00, Fecha Programada: 2024-10-16', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 4, Hora Inicio: 17:00:00, Hora Fin: 19:00:00, Fecha Programada: 2024-10-17', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 5, Hora Inicio: 08:00:00, Hora Fin: 10:00:00, Fecha Programada: 2024-10-18', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 1, Descripción: Barrio La Esperanza, Sector Santa María y Urbanización Jardines', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 2, Descripción: Calle Futura y Avenida Primavera', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 3, Descripción: Barrio Nuevo y Plaza Central', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 4, Descripción: Barrio La Esperanza y Calle Soledad', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 5, Descripción: Parque Municipal, Jardines del Sol y Villa del Río', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 6, Descripción: Barrio Esperanza y Calle Soledad', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 7, Descripción: Sector La Paz y Avenida de la Amistad', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 8, Descripción: Jardines del Sol y Villa del Río', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 9, Descripción: Plaza de la Ciudad y Sector La Paz', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 10, Descripción: Terminal de Transporte y Barrios Altos', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 11, Descripción: Centro de Control y Sector La Paz', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 12, Descripción: Plaza de los Héroes y Urbanización Santa Clara', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 13, Descripción: Depósito Municipal y Los Olivos', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 14, Descripción: Plaza de la Ciudad y Sector Norte', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 15, Descripción: Depósito de Residuos y Urbanización Santa Clara', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 1, ID Horario: 1, ID Ruta: 1, ID Vehículo: 1', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 2, ID Horario: 2, ID Ruta: 2, ID Vehículo: 5', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 3, ID Horario: 3, ID Ruta: 3, ID Vehículo: 10', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 4, ID Horario: 4, ID Ruta: 4, ID Vehículo: 15', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 5, ID Horario: 5, ID Ruta: 5, ID Vehículo: 20', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 6, ID Horario: 1, ID Ruta: 6, ID Vehículo: 2', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 7, ID Horario: 2, ID Ruta: 7, ID Vehículo: 3', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 8, ID Horario: 3, ID Ruta: 8, ID Vehículo: 4', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 9, ID Horario: 4, ID Ruta: 9, ID Vehículo: 6', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 10, ID Horario: 5, ID Ruta: 10, ID Vehículo: 8', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 11, ID Horario: 1, ID Ruta: 11, ID Vehículo: 9', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 12, ID Horario: 2, ID Ruta: 12, ID Vehículo: 11', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 13, ID Horario: 3, ID Ruta: 13, ID Vehículo: 12', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 14, ID Horario: 4, ID Ruta: 14, ID Vehículo: 13', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 15, ID Horario: 5, ID Ruta: 15, ID Vehículo: 14', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 16, ID Horario: 1, ID Ruta: 1, ID Vehículo: 16', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 17, ID Horario: 2, ID Ruta: 2, ID Vehículo: 17', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 18, ID Horario: 3, ID Ruta: 3, ID Vehículo: 18', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 19, ID Horario: 4, ID Ruta: 4, ID Vehículo: 19', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 20, ID Horario: 5, ID Ruta: 5, ID Vehículo: 20', 'AFTER INSERT', '2024-10-21 22:33:56', 'cliente1@localhost'),
+('Insertado: ID 1, Nombre: Komplet', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 2, Nombre: Metso Outotec', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 3, Nombre: Terex Environmental Equipment', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 4, Nombre: Doppstadt', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 5, Nombre: Ecoverse', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 6, Nombre: SSI Shredding Systems', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 7, Nombre: BHS-Sonthofen', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 8, Nombre: Komptech', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 9, Nombre: Ecohog', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 10, Nombre: Ruf Briquetting Systems', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 1, Nombre: Compactador, ID Tipo Equipo: 1, ID Estado Equipo: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 2, Nombre: Trituradora, ID Tipo Equipo: 2, ID Estado Equipo: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 3, Nombre: Tamizadora, ID Tipo Equipo: 3, ID Estado Equipo: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 4, Nombre: Prensa Hidráulica, ID Tipo Equipo: 4, ID Estado Equipo: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 5, Nombre: Separador Magnético, ID Tipo Equipo: 5, ID Estado Equipo: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 6, Nombre: Compresor, ID Tipo Equipo: 1, ID Estado Equipo: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 7, Nombre: Bioreactor, ID Tipo Equipo: 6, ID Estado Equipo: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 8, Nombre: Camión de Recolección, ID Tipo Equipo: 7, ID Estado Equipo: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 9, Nombre: Cargador Frontal, ID Tipo Equipo: 8, ID Estado Equipo: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 10, Nombre: Generador de Biogás, ID Tipo Equipo: 9, ID Estado Equipo: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 11, Nombre: Fresadora de Lodos, ID Tipo Equipo: 10, ID Estado Equipo: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 12, Nombre: Chipeadora, ID Tipo Equipo: 2, ID Estado Equipo: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 13, Nombre: Contenedor de Residuos, ID Tipo Equipo: 3, ID Estado Equipo: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 14, Nombre: Máquina de Compostaje, ID Tipo Equipo: 6, ID Estado Equipo: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 15, Nombre: Transportador de Banda, ID Tipo Equipo: 5, ID Estado Equipo: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 1, Nombre Planta: Planta de Tratamiento de Congor, Capacidad: 150', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 2, Nombre Planta: Planta de Reciclaje EcoVerde, Capacidad: 300', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 3, Nombre Planta: Complejo Ambiental Tierra Limpia, Capacidad: 500', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 4, Nombre Planta: Centro de Gestión de Residuos Verdes, Capacidad: 200', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 5, Nombre Planta: Planta de Compostaje Orgánico VerdeHuerto, Capacidad: 100', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 6, Nombre Planta: Planta de Tratamiento Ecológico EcoAmigo, Capacidad: 400', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 7, Nombre Planta: Estación de Transferencia VerdeVida, Capacidad: 250', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 8, Nombre Planta: Planta de Valorización de Residuos BioCycle, Capacidad: 350', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 9, Nombre Planta: Planta de Recuperación de Recursos Naturales, Capacidad: 450', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 10, Nombre Planta: Planta de Energía a partir de Residuos Verdes, Capacidad: 600', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 1, Ubicación: Jirón Los Pinos, Capacidad: 15', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 2, Ubicación: Calle Las Flores, Capacidad: 18', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 3, Ubicación: Jirón Los Rosales, Capacidad: 20', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 4, Ubicación: Avenida Central, Capacidad: 16', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 5, Ubicación: Calle Magnolias, Capacidad: 19', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 6, Ubicación: Jirón Mariscal, Capacidad: 17', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 7, Ubicación: Avenida Primavera, Capacidad: 20', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 8, Ubicación: Jirón Los Olivos, Capacidad: 15', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 9, Ubicación: Calle Las Gardenias, Capacidad: 19', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 10, Ubicación: Avenida Las Palmas, Capacidad: 17', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 11, Ubicación: Jirón Los Claveles, Capacidad: 18', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 12, Ubicación: Calle Los Geranios, Capacidad: 16', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 13, Ubicación: Avenida Las Lomas, Capacidad: 20', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 14, Ubicación: Jirón Las Magnolias, Capacidad: 15', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 15, Ubicación: Calle Los Cedros, Capacidad: 19', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 16, Ubicación: Avenida Las Palmeras, Capacidad: 20', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 17, Ubicación: Calle Las Violetas, Capacidad: 17', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 18, Ubicación: Jirón Los Eucaliptos, Capacidad: 16', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 19, Ubicación: Avenida San Martín, Capacidad: 18', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 20, Ubicación: Calle Los Jazmines, Capacidad: 19', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 21, Ubicación: Jirón Las Margaritas, Capacidad: 16', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 22, Ubicación: Calle La Paz, Capacidad: 20', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 23, Ubicación: Jirón Los Almendros, Capacidad: 15', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 24, Ubicación: Avenida Las Acacias, Capacidad: 18', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 25, Ubicación: Calle Los Tulipanes, Capacidad: 19', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 26, Ubicación: Jirón La Unión, Capacidad: 17', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 27, Ubicación: Avenida Los Sauces, Capacidad: 20', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 28, Ubicación: Calle Los Robles, Capacidad: 15', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 29, Ubicación: Jirón Las Hortensias, Capacidad: 18', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 30, Ubicación: Avenida Las Palmas, Capacidad: 19', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 31, Ubicación: Jirón Los Cedros, Capacidad: 16', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 32, Ubicación: Calle La Estrella, Capacidad: 20', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 33, Ubicación: Jirón El Sol, Capacidad: 15', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 34, Ubicación: Avenida Los Cipreses, Capacidad: 18', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 35, Ubicación: Calle Las Palmas, Capacidad: 17', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 36, Ubicación: Jirón La Aurora, Capacidad: 20', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 37, Ubicación: Avenida Los Nogales, Capacidad: 19', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 38, Ubicación: Calle Las Orquídeas, Capacidad: 16', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 39, Ubicación: Jirón El Triunfo, Capacidad: 18', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 40, Ubicación: Avenida La Libertad, Capacidad: 19', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 41, Ubicación: Calle Los Álamos, Capacidad: 16', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 42, Ubicación: Jirón Las Violetas, Capacidad: 17', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 43, Ubicación: Avenida Los Laureles, Capacidad: 15', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 44, Ubicación: Calle La Esperanza, Capacidad: 19', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 45, Ubicación: Jirón Las Camelias, Capacidad: 16', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 46, Ubicación: Avenida Las Magnolias, Capacidad: 18', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 47, Ubicación: Calle La Victoria, Capacidad: 19', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 48, Ubicación: Jirón Las Rosas, Capacidad: 20', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 49, Ubicación: Avenida El Bosque, Capacidad: 17', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 1, Fecha Predicción: 2024-08-21, Nivel de Llenado: 80%, ID Contenedor: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 2, Fecha Predicción: 2024-08-21, Nivel de Llenado: 100%, ID Contenedor: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 3, Fecha Predicción: 2024-08-21, Nivel de Llenado: 60%, ID Contenedor: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 4, Fecha Predicción: 2024-08-21, Nivel de Llenado: 75%, ID Contenedor: 4', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 5, Fecha Predicción: 2024-08-21, Nivel de Llenado: 85%, ID Contenedor: 5', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 6, Fecha Predicción: 2024-08-22, Nivel de Llenado: 90%, ID Contenedor: 6', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 7, Fecha Predicción: 2024-08-22, Nivel de Llenado: 70%, ID Contenedor: 7', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 8, Fecha Predicción: 2024-08-22, Nivel de Llenado: 50%, ID Contenedor: 8', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 9, Fecha Predicción: 2024-08-22, Nivel de Llenado: 95%, ID Contenedor: 9', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 10, Fecha Predicción: 2024-08-22, Nivel de Llenado: 65%, ID Contenedor: 10', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 11, Fecha Predicción: 2024-08-23, Nivel de Llenado: 55%, ID Contenedor: 11', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 12, Fecha Predicción: 2024-08-23, Nivel de Llenado: 80%, ID Contenedor: 12', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 13, Fecha Predicción: 2024-08-23, Nivel de Llenado: 100%, ID Contenedor: 13', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 14, Fecha Predicción: 2024-08-23, Nivel de Llenado: 60%, ID Contenedor: 14', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 15, Fecha Predicción: 2024-08-23, Nivel de Llenado: 75%, ID Contenedor: 15', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 16, Fecha Predicción: 2024-08-24, Nivel de Llenado: 85%, ID Contenedor: 16', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 17, Fecha Predicción: 2024-08-24, Nivel de Llenado: 90%, ID Contenedor: 17', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 18, Fecha Predicción: 2024-08-24, Nivel de Llenado: 70%, ID Contenedor: 18', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 19, Fecha Predicción: 2024-08-24, Nivel de Llenado: 50%, ID Contenedor: 19', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 20, Fecha Predicción: 2024-08-24, Nivel de Llenado: 95%, ID Contenedor: 20', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 21, Fecha Predicción: 2024-08-25, Nivel de Llenado: 65%, ID Contenedor: 21', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 22, Fecha Predicción: 2024-08-25, Nivel de Llenado: 55%, ID Contenedor: 22', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 23, Fecha Predicción: 2024-08-25, Nivel de Llenado: 80%, ID Contenedor: 23', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 24, Fecha Predicción: 2024-08-25, Nivel de Llenado: 100%, ID Contenedor: 24', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 25, Fecha Predicción: 2024-08-25, Nivel de Llenado: 60%, ID Contenedor: 25', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 26, Fecha Predicción: 2024-08-26, Nivel de Llenado: 75%, ID Contenedor: 26', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 27, Fecha Predicción: 2024-08-26, Nivel de Llenado: 85%, ID Contenedor: 27', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 28, Fecha Predicción: 2024-08-26, Nivel de Llenado: 90%, ID Contenedor: 28', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 29, Fecha Predicción: 2024-08-26, Nivel de Llenado: 70%, ID Contenedor: 29', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 30, Fecha Predicción: 2024-08-26, Nivel de Llenado: 50%, ID Contenedor: 30', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 31, Fecha Predicción: 2024-08-27, Nivel de Llenado: 95%, ID Contenedor: 31', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 32, Fecha Predicción: 2024-08-27, Nivel de Llenado: 65%, ID Contenedor: 32', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 33, Fecha Predicción: 2024-08-27, Nivel de Llenado: 55%, ID Contenedor: 33', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 34, Fecha Predicción: 2024-08-27, Nivel de Llenado: 80%, ID Contenedor: 34', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost');
+INSERT INTO `reg_estados` (`r_estado`, `r_accion`, `r_fecha`, `r_usuario`) VALUES
+('Insertado: ID 35, Fecha Predicción: 2024-08-27, Nivel de Llenado: 100%, ID Contenedor: 35', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 36, Fecha Predicción: 2024-08-28, Nivel de Llenado: 60%, ID Contenedor: 36', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 37, Fecha Predicción: 2024-08-28, Nivel de Llenado: 75%, ID Contenedor: 37', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 38, Fecha Predicción: 2024-08-28, Nivel de Llenado: 85%, ID Contenedor: 38', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 39, Fecha Predicción: 2024-08-28, Nivel de Llenado: 90%, ID Contenedor: 39', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 40, Fecha Predicción: 2024-08-28, Nivel de Llenado: 70%, ID Contenedor: 40', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 41, Fecha Predicción: 2024-08-29, Nivel de Llenado: 50%, ID Contenedor: 41', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 42, Fecha Predicción: 2024-08-29, Nivel de Llenado: 95%, ID Contenedor: 42', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 43, Fecha Predicción: 2024-08-29, Nivel de Llenado: 65%, ID Contenedor: 43', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 44, Fecha Predicción: 2024-08-29, Nivel de Llenado: 55%, ID Contenedor: 44', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 45, Fecha Predicción: 2024-08-29, Nivel de Llenado: 80%, ID Contenedor: 45', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 46, Fecha Predicción: 2024-08-30, Nivel de Llenado: 100%, ID Contenedor: 46', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 47, Fecha Predicción: 2024-08-30, Nivel de Llenado: 60%, ID Contenedor: 47', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 48, Fecha Predicción: 2024-08-30, Nivel de Llenado: 75%, ID Contenedor: 48', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 49, Fecha Predicción: 2024-08-30, Nivel de Llenado: 85%, ID Contenedor: 49', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 1, Descripción: botellas de plastico, Tipo Residuo: 1, Contenedor: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 2, Descripción: latas de aluminio, Tipo Residuo: 2, Contenedor: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 3, Descripción: papel y cartón, Tipo Residuo: 3, Contenedor: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 4, Descripción: botellas de vidrio, Tipo Residuo: 4, Contenedor: 4', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 5, Descripción: residuos orgánicos, Tipo Residuo: 5, Contenedor: 5', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 6, Descripción: textiles, Tipo Residuo: 6, Contenedor: 6', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 7, Descripción: plásticos mixtos, Tipo Residuo: 7, Contenedor: 7', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 8, Descripción: metal, Tipo Residuo: 8, Contenedor: 8', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 9, Descripción: residuos electrónicos, Tipo Residuo: 9, Contenedor: 9', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 10, Descripción: plásticos duros, Tipo Residuo: 10, Contenedor: 10', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 11, Descripción: botellas de plastico, Tipo Residuo: 1, Contenedor: 11', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 12, Descripción: latas de aluminio, Tipo Residuo: 2, Contenedor: 12', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 13, Descripción: papel y cartón, Tipo Residuo: 3, Contenedor: 13', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 14, Descripción: botellas de vidrio, Tipo Residuo: 4, Contenedor: 14', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 15, Descripción: residuos orgánicos, Tipo Residuo: 5, Contenedor: 15', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 16, Descripción: textiles, Tipo Residuo: 6, Contenedor: 16', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 17, Descripción: plásticos mixtos, Tipo Residuo: 7, Contenedor: 17', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 18, Descripción: metal, Tipo Residuo: 8, Contenedor: 18', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 19, Descripción: residuos electrónicos, Tipo Residuo: 9, Contenedor: 19', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 20, Descripción: plásticos duros, Tipo Residuo: 10, Contenedor: 20', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 21, Descripción: botellas de plastico, Tipo Residuo: 1, Contenedor: 21', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 22, Descripción: latas de aluminio, Tipo Residuo: 2, Contenedor: 22', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 23, Descripción: papel y cartón, Tipo Residuo: 3, Contenedor: 23', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 24, Descripción: botellas de vidrio, Tipo Residuo: 4, Contenedor: 24', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 25, Descripción: residuos orgánicos, Tipo Residuo: 5, Contenedor: 25', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 26, Descripción: textiles, Tipo Residuo: 6, Contenedor: 26', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 27, Descripción: plásticos mixtos, Tipo Residuo: 7, Contenedor: 27', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 28, Descripción: metal, Tipo Residuo: 8, Contenedor: 28', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 29, Descripción: residuos electrónicos, Tipo Residuo: 9, Contenedor: 29', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 30, Descripción: plásticos duros, Tipo Residuo: 10, Contenedor: 30', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 1, Cantidad: 100, Fecha: 2024-09-08, ID Ruta: 10, ID Planta: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 2, Cantidad: 150, Fecha: 2024-09-08, ID Ruta: 11, ID Planta: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 3, Cantidad: 200, Fecha: 2024-09-09, ID Ruta: 12, ID Planta: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 4, Cantidad: 180, Fecha: 2024-09-09, ID Ruta: 13, ID Planta: 4', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 5, Cantidad: 220, Fecha: 2024-09-10, ID Ruta: 14, ID Planta: 5', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 6, Cantidad: 190, Fecha: 2024-09-10, ID Ruta: 15, ID Planta: 6', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 7, Cantidad: 170, Fecha: 2024-09-11, ID Ruta: 10, ID Planta: 7', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 8, Cantidad: 210, Fecha: 2024-09-11, ID Ruta: 11, ID Planta: 8', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 9, Cantidad: 160, Fecha: 2024-09-12, ID Ruta: 12, ID Planta: 9', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 10, Cantidad: 130, Fecha: 2024-09-12, ID Ruta: 13, ID Planta: 10', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 11, Cantidad: 140, Fecha: 2024-09-13, ID Ruta: 14, ID Planta: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 12, Cantidad: 180, Fecha: 2024-09-13, ID Ruta: 15, ID Planta: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 13, Cantidad: 200, Fecha: 2024-09-14, ID Ruta: 10, ID Planta: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 14, Cantidad: 220, Fecha: 2024-09-14, ID Ruta: 11, ID Planta: 4', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 15, Cantidad: 240, Fecha: 2024-09-15, ID Ruta: 12, ID Planta: 5', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 16, Cantidad: 160, Fecha: 2024-09-15, ID Ruta: 13, ID Planta: 6', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 17, Cantidad: 150, Fecha: 2024-09-16, ID Ruta: 14, ID Planta: 7', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 18, Cantidad: 175, Fecha: 2024-09-16, ID Ruta: 15, ID Planta: 8', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 19, Cantidad: 165, Fecha: 2024-09-17, ID Ruta: 10, ID Planta: 9', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 20, Cantidad: 185, Fecha: 2024-09-17, ID Ruta: 11, ID Planta: 10', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 1, Cantidad: 100, ID Planta: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 2, Cantidad: 150, ID Planta: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 3, Cantidad: 200, ID Planta: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 4, Cantidad: 180, ID Planta: 4', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 5, Cantidad: 220, ID Planta: 5', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 6, Cantidad: 190, ID Planta: 6', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 7, Cantidad: 170, ID Planta: 7', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 8, Cantidad: 210, ID Planta: 8', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 9, Cantidad: 160, ID Planta: 9', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 10, Cantidad: 130, ID Planta: 10', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 1, Nombre: botellas, Cantidad: 150, Fecha de Salida: 2024-08-08 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 2, Nombre: tapones, Cantidad: 200, Fecha de Salida: 2024-08-09 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 3, Nombre: cajas de cartón, Cantidad: 100, Fecha de Salida: 2024-08-10 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 4, Nombre: botellas de vidrio, Cantidad: 80, Fecha de Salida: 2024-08-11 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 5, Nombre: latas de aluminio, Cantidad: 250, Fecha de Salida: 2024-08-12 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 6, Nombre: juguetes reciclados, Cantidad: 300, Fecha de Salida: 2024-08-13 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 7, Nombre: papel reciclado, Cantidad: 400, Fecha de Salida: 2024-08-14 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 8, Nombre: residuos electrónicos, Cantidad: 50, Fecha de Salida: 2024-08-15 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 9, Nombre: tubos de cartón, Cantidad: 150, Fecha de Salida: 2024-08-16 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 10, Nombre: botellas PET, Cantidad: 180, Fecha de Salida: 2024-08-17 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 11, Nombre: latas de acero, Cantidad: 220, Fecha de Salida: 2024-08-18 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 12, Nombre: envases de plástico, Cantidad: 130, Fecha de Salida: 2024-08-19 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 13, Nombre: residuos de papel, Cantidad: 160, Fecha de Salida: 2024-08-20 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 14, Nombre: botellas de PET recicladas, Cantidad: 140, Fecha de Salida: 2024-08-21 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 15, Nombre: cartones de leche, Cantidad: 90, Fecha de Salida: 2024-08-22 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 16, Nombre: plásticos duros, Cantidad: 200, Fecha de Salida: 2024-08-23 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 17, Nombre: botellas de vidrio recicladas, Cantidad: 75, Fecha de Salida: 2024-08-24 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 18, Nombre: tetrabrik, Cantidad: 120, Fecha de Salida: 2024-08-25 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 19, Nombre: embalajes de cartón, Cantidad: 170, Fecha de Salida: 2024-08-26 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 20, Nombre: plásticos biodegradables, Cantidad: 110, Fecha de Salida: 2024-08-27 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 21, Nombre: residuos textiles, Cantidad: 130, Fecha de Salida: 2024-08-28 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 22, Nombre: juguetes de plástico, Cantidad: 90, Fecha de Salida: 2024-08-29 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 23, Nombre: envases de vidrio, Cantidad: 150, Fecha de Salida: 2024-08-30 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 24, Nombre: residuos de metal, Cantidad: 200, Fecha de Salida: 2024-08-31 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 25, Nombre: papel de embalaje, Cantidad: 300, Fecha de Salida: 2024-09-01 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 26, Nombre: plásticos blandos, Cantidad: 175, Fecha de Salida: 2024-09-02 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 27, Nombre: residuos de alimentos, Cantidad: 80, Fecha de Salida: 2024-09-03 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 28, Nombre: botellas de agua, Cantidad: 220, Fecha de Salida: 2024-09-04 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 29, Nombre: cajas de plástico, Cantidad: 160, Fecha de Salida: 2024-09-05 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 30, Nombre: tubos de plástico, Cantidad: 130, Fecha de Salida: 2024-09-06 00:00:00', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 1, Cantidad: 80, Fecha: 2024-12-29 00:00:00, ID Salida: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 2, Cantidad: 150, Fecha: 2024-12-30 00:00:00, ID Salida: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 3, Cantidad: 120, Fecha: 2024-12-31 00:00:00, ID Salida: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 4, Cantidad: 90, Fecha: 2025-01-01 00:00:00, ID Salida: 4', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 5, Cantidad: 200, Fecha: 2025-01-02 00:00:00, ID Salida: 5', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 1, Descripción: cortadura leve de vidrio en el antebrazo, ID Colaborador: 1, ID Gravedad: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 2, Descripción: golpe grave en la cabeza por caída de objeto, ID Colaborador: 2, ID Gravedad: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 3, Descripción: quemadura leve en la mano, ID Colaborador: 3, ID Gravedad: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 4, Descripción: fractura mortal de tobillo por resbalón, ID Colaborador: 4, ID Gravedad: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 5, Descripción: esguince grave en el brazo por mal levantamiento de peso, ID Colaborador: 5, ID Gravedad: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 6, Descripción: intoxicación leve por inhalación de productos químicos, ID Colaborador: 6, ID Gravedad: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 7, Descripción: lesión mortal en la espalda por caída, ID Colaborador: 7, ID Gravedad: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 8, Descripción: electrocución grave en la mano, ID Colaborador: 8, ID Gravedad: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 9, Descripción: herida mortal por herramienta afilada, ID Colaborador: 9, ID Gravedad: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 10, Descripción: quemadura grave de segundo grado en la pierna, ID Colaborador: 10, ID Gravedad: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 11, Descripción: corte leve en el dedo por mal uso de herramientas, ID Colaborador: 11, ID Gravedad: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 12, Descripción: caída mortal desde una escalera, ID Colaborador: 12, ID Gravedad: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 13, Descripción: golpe grave en el hombro por caída de objeto, ID Colaborador: 13, ID Gravedad: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 14, Descripción: lesión leve en la rodilla por tropiezo, ID Colaborador: 14, ID Gravedad: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 15, Descripción: fractura mortal en la muñeca por caída, ID Colaborador: 15, ID Gravedad: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 1, Fecha Inicio: 2020-04-05, Fecha Final: 2020-05-06, ID Incidente: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 2, Fecha Inicio: 2020-02-10, Fecha Final: 2020-03-15, ID Incidente: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 3, Fecha Inicio: 2020-07-01, Fecha Final: 2020-08-01, ID Incidente: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 4, Fecha Inicio: 2020-01-05, Fecha Final: 2020-02-05, ID Incidente: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 5, Fecha Inicio: 2020-03-12, Fecha Final: 2020-04-10, ID Incidente: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 6, Fecha Inicio: 2020-05-07, Fecha Final: 2020-06-07, ID Incidente: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 7, Fecha Inicio: 2020-09-10, Fecha Final: 2020-10-10, ID Incidente: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 8, Fecha Inicio: 2020-04-20, Fecha Final: 2020-05-20, ID Incidente: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 9, Fecha Inicio: 2020-06-15, Fecha Final: 2020-07-15, ID Incidente: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 10, Fecha Inicio: 2020-03-01, Fecha Final: 2020-04-01, ID Incidente: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 11, Fecha Inicio: 2020-05-18, Fecha Final: 2020-06-18, ID Incidente: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 12, Fecha Inicio: 2020-07-20, Fecha Final: 2020-08-20, ID Incidente: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 13, Fecha Inicio: 2020-01-25, Fecha Final: 2020-02-25, ID Incidente: 1', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 14, Fecha Inicio: 2020-09-10, Fecha Final: 2020-10-09, ID Incidente: 2', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('Insertado: ID 15, Fecha Inicio: 2020-06-05, Fecha Final: 2020-07-05, ID Incidente: 3', 'AFTER INSERT', '2024-10-21 22:33:57', 'cliente1@localhost'),
+('ID13Descripcionprueba', 'AFTER INSERT', '2024-10-23 22:42:07', 'root@localhost');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `residuos`
+--
+
+CREATE TABLE `residuos` (
+  `id_residuo` int(11) NOT NULL,
+  `descresiduo` varchar(50) NOT NULL,
+  `fecharegistro` date NOT NULL,
+  `fk_idcontenedor` int(11) NOT NULL,
+  `fk_idtiporesiduo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `residuos`
+--
+
+INSERT INTO `residuos` (`id_residuo`, `descresiduo`, `fecharegistro`, `fk_idcontenedor`, `fk_idtiporesiduo`) VALUES
+(1, 'botellas de plastico', '2024-09-08', 1, 1),
+(2, 'latas de aluminio', '2024-09-08', 2, 2),
+(3, 'papel y cartón', '2024-09-08', 3, 3),
+(4, 'botellas de vidrio', '2024-09-08', 4, 4),
+(5, 'residuos orgánicos', '2024-09-08', 5, 5),
+(6, 'textiles', '2024-09-09', 6, 6),
+(7, 'plásticos mixtos', '2024-09-09', 7, 7),
+(8, 'metal', '2024-09-09', 8, 8),
+(9, 'residuos electrónicos', '2024-09-09', 9, 9),
+(10, 'plásticos duros', '2024-09-09', 10, 10),
+(11, 'botellas de plastico', '2024-09-10', 11, 1),
+(12, 'latas de aluminio', '2024-09-10', 12, 2),
+(13, 'papel y cartón', '2024-09-10', 13, 3),
+(14, 'botellas de vidrio', '2024-09-10', 14, 4),
+(15, 'residuos orgánicos', '2024-09-10', 15, 5),
+(16, 'textiles', '2024-09-11', 16, 6),
+(17, 'plásticos mixtos', '2024-09-11', 17, 7),
+(18, 'metal', '2024-09-11', 18, 8),
+(19, 'residuos electrónicos', '2024-09-11', 19, 9),
+(20, 'plásticos duros', '2024-09-11', 20, 10),
+(21, 'botellas de plastico', '2024-09-12', 21, 1),
+(22, 'latas de aluminio', '2024-09-12', 22, 2),
+(23, 'papel y cartón', '2024-09-12', 23, 3),
+(24, 'botellas de vidrio', '2024-09-12', 24, 4),
+(25, 'residuos orgánicos', '2024-09-12', 25, 5),
+(26, 'textiles', '2024-09-13', 26, 6),
+(27, 'plásticos mixtos', '2024-09-13', 27, 7),
+(28, 'metal', '2024-09-13', 28, 8),
+(29, 'residuos electrónicos', '2024-09-13', 29, 9),
+(30, 'plásticos duros', '2024-09-13', 30, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rutas`
+--
+
+CREATE TABLE `rutas` (
+  `id_ruta` int(11) NOT NULL,
+  `descruta` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `rutas`
+--
+
+INSERT INTO `rutas` (`id_ruta`, `descruta`) VALUES
+(1, 'Barrio La Esperanza, Sector Santa María y Urbanización Jardines'),
+(2, 'Calle Futura y Avenida Primavera'),
+(3, 'Barrio Nuevo y Plaza Central'),
+(4, 'Barrio La Esperanza y Calle Soledad'),
+(5, 'Parque Municipal, Jardines del Sol y Villa del Río'),
+(6, 'Barrio Esperanza y Calle Soledad'),
+(7, 'Sector La Paz y Avenida de la Amistad'),
+(8, 'Jardines del Sol y Villa del Río'),
+(9, 'Plaza de la Ciudad y Sector La Paz'),
+(10, 'Terminal de Transporte y Barrios Altos'),
+(11, 'Centro de Control y Sector La Paz'),
+(12, 'Plaza de los Héroes y Urbanización Santa Clara'),
+(13, 'Depósito Municipal y Los Olivos'),
+(14, 'Plaza de la Ciudad y Sector Norte'),
+(15, 'Depósito de Residuos y Urbanización Santa Clara');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `salidas`
+--
+
+CREATE TABLE `salidas` (
+  `id_salida` int(11) NOT NULL,
+  `cantidad_sal` double NOT NULL,
+  `fk_id_planta` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `salidas`
+--
+
+INSERT INTO `salidas` (`id_salida`, `cantidad_sal`, `fk_id_planta`) VALUES
+(1, 100, 1),
+(2, 150, 2),
+(3, 200, 3),
+(4, 180, 4),
+(5, 220, 5),
+(6, 190, 6),
+(7, 170, 7),
+(8, 210, 8),
+(9, 160, 9),
+(10, 130, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_calles`
+--
+
+CREATE TABLE `tipo_calles` (
+  `id_tipocalle` int(11) NOT NULL,
+  `desctipocalle` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_calles`
+--
+
+INSERT INTO `tipo_calles` (`id_tipocalle`, `desctipocalle`) VALUES
+(1, 'Avenida'),
+(2, 'Calle'),
+(3, 'Boulevard'),
+(4, 'Callejón'),
+(5, 'Paseo'),
+(6, 'Plaza'),
+(7, 'Camino'),
+(8, 'Sendero'),
+(9, 'Carretera'),
+(10, 'Ronda'),
+(11, 'Calle sin salida'),
+(12, 'Vía rápida'),
+(13, 'Travesía'),
+(14, 'Vía pública'),
+(15, 'Autopista'),
+(16, 'Pasaje'),
+(17, 'Ruta'),
+(18, 'Circuito'),
+(19, 'Bulevar'),
+(20, 'Vereda');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_equipo`
+--
+
+CREATE TABLE `tipo_equipo` (
+  `id_tipo_equipo` int(11) NOT NULL,
+  `descripcion` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_equipo`
+--
+
+INSERT INTO `tipo_equipo` (`id_tipo_equipo`, `descripcion`) VALUES
+(1, 'Recepción y Carga'),
+(2, 'Clasificación'),
+(3, 'Trituración'),
+(4, 'Compostaje y Biodegradación'),
+(5, 'Almacenamiento'),
+(6, 'Tratamiento de Efluentes'),
+(7, 'Monitoreo y Control'),
+(8, 'Seguridad'),
+(9, 'Transporte y Distribución'),
+(10, 'Generación de Energía');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_residuos`
+--
+
+CREATE TABLE `tipo_residuos` (
+  `id_tiporesiduo` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `fechareg` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tipo_residuos`
+--
+
+INSERT INTO `tipo_residuos` (`id_tiporesiduo`, `nombre`, `fechareg`) VALUES
+(1, 'Plásticos', '2024-10-17'),
+(2, 'Papeles', '2024-10-17'),
+(3, 'Metales', '2024-10-17'),
+(4, 'Vidrios', '2024-10-17'),
+(5, 'Orgánicos', '2024-10-17'),
+(6, 'Electrónicos', '2024-10-17'),
+(7, 'Ropa y Textiles', '2024-10-17'),
+(8, 'Residuos Peligrosos', '2024-10-17'),
+(9, 'Construcción y Demolición', '2024-10-17'),
+(10, 'Aceites y Grasas', '2024-10-17');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tolerancias`
+--
+
+CREATE TABLE `tolerancias` (
+  `id_tolerancia` int(11) NOT NULL,
+  `observacion` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tolerancias`
+--
+
+INSERT INTO `tolerancias` (`id_tolerancia`, `observacion`) VALUES
+(1, 'Vacio'),
+(2, 'Lleno'),
+(3, 'Sobrecargado');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tratamientos`
+--
+
+CREATE TABLE `tratamientos` (
+  `id_tratamientos` int(11) NOT NULL,
+  `tipo_tratamiento` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tratamientos`
+--
+
+INSERT INTO `tratamientos` (`id_tratamientos`, `tipo_tratamiento`) VALUES
+(1, 'reciclaje orgánico'),
+(2, 'separación y clasificación manual'),
+(3, 'separación y clasificación automatizada'),
+(4, 'trituración'),
+(5, 'lavado de plásticos'),
+(6, 'compactación de materiales'),
+(7, 'molienda de plásticos'),
+(8, 'fundición de metales'),
+(9, 'producción de combustibles sólidos recuperados (CSR)'),
+(10, 'descontaminación química');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tratamientos_plantas`
+--
+
+CREATE TABLE `tratamientos_plantas` (
+  `id_info_planta` int(11) NOT NULL,
+  `fk_id_tratamientos` int(11) NOT NULL,
+  `fk_id_planta` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tratamientos_plantas`
+--
+
+INSERT INTO `tratamientos_plantas` (`id_info_planta`, `fk_id_tratamientos`, `fk_id_planta`) VALUES
+(1, 1, 1),
+(2, 2, 2),
+(3, 3, 3),
+(4, 4, 4),
+(5, 5, 5),
+(6, 6, 6),
+(7, 7, 7),
+(8, 8, 8),
+(9, 9, 9),
+(10, 10, 10),
+(11, 1, 2),
+(12, 2, 3),
+(13, 3, 4),
+(14, 4, 5),
+(15, 5, 6),
+(16, 6, 7),
+(17, 7, 8),
+(18, 8, 9),
+(19, 9, 10),
+(20, 10, 1),
+(21, 1, 3),
+(22, 2, 4),
+(23, 3, 5),
+(24, 4, 6),
+(25, 5, 7),
+(26, 6, 8),
+(27, 7, 9),
+(28, 8, 10),
+(29, 9, 1),
+(30, 10, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `turnos`
+--
+
+CREATE TABLE `turnos` (
+  `id_turno` int(11) NOT NULL,
+  `descturno` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `turnos`
+--
+
+INSERT INTO `turnos` (`id_turno`, `descturno`) VALUES
+(1, 'MAÑANA '),
+(2, 'TARDE'),
+(3, 'NOCHE');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `idUsuario` int(11) NOT NULL,
+  `nomUsuario` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `rol` enum('admin','usuario','invitado') NOT NULL,
+  `fecha_creacion` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`idUsuario`, `nomUsuario`, `password`, `rol`, `fecha_creacion`) VALUES
+(1, 'dav2', '$2y$10$BUS.xtWpdq2ClbgSXETcf.NbTAGYvqzaYOLJZ51IatlMyORHwqjH2', 'admin', '2024-11-24 20:45:59'),
+(2, 'jeam', '$2y$10$SDg3Mn4H3561aPoYcQ9HNeUgLzR8ogdYGtTQbrlqnmjca9JJ3amNm', 'usuario', '2024-11-24 23:43:02'),
+(5, 'admin', '$2y$10$qTzBZ7TkZqmr3ksHbsMXt.tohSlhGmO55qPGpYQ2mMBgLryNBgm0m', 'admin', '2024-11-24 23:51:43'),
+(7, 'david', '$2y$10$a0Tz6tXTY5YQvIKqK6ur0./bXMOy8KejjN4ykxnxTY5ZsPS7y1w1S', 'invitado', '2024-11-25 20:55:19'),
+(8, 'Michael', '$2y$10$GzoGtIggDZG76/xLoQ4cEOiHXr604jYPUw6593FVQRLZGWFzO4ctO', 'admin', '2024-12-03 22:22:11');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `vehiculos`
+--
+
+CREATE TABLE `vehiculos` (
+  `id_vehiculo` int(11) NOT NULL,
+  `placa` varchar(8) NOT NULL,
+  `yardas_cubicas` int(11) NOT NULL,
+  `fk_id_colaborador` int(11) NOT NULL,
+  `fk_id_marca` int(11) NOT NULL,
+  `fk_id_estadovehiculo` int(11) NOT NULL,
+  `fk_id_modelo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `vehiculos`
+--
+
+INSERT INTO `vehiculos` (`id_vehiculo`, `placa`, `yardas_cubicas`, `fk_id_colaborador`, `fk_id_marca`, `fk_id_estadovehiculo`, `fk_id_modelo`) VALUES
+(1, 'ABC-456', 19, 31, 1, 1, 1),
+(2, 'DEF-789', 20, 31, 2, 2, 2),
+(3, 'GHI-012', 21, 31, 3, 2, 3),
+(4, 'JKL-345', 22, 31, 4, 1, 4),
+(5, 'MNO-678', 23, 31, 5, 3, 5),
+(6, 'PQR-901', 19, 31, 6, 2, 6),
+(7, 'STU-234', 20, 31, 7, 2, 7),
+(8, 'VWX-567', 21, 31, 8, 1, 8),
+(9, 'YZA-890', 22, 31, 9, 1, 9),
+(10, 'BCD-123', 23, 31, 10, 3, 10),
+(11, 'EFG-456', 19, 31, 1, 1, 1),
+(12, 'HIJ-789', 20, 31, 2, 2, 2),
+(13, 'KLM-012', 21, 31, 3, 2, 3),
+(14, 'NOP-345', 22, 31, 4, 1, 4),
+(15, 'QRS-678', 23, 31, 5, 3, 5),
+(16, 'TUV-901', 19, 31, 6, 2, 6),
+(17, 'WXY-234', 20, 31, 7, 2, 7),
+(18, 'ZAB-567', 21, 31, 8, 1, 8),
+(19, 'CDE-890', 22, 31, 9, 1, 9),
+(20, 'FGH-123', 23, 31, 10, 3, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura Stand-in para la vista `vw_detalle_colaboradores`
+-- (Véase abajo para la vista actual)
+--
+CREATE TABLE `vw_detalle_colaboradores` (
+`nombre_plant` varchar(100)
+,`id_colaborador` int(11)
+,`id_persona` int(11)
+,`nombre` varchar(50)
+,`primer_apellido` varchar(50)
+,`placa` varchar(8)
+,`yardas_cubicas` int(11)
+,`descmarca` varchar(50)
+,`descruta` varchar(100)
+,`descturno` varchar(45)
+,`horaini` time
+,`horafin` time
+,`fechaprogramada` date
+,`cantidad_en` double
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la vista `vw_detalle_colaboradores`
+--
+DROP TABLE IF EXISTS `vw_detalle_colaboradores`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_detalle_colaboradores`  AS SELECT `pl`.`nombre_plant` AS `nombre_plant`, `c`.`id_colaborador` AS `id_colaborador`, `p`.`id_persona` AS `id_persona`, `p`.`nombre` AS `nombre`, `p`.`primer_apellido` AS `primer_apellido`, `v`.`placa` AS `placa`, `v`.`yardas_cubicas` AS `yardas_cubicas`, `m`.`descmarca` AS `descmarca`, `rt`.`descruta` AS `descruta`, `tr`.`descturno` AS `descturno`, `hr`.`horaini` AS `horaini`, `hr`.`horafin` AS `horafin`, `hr`.`fechaprogramada` AS `fechaprogramada`, `en`.`cantidad_en` AS `cantidad_en` FROM (((((((((`colaboradores` `c` join `personas` `p` on(`p`.`id_persona` = `c`.`fk_id_persona`)) join `vehiculos` `v` on(`v`.`fk_id_colaborador` = `c`.`id_colaborador`)) join `marcas` `m` on(`v`.`fk_id_marca` = `m`.`id_marca`)) join `asignacion` `a` on(`a`.`fk_id_vehiculo` = `v`.`id_vehiculo`)) join `rutas` `rt` on(`a`.`fk_idruta` = `rt`.`id_ruta`)) join `entradas` `en` on(`en`.`fk_id_ruta` = `rt`.`id_ruta`)) join `plantas` `pl` on(`pl`.`id_planta` = `en`.`fk_id_planta`)) join `turnos` `tr` on(`a`.`fk_id_turno` = `tr`.`id_turno`)) join `horarios` `hr` on(`a`.`fk_idhorario` = `hr`.`id_horario`)) ;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `asignacion`
+--
+ALTER TABLE `asignacion`
+  ADD PRIMARY KEY (`id_asignacion`),
+  ADD KEY `fk_idhorario` (`fk_idhorario`),
+  ADD KEY `fk_idruta` (`fk_idruta`),
+  ADD KEY `fk_id_turno` (`fk_id_turno`),
+  ADD KEY `fk_id_vehiculo` (`fk_id_vehiculo`);
+
+--
+-- Indices de la tabla `cargos`
+--
+ALTER TABLE `cargos`
+  ADD PRIMARY KEY (`id_cargo`);
+
+--
+-- Indices de la tabla `colaboradores`
+--
+ALTER TABLE `colaboradores`
+  ADD PRIMARY KEY (`id_colaborador`),
+  ADD KEY `fk_id_cargo` (`fk_id_cargo`),
+  ADD KEY `fk_id_persona` (`fk_id_persona`),
+  ADD KEY `fk_id_contrato` (`fk_id_contrato`);
+
+--
+-- Indices de la tabla `contenedores`
+--
+ALTER TABLE `contenedores`
+  ADD PRIMARY KEY (`id_contenedor`),
+  ADD KEY `fk_idpuntocritico` (`fk_idpuntocritico`),
+  ADD KEY `fk_idcalle` (`fk_idcalle`),
+  ADD KEY `fk_idestadocontenedor` (`fk_idestadocontenedor`),
+  ADD KEY `fk_idtolerancia` (`fk_idtolerancia`),
+  ADD KEY `fk_idmedida` (`fk_idmedida`);
+
+--
+-- Indices de la tabla `contratos`
+--
+ALTER TABLE `contratos`
+  ADD PRIMARY KEY (`id_contrato`),
+  ADD KEY `fk_id_estado` (`fk_id_estado`);
+
+--
+-- Indices de la tabla `desechos`
+--
+ALTER TABLE `desechos`
+  ADD PRIMARY KEY (`id_desecho`),
+  ADD KEY `fk_id_salida` (`fk_id_salida`);
+
+--
+-- Indices de la tabla `entradas`
+--
+ALTER TABLE `entradas`
+  ADD PRIMARY KEY (`id_entrada`),
+  ADD KEY `fk_id_ruta` (`fk_id_ruta`),
+  ADD KEY `fk_id_planta` (`fk_id_planta`);
+
+--
+-- Indices de la tabla `equipos`
+--
+ALTER TABLE `equipos`
+  ADD PRIMARY KEY (`idequipos`),
+  ADD KEY `fk_id_tipo_equipo` (`fk_id_tipo_equipo`),
+  ADD KEY `fk_id_estado_equipo` (`fk_id_estado_equipo`),
+  ADD KEY `fk_id_fab_equipo` (`fk_id_fab_equipo`);
+
+--
+-- Indices de la tabla `estado_contenedores`
+--
+ALTER TABLE `estado_contenedores`
+  ADD PRIMARY KEY (`id_estadocontenedor`);
+
+--
+-- Indices de la tabla `estado_contrato`
+--
+ALTER TABLE `estado_contrato`
+  ADD PRIMARY KEY (`id_estado`);
+
+--
+-- Indices de la tabla `estado_equipo`
+--
+ALTER TABLE `estado_equipo`
+  ADD PRIMARY KEY (`id_estado_equipo`);
+
+--
+-- Indices de la tabla `estado_vehiculos`
+--
+ALTER TABLE `estado_vehiculos`
+  ADD PRIMARY KEY (`id_estadovehiculo`);
+
+--
+-- Indices de la tabla `fabricante_equipo`
+--
+ALTER TABLE `fabricante_equipo`
+  ADD PRIMARY KEY (`id_fab_equipo`);
+
+--
+-- Indices de la tabla `gravedad_incidente`
+--
+ALTER TABLE `gravedad_incidente`
+  ADD PRIMARY KEY (`id_gravedad`);
+
+--
+-- Indices de la tabla `horarios`
+--
+ALTER TABLE `horarios`
+  ADD PRIMARY KEY (`id_horario`);
+
+--
+-- Indices de la tabla `incidentes`
+--
+ALTER TABLE `incidentes`
+  ADD PRIMARY KEY (`id_incidentes`),
+  ADD KEY `fk_id_colaborador` (`fk_id_colaborador`),
+  ADD KEY `fk_id_gravedad` (`fk_id_gravedad`);
+
+--
+-- Indices de la tabla `marcas`
+--
+ALTER TABLE `marcas`
+  ADD PRIMARY KEY (`id_marca`);
+
+--
+-- Indices de la tabla `medidas`
+--
+ALTER TABLE `medidas`
+  ADD PRIMARY KEY (`id_medida`);
+
+--
+-- Indices de la tabla `modelos`
+--
+ALTER TABLE `modelos`
+  ADD PRIMARY KEY (`id_modelo`);
+
+--
+-- Indices de la tabla `personas`
+--
+ALTER TABLE `personas`
+  ADD PRIMARY KEY (`id_persona`);
+
+--
+-- Indices de la tabla `plantas`
+--
+ALTER TABLE `plantas`
+  ADD PRIMARY KEY (`id_planta`);
+
+--
+-- Indices de la tabla `plantas_has_equipos`
+--
+ALTER TABLE `plantas_has_equipos`
+  ADD PRIMARY KEY (`id_planta_equipo`),
+  ADD KEY `fk_id_planta` (`fk_id_planta`),
+  ADD KEY `fk_idequipos` (`fk_idequipos`);
+
+--
+-- Indices de la tabla `prediccion_llenado`
+--
+ALTER TABLE `prediccion_llenado`
+  ADD PRIMARY KEY (`id_predllenado`),
+  ADD KEY `fk_idcontenedor` (`fk_idcontenedor`);
+
+--
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`id_productos`),
+  ADD KEY `fk_id_salida` (`fk_id_salida`);
+
+--
+-- Indices de la tabla `prueba`
+--
+ALTER TABLE `prueba`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `puntos_criticos`
+--
+ALTER TABLE `puntos_criticos`
+  ADD PRIMARY KEY (`id_puntocritico`),
+  ADD KEY `fk_idcolaborador` (`fk_idcolaborador`);
+
+--
+-- Indices de la tabla `recuperacion`
+--
+ALTER TABLE `recuperacion`
+  ADD PRIMARY KEY (`id_recuperacion`),
+  ADD KEY `fk_id_incidente` (`fk_id_incidente`);
+
+--
+-- Indices de la tabla `residuos`
+--
+ALTER TABLE `residuos`
+  ADD PRIMARY KEY (`id_residuo`),
+  ADD KEY `fk_idcontenedor` (`fk_idcontenedor`),
+  ADD KEY `fk_idtiporesiduo` (`fk_idtiporesiduo`);
+
+--
+-- Indices de la tabla `rutas`
+--
+ALTER TABLE `rutas`
+  ADD PRIMARY KEY (`id_ruta`);
+
+--
+-- Indices de la tabla `salidas`
+--
+ALTER TABLE `salidas`
+  ADD PRIMARY KEY (`id_salida`),
+  ADD KEY `fk_id_planta` (`fk_id_planta`);
+
+--
+-- Indices de la tabla `tipo_calles`
+--
+ALTER TABLE `tipo_calles`
+  ADD PRIMARY KEY (`id_tipocalle`);
+
+--
+-- Indices de la tabla `tipo_equipo`
+--
+ALTER TABLE `tipo_equipo`
+  ADD PRIMARY KEY (`id_tipo_equipo`);
+
+--
+-- Indices de la tabla `tipo_residuos`
+--
+ALTER TABLE `tipo_residuos`
+  ADD PRIMARY KEY (`id_tiporesiduo`);
+
+--
+-- Indices de la tabla `tolerancias`
+--
+ALTER TABLE `tolerancias`
+  ADD PRIMARY KEY (`id_tolerancia`);
+
+--
+-- Indices de la tabla `tratamientos`
+--
+ALTER TABLE `tratamientos`
+  ADD PRIMARY KEY (`id_tratamientos`);
+
+--
+-- Indices de la tabla `tratamientos_plantas`
+--
+ALTER TABLE `tratamientos_plantas`
+  ADD PRIMARY KEY (`id_info_planta`),
+  ADD KEY `fk_id_tratamientos` (`fk_id_tratamientos`),
+  ADD KEY `fk_id_planta` (`fk_id_planta`);
+
+--
+-- Indices de la tabla `turnos`
+--
+ALTER TABLE `turnos`
+  ADD PRIMARY KEY (`id_turno`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`idUsuario`),
+  ADD UNIQUE KEY `nomUsuario` (`nomUsuario`);
+
+--
+-- Indices de la tabla `vehiculos`
+--
+ALTER TABLE `vehiculos`
+  ADD PRIMARY KEY (`id_vehiculo`),
+  ADD KEY `fk_id_colaborador` (`fk_id_colaborador`),
+  ADD KEY `fk_id_marca` (`fk_id_marca`),
+  ADD KEY `fk_id_estadovehiculo` (`fk_id_estadovehiculo`),
+  ADD KEY `fk_id_modelo` (`fk_id_modelo`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `asignacion`
+--
+ALTER TABLE `asignacion`
+  MODIFY `id_asignacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT de la tabla `cargos`
+--
+ALTER TABLE `cargos`
+  MODIFY `id_cargo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT de la tabla `colaboradores`
+--
+ALTER TABLE `colaboradores`
+  MODIFY `id_colaborador` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT de la tabla `contenedores`
+--
+ALTER TABLE `contenedores`
+  MODIFY `id_contenedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+
+--
+-- AUTO_INCREMENT de la tabla `contratos`
+--
+ALTER TABLE `contratos`
+  MODIFY `id_contrato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT de la tabla `desechos`
+--
+ALTER TABLE `desechos`
+  MODIFY `id_desecho` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `entradas`
+--
+ALTER TABLE `entradas`
+  MODIFY `id_entrada` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT de la tabla `equipos`
+--
+ALTER TABLE `equipos`
+  MODIFY `idequipos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de la tabla `estado_contenedores`
+--
+ALTER TABLE `estado_contenedores`
+  MODIFY `id_estadocontenedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `estado_contrato`
+--
+ALTER TABLE `estado_contrato`
+  MODIFY `id_estado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `estado_equipo`
+--
+ALTER TABLE `estado_equipo`
+  MODIFY `id_estado_equipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `estado_vehiculos`
+--
+ALTER TABLE `estado_vehiculos`
+  MODIFY `id_estadovehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `fabricante_equipo`
+--
+ALTER TABLE `fabricante_equipo`
+  MODIFY `id_fab_equipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `gravedad_incidente`
+--
+ALTER TABLE `gravedad_incidente`
+  MODIFY `id_gravedad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `horarios`
+--
+ALTER TABLE `horarios`
+  MODIFY `id_horario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `incidentes`
+--
+ALTER TABLE `incidentes`
+  MODIFY `id_incidentes` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de la tabla `marcas`
+--
+ALTER TABLE `marcas`
+  MODIFY `id_marca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT de la tabla `medidas`
+--
+ALTER TABLE `medidas`
+  MODIFY `id_medida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `modelos`
+--
+ALTER TABLE `modelos`
+  MODIFY `id_modelo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de la tabla `personas`
+--
+ALTER TABLE `personas`
+  MODIFY `id_persona` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
+--
+-- AUTO_INCREMENT de la tabla `plantas`
+--
+ALTER TABLE `plantas`
+  MODIFY `id_planta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `plantas_has_equipos`
+--
+ALTER TABLE `plantas_has_equipos`
+  MODIFY `id_planta_equipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+
+--
+-- AUTO_INCREMENT de la tabla `prediccion_llenado`
+--
+ALTER TABLE `prediccion_llenado`
+  MODIFY `id_predllenado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+
+--
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `id_productos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT de la tabla `prueba`
+--
+ALTER TABLE `prueba`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `puntos_criticos`
+--
+ALTER TABLE `puntos_criticos`
+  MODIFY `id_puntocritico` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de la tabla `recuperacion`
+--
+ALTER TABLE `recuperacion`
+  MODIFY `id_recuperacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de la tabla `residuos`
+--
+ALTER TABLE `residuos`
+  MODIFY `id_residuo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT de la tabla `rutas`
+--
+ALTER TABLE `rutas`
+  MODIFY `id_ruta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT de la tabla `salidas`
+--
+ALTER TABLE `salidas`
+  MODIFY `id_salida` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_calles`
+--
+ALTER TABLE `tipo_calles`
+  MODIFY `id_tipocalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_equipo`
+--
+ALTER TABLE `tipo_equipo`
+  MODIFY `id_tipo_equipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_residuos`
+--
+ALTER TABLE `tipo_residuos`
+  MODIFY `id_tiporesiduo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `tolerancias`
+--
+ALTER TABLE `tolerancias`
+  MODIFY `id_tolerancia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `tratamientos`
+--
+ALTER TABLE `tratamientos`
+  MODIFY `id_tratamientos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `tratamientos_plantas`
+--
+ALTER TABLE `tratamientos_plantas`
+  MODIFY `id_info_planta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT de la tabla `turnos`
+--
+ALTER TABLE `turnos`
+  MODIFY `id_turno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `vehiculos`
+--
+ALTER TABLE `vehiculos`
+  MODIFY `id_vehiculo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `asignacion`
+--
+ALTER TABLE `asignacion`
+  ADD CONSTRAINT `asignacion_ibfk_1` FOREIGN KEY (`fk_idhorario`) REFERENCES `horarios` (`id_horario`),
+  ADD CONSTRAINT `asignacion_ibfk_2` FOREIGN KEY (`fk_idruta`) REFERENCES `rutas` (`id_ruta`),
+  ADD CONSTRAINT `asignacion_ibfk_3` FOREIGN KEY (`fk_id_turno`) REFERENCES `turnos` (`id_turno`),
+  ADD CONSTRAINT `asignacion_ibfk_4` FOREIGN KEY (`fk_id_vehiculo`) REFERENCES `vehiculos` (`id_vehiculo`);
+
+--
+-- Filtros para la tabla `colaboradores`
+--
+ALTER TABLE `colaboradores`
+  ADD CONSTRAINT `colaboradores_ibfk_1` FOREIGN KEY (`fk_id_cargo`) REFERENCES `cargos` (`id_cargo`),
+  ADD CONSTRAINT `colaboradores_ibfk_2` FOREIGN KEY (`fk_id_persona`) REFERENCES `personas` (`id_persona`),
+  ADD CONSTRAINT `colaboradores_ibfk_3` FOREIGN KEY (`fk_id_contrato`) REFERENCES `contratos` (`id_contrato`);
+
+--
+-- Filtros para la tabla `contenedores`
+--
+ALTER TABLE `contenedores`
+  ADD CONSTRAINT `contenedores_ibfk_1` FOREIGN KEY (`fk_idpuntocritico`) REFERENCES `puntos_criticos` (`id_puntocritico`),
+  ADD CONSTRAINT `contenedores_ibfk_2` FOREIGN KEY (`fk_idcalle`) REFERENCES `tipo_calles` (`id_tipocalle`),
+  ADD CONSTRAINT `contenedores_ibfk_3` FOREIGN KEY (`fk_idestadocontenedor`) REFERENCES `estado_contenedores` (`id_estadocontenedor`),
+  ADD CONSTRAINT `contenedores_ibfk_4` FOREIGN KEY (`fk_idtolerancia`) REFERENCES `tolerancias` (`id_tolerancia`),
+  ADD CONSTRAINT `contenedores_ibfk_5` FOREIGN KEY (`fk_idmedida`) REFERENCES `medidas` (`id_medida`);
+
+--
+-- Filtros para la tabla `contratos`
+--
+ALTER TABLE `contratos`
+  ADD CONSTRAINT `contratos_ibfk_1` FOREIGN KEY (`fk_id_estado`) REFERENCES `estado_contrato` (`id_estado`);
+
+--
+-- Filtros para la tabla `desechos`
+--
+ALTER TABLE `desechos`
+  ADD CONSTRAINT `desechos_ibfk_1` FOREIGN KEY (`fk_id_salida`) REFERENCES `salidas` (`id_salida`);
+
+--
+-- Filtros para la tabla `entradas`
+--
+ALTER TABLE `entradas`
+  ADD CONSTRAINT `entradas_ibfk_1` FOREIGN KEY (`fk_id_ruta`) REFERENCES `rutas` (`id_ruta`),
+  ADD CONSTRAINT `entradas_ibfk_2` FOREIGN KEY (`fk_id_planta`) REFERENCES `plantas` (`id_planta`);
+
+--
+-- Filtros para la tabla `equipos`
+--
+ALTER TABLE `equipos`
+  ADD CONSTRAINT `equipos_ibfk_1` FOREIGN KEY (`fk_id_tipo_equipo`) REFERENCES `tipo_equipo` (`id_tipo_equipo`),
+  ADD CONSTRAINT `equipos_ibfk_2` FOREIGN KEY (`fk_id_estado_equipo`) REFERENCES `estado_equipo` (`id_estado_equipo`),
+  ADD CONSTRAINT `equipos_ibfk_3` FOREIGN KEY (`fk_id_fab_equipo`) REFERENCES `fabricante_equipo` (`id_fab_equipo`);
+
+--
+-- Filtros para la tabla `incidentes`
+--
+ALTER TABLE `incidentes`
+  ADD CONSTRAINT `incidentes_ibfk_1` FOREIGN KEY (`fk_id_colaborador`) REFERENCES `colaboradores` (`id_colaborador`),
+  ADD CONSTRAINT `incidentes_ibfk_2` FOREIGN KEY (`fk_id_gravedad`) REFERENCES `gravedad_incidente` (`id_gravedad`);
+
+--
+-- Filtros para la tabla `plantas_has_equipos`
+--
+ALTER TABLE `plantas_has_equipos`
+  ADD CONSTRAINT `plantas_has_equipos_ibfk_1` FOREIGN KEY (`fk_id_planta`) REFERENCES `plantas` (`id_planta`),
+  ADD CONSTRAINT `plantas_has_equipos_ibfk_2` FOREIGN KEY (`fk_idequipos`) REFERENCES `equipos` (`idequipos`);
+
+--
+-- Filtros para la tabla `prediccion_llenado`
+--
+ALTER TABLE `prediccion_llenado`
+  ADD CONSTRAINT `prediccion_llenado_ibfk_1` FOREIGN KEY (`fk_idcontenedor`) REFERENCES `contenedores` (`id_contenedor`);
+
+--
+-- Filtros para la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`fk_id_salida`) REFERENCES `salidas` (`id_salida`);
+
+--
+-- Filtros para la tabla `puntos_criticos`
+--
+ALTER TABLE `puntos_criticos`
+  ADD CONSTRAINT `puntos_criticos_ibfk_1` FOREIGN KEY (`fk_idcolaborador`) REFERENCES `colaboradores` (`id_colaborador`);
+
+--
+-- Filtros para la tabla `recuperacion`
+--
+ALTER TABLE `recuperacion`
+  ADD CONSTRAINT `recuperacion_ibfk_1` FOREIGN KEY (`fk_id_incidente`) REFERENCES `incidentes` (`id_incidentes`);
+
+--
+-- Filtros para la tabla `residuos`
+--
+ALTER TABLE `residuos`
+  ADD CONSTRAINT `residuos_ibfk_1` FOREIGN KEY (`fk_idcontenedor`) REFERENCES `contenedores` (`id_contenedor`),
+  ADD CONSTRAINT `residuos_ibfk_2` FOREIGN KEY (`fk_idtiporesiduo`) REFERENCES `tipo_residuos` (`id_tiporesiduo`);
+
+--
+-- Filtros para la tabla `salidas`
+--
+ALTER TABLE `salidas`
+  ADD CONSTRAINT `salidas_ibfk_1` FOREIGN KEY (`fk_id_planta`) REFERENCES `plantas` (`id_planta`);
+
+--
+-- Filtros para la tabla `tratamientos_plantas`
+--
+ALTER TABLE `tratamientos_plantas`
+  ADD CONSTRAINT `tratamientos_plantas_ibfk_1` FOREIGN KEY (`fk_id_tratamientos`) REFERENCES `tratamientos` (`id_tratamientos`),
+  ADD CONSTRAINT `tratamientos_plantas_ibfk_2` FOREIGN KEY (`fk_id_planta`) REFERENCES `plantas` (`id_planta`);
+
+--
+-- Filtros para la tabla `vehiculos`
+--
+ALTER TABLE `vehiculos`
+  ADD CONSTRAINT `vehiculos_ibfk_1` FOREIGN KEY (`fk_id_colaborador`) REFERENCES `colaboradores` (`id_colaborador`),
+  ADD CONSTRAINT `vehiculos_ibfk_2` FOREIGN KEY (`fk_id_marca`) REFERENCES `marcas` (`id_marca`),
+  ADD CONSTRAINT `vehiculos_ibfk_3` FOREIGN KEY (`fk_id_estadovehiculo`) REFERENCES `estado_vehiculos` (`id_estadovehiculo`),
+  ADD CONSTRAINT `vehiculos_ibfk_4` FOREIGN KEY (`fk_id_modelo`) REFERENCES `modelos` (`id_modelo`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
