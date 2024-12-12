@@ -998,3 +998,8 @@ function obtenerEquipos() {
                   LEFT JOIN plantas p ON e.fk_id_planta = p.id_planta";
     return select($sentencia);
 }
+
+function eliminarCoche($id){
+    $sentencia = "DELETE FROM vehiculos WHERE id_vehiculo = ?";
+    return eliminar($sentencia, $id);
+}
