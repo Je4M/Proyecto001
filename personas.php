@@ -21,6 +21,7 @@ $totalClientes = contarClientes($search); // Total de clientes que coinciden con
 $totalPages = ceil($totalClientes / $limit); // Calcular total de páginas
 
 ?>
+
 <div class="container">
     <h1>
         <a class="btn btn-success btn-lg" href="agregar_persona.php">

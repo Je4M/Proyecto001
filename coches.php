@@ -36,13 +36,13 @@ $clientes = obtenervehiculos();
                     <td><?php echo $cliente->descvehiculo; ?></td>
                     <td><?php echo $cliente->descmodelo ; ?></td>
                     <td>
-                        <a class="btn btn-info" href="editar_cliente.php?id=<?php echo $cliente->DNI_Persona;?>">
+                        <a class="btn btn-info" href="editar_cliente.php?id=<?php echo $cliente->id_vehiculo;?>">
                             <i class="fa fa-edit"></i>
                             Editar
                         </a>
                     </td>
                     <td>
-                        <a class="btn btn-danger" href="eliminar_cliente.php?id=<?php echo $cliente->DNI_Persona;?>">
+                        <a class="btn btn-danger" href="eliminar_coches.php?id=<?php echo $cliente->id_vehiculo;?>">
                             <i class="fa fa-trash"></i>
                             Eliminar
                         </a>

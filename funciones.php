@@ -999,19 +999,3 @@ function obtenerEquipos() {
                   left join plantas plan on plan.id_planta=pe.fk_id_planta";
     return select($sentencia);
 }
-function registrarEquipo($nombreEquipo, $descripcion, $fkPlanta) {
-    $sentencia = "INSERT INTO equipos (nombre_equipo, descripcion, fk_id_planta) VALUES (?, ?, ?)";
-    $parametros = [$nombreEquipo, $descripcion, $fkPlanta];
-    
-    return insertar($sentencia, $parametros);
-}
-function obtenerPlantas() {
-    $sentencia = "SELECT id_planta, nombre_plant FROM plantas"; // Ajusta según tu tabla
-    return select($sentencia);
-}
-function registrarPlanta($nombrePlanta, $descripcion) {
-    $sentencia = "INSERT INTO plantas (nombre_plant, capacidad_planta) VALUES (?, ?)";
-    $parametros = [$nombrePlanta, $descripcion];
-    
-    return insertar($sentencia, $parametros);
-}
