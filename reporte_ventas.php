@@ -31,9 +31,9 @@ $equipos = obtenerEquipos();
         <tbody>
             <?php foreach ($equipos as $equipo) { ?>
                 <tr>
-                    <td><?= htmlspecialchars($equipo->id_equipo) ?></td>
-                    <td><?= htmlspecialchars($equipo->nombre_equipo) ?></td>
-                    <td><?= htmlspecialchars($equipo->descripcion) ?></td>
+                    <td><?= htmlspecialchars($equipo->idequipos) ?></td>
+                    <td><?= htmlspecialchars($equipo->nombre) ?></td>
+                    <td><?= htmlspecialchars($equipo->fecha_instalacion) ?></td>
                     <td><?= htmlspecialchars($equipo->planta ?: 'Sin planta asociada') ?></td>
                 </tr>
             <?php } ?>

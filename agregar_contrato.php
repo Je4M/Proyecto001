@@ -27,8 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['buscar'])) {
     }
 
     // Para depuración:
-    echo "<pre>Cliente: "; print_r($cliente); echo "</pre>";
-    echo "<pre>Descripción del contrato: $descripcionContrato</pre>";
+   
 }
 ?>
 
@@ -100,12 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['registrar'])) {
     $sueldo = $_POST['sueldo'];
 
     // Depuración: Imprimir datos recibidos
-    echo "<pre>Datos recibidos para registrar:</pre>";
-    echo "<pre>DNI: $dni</pre>";
-    echo "<pre>Cargo ID: $cargoId</pre>";
-    echo "<pre>Fecha Inicio: $fechaInicio</pre>";
-    echo "<pre>Fecha Final: $fechaFinal</pre>";
-    echo "<pre>Sueldo: $sueldo</pre>";
+
 
     // Llamar a la función registrarContrato
     $resultado = registrarContrato($dni, $cargoId, $fechaInicio, $fechaFinal, $sueldo);

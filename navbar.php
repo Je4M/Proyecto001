@@ -46,18 +46,7 @@ error_log("Rol de usuario: " . print_r($rol, true));  // Inicializa $rol desde l
             Incidentes
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="productos.php">
-                <i class="fa fa-shopping-cart"></i>
-                Productos
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="categorias.php">
-                <i class="fa fa-shopping-cart"></i>
-                Categorias
-            </a>
-        </li>
+        
         <li class="nav-item">
             <a class="nav-link active" href="coches.php">
                 <i class="fa fa-shopping-cart"></i>
@@ -73,7 +62,18 @@ error_log("Rol de usuario: " . print_r($rol, true));  // Inicializa $rol desde l
         <li class="nav-item">
             <a class="nav-link active" href="reporte_ventas.php">
             <i class="fa fa-file-alt"></i>
-            Estadisticas
+            Planta-Equipo
+            </a>
+            <li class="nav-item">
+            <a class="nav-link active" href="registrar_equipo.php">
+            <i class="fa fa-file-alt"></i>
+            R.equi
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="registrar_planta.php">
+            <i class="fa fa-file-alt"></i>
+            R.planta
             </a>
         </li>
         <?php } ?>
@@ -82,7 +82,7 @@ error_log("Rol de usuario: " . print_r($rol, true));  // Inicializa $rol desde l
         <li class="nav-item">
             <a class="nav-link active" href="empresas.php">
             <i class="fa fa-user-friends"></i>
-            Asig Colaborador vehiculo
+            Cola-Vehi
             </a>
         </li>
         <li class="nav-item">
